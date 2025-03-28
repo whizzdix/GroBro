@@ -1,0 +1,1325 @@
+{
+  "input_registers": [
+    {
+      "register_no": 1,
+      "variable_name": "Ppv",
+      "description": "Input power",
+      "unit": "W",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV Input (Actual)",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3,
+      "variable_name": "Vpv1",
+      "description": "PV1 voltage",
+      "unit": "V",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV1 Voltage",
+        "device_class": "voltage",
+        "unit_of_measurement": "V",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 5,
+      "variable_name": "Ppv1",
+      "description": "PV1 input power",
+      "unit": "W",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV1 Watt",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 7,
+      "variable_name": "Vpv2",
+      "description": "PV2 voltage",
+      "unit": "V",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV2 Voltage",
+        "device_class": "voltage",
+        "unit_of_measurement": "V",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 9,
+      "variable_name": "Ppv2",
+      "description": "PV2 input power",
+      "unit": "W",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV2 Watt",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 35,
+      "variable_name": "Pac",
+      "description": "Output power",
+      "unit": "W",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV Output (Actual)",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 37,
+      "variable_name": "Fac",
+      "description": "Grid frequency",
+      "unit": "Hz",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "Grid frequency",
+        "device_class": "frequency",
+        "unit_of_measurement": "Hz",
+        "state_class": "measurement",
+        "icon": "mdi:waveform"
+      }
+    },
+    {
+      "register_no": 38,
+      "variable_name": "Vac1",
+      "description": "Three/single phase grid voltage",
+      "unit": "V",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Phase 1 voltage",
+        "device_class": "voltage",
+        "unit_of_measurement": "V",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 39,
+      "variable_name": "Iac1",
+      "description": "Three/single phase grid output current",
+      "unit": "A",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Phase 1 current",
+        "device_class": "current",
+        "unit_of_measurement": "A",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 40,
+      "variable_name": "Pac1",
+      "description": "Three/single phase grid output watt VA",
+      "unit": "VA",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Phase 1 power",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 53,
+      "variable_name": "Eac today",
+      "description": "Today generate energy",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Generated energy (Today)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 55,
+      "variable_name": "Eac total",
+      "description": "Total generate energy",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Generated energy (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total_increasing",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 59,
+      "variable_name": "Epv1_today",
+      "description": "PV1Energy today",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Solar PV1 production",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 61,
+      "variable_name": "Epv1_total",
+      "description": "PV1Energy total",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Solar PV1 production (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 63,
+      "variable_name": "Epv2_today",
+      "description": "PV2Energy today",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Solar PV2 production",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 65,
+      "variable_name": "Epv2_total",
+      "description": "PV2Energy total",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Solar PV2 production (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 91,
+      "variable_name": "Epv_total",
+      "description": "PV Energy total",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Generated PV energy (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 93,
+      "variable_name": "Temp1",
+      "description": "Inverter temperature",
+      "unit": "C",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Inverter temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 94,
+      "variable_name": "Temp2",
+      "description": "The inside IPM in inverter Temperature",
+      "unit": "C",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "IPM temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 95,
+      "variable_name": "Temp3",
+      "description": "Boost temperature",
+      "unit": "C",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Boost temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 96,
+      "variable_name": "Temp4",
+      "description": "reserved",
+      "unit": null,
+      "note": null,
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Reserved temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 98,
+      "variable_name": "P Bus Voltage",
+      "description": "P Bus inside Voltage",
+      "unit": "V",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1
+    },
+    {
+      "register_no": 99,
+      "variable_name": "N Bus Voltage",
+      "description": "N Bus inside Voltage",
+      "unit": "V",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1
+    },
+    {
+      "register_no": 101,
+      "variable_name": "RealOPPercent",
+      "description": "Real Output power Percent",
+      "unit": "%",
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 102,
+      "variable_name": "OPFullwatt",
+      "description": "Output Maxpower Limited",
+      "unit": "W",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1
+    },
+    {
+      "register_no": 104,
+      "variable_name": "DeratingMode",
+      "description": "DeratingMode",
+      "value_options": {
+        "0": "no derate",
+        "1": "PV",
+        "2": "*",
+        "3": "Vac",
+        "4": "Fac",
+        "5": "Tboost",
+        "6": "Tinv",
+        "7": "Control",
+        "8": "*",
+        "9": "*OverBackByTime"
+      },
+      "unit": null,
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 114,
+      "variable_name": "inv start delay time",
+      "description": "inv start delay time",
+      "unit": null,
+      "note_options": {
+        "MAX": "EACharge_Total_H ACCharge energy total"
+      },
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 200,
+      "variable_name": "PVISO",
+      "description": "PVISOValue",
+      "unit": "K\u03a9",
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 205,
+      "variable_name": "GFCI",
+      "description": "GFCI Curr",
+      "unit": "mA",
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 1000,
+      "variable_name": "uwSysWorkMode",
+      "description": "System work mode",
+      "value_options": {
+        "0x00": "waiting module",
+        "0x01": "Self-test mode, optional",
+        "0x02": "Reserved",
+        "0x03": "SysFault module",
+        "0x04": "Flash module",
+        "0x05": "PVBATOnline module",
+        "0x06": "BatOnline module",
+        "0x07": "PVOfflineMode module",
+        "0x08": "BatOfflineMode module"
+      },
+      "unit": null,
+      "note": "Theworkingmodedisplayed by themonitoring to thecustomer is\uff1a 0x00: waitingmodule 0x01: Self-testmode, 0x03:faultmodule 0x04:flashmodule 0x05|0x06|0x07|0x08:normalmodule",
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 1044,
+      "variable_name": "Etouser_today",
+      "description": "Energy to user today",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Import from grid (Today)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 1046,
+      "variable_name": "Etouser_total",
+      "description": "Energy to user total",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Import from grid (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total_increasing",
+        "icon": "mdi:transmission-tower-export"
+      }
+    },
+    {
+      "register_no": 1048,
+      "variable_name": "Etogrid_today",
+      "description": "Energy to grid today",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Energy to grid (Today)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:transmission-tower-import"
+      }
+    },
+    {
+      "register_no": 1050,
+      "variable_name": "Etogrid _total",
+      "description": "Energy to grid total",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Energy to grid (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total_increasing",
+        "icon": "mdi:transmission-tower-import"
+      }
+    },
+    {
+      "register_no": 1060,
+      "variable_name": "ELocalLoad_Today",
+      "description": "Local load energy today",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Load consumption (Today)",
+        "device_class": "energy",
+        "unit_of_measurement": "Wh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 1062,
+      "variable_name": "ELocalLoad_Total",
+      "description": "Local load energy total",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Load consumption (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "Wh",
+        "state_class": "total_increasing",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 2035,
+      "variable_name": "Pac",
+      "description": "Output power",
+      "unit": "W",
+      "note": "SPA",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV Output (Actual)",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 2037,
+      "variable_name": "Fac",
+      "description": "Grid frequency",
+      "unit": "Hz",
+      "note": "SPA",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "Grid frequency",
+        "device_class": "frequency",
+        "unit_of_measurement": "Hz",
+        "state_class": "measurement",
+        "icon": "mdi:waveform"
+      }
+    },
+    {
+      "register_no": 2038,
+      "variable_name": "Vac1",
+      "description": "Three/single phase grid voltage",
+      "unit": "V",
+      "note": "SPA",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Phase 1 voltage",
+        "device_class": "voltage",
+        "unit_of_measurement": "V",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 2039,
+      "variable_name": "Iac1",
+      "description": "Three/single phase grid output current",
+      "unit": "A",
+      "note": "SPA",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Phase 1 current",
+        "device_class": "current",
+        "unit_of_measurement": "A",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 2040,
+      "variable_name": "Pac1",
+      "description": "Three/single phase grid output watt VA",
+      "unit": "VA",
+      "note": "SPA",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Phase 1 power",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 2053,
+      "variable_name": "Eac today",
+      "description": "Today generate energy",
+      "unit": "kWh",
+      "note": "SPA",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Generated energy (Today)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 2055,
+      "variable_name": "Eac total",
+      "description": "Total generate energy",
+      "unit": "kWh",
+      "note": "SPA",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Generated energy (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total_increasing",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 2093,
+      "variable_name": "Temp1",
+      "description": "Inverter temperature",
+      "unit": "C",
+      "note": "SPA",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Inverter temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 2094,
+      "variable_name": "Temp2",
+      "description": "The inside IPM in inverter Temperature",
+      "unit": "C",
+      "note": "SPA",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "IPM temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 2095,
+      "variable_name": "Temp3",
+      "description": "Boost temperature",
+      "unit": "C",
+      "note": "SPA",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Boost temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 2096,
+      "variable_name": "Temp4",
+      "description": "reserved",
+      "unit": null,
+      "note": null,
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Reserved temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 2098,
+      "variable_name": "P Bus Voltage",
+      "description": "P Bus inside Voltage",
+      "unit": "V",
+      "note": "SPA",
+      "size": 2,
+      "multiplier": 0.1
+    },
+    {
+      "register_no": 2099,
+      "variable_name": "N Bus Voltage",
+      "description": "N Bus inside Voltage",
+      "unit": "V",
+      "note": "SPA",
+      "size": 2,
+      "multiplier": 0.1
+    },
+    {
+      "register_no": 3001,
+      "variable_name": "Ppv",
+      "description": "PV total power",
+      "unit": "W",
+      "note": "Output power",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV Input (Actual)",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3003,
+      "variable_name": "Vpv1",
+      "description": "PV1 voltage",
+      "unit": "V",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV1 Voltage",
+        "device_class": "voltage",
+        "unit_of_measurement": "V",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3004,
+      "variable_name": "Ipv1",
+      "description": "PV1 input current",
+      "unit": "A",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV1 Current",
+        "device_class": "current",
+        "unit_of_measurement": "A",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3005,
+      "variable_name": "Ppv1",
+      "description": "PV1 power",
+      "unit": "W",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV1 Watt",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3007,
+      "variable_name": "Vpv2",
+      "description": "PV2 voltage",
+      "unit": "V",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV2 Voltage",
+        "device_class": "voltage",
+        "unit_of_measurement": "V",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3008,
+      "variable_name": "Ipv2",
+      "description": "PV2 input current",
+      "unit": "A",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV2 Current",
+        "device_class": "current",
+        "unit_of_measurement": "A",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3009,
+      "variable_name": "Ppv2",
+      "description": "PV2 power",
+      "unit": "W",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV2 Watt",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3023,
+      "variable_name": "Pac",
+      "description": "Output power",
+      "unit": "W",
+      "note": "Output power",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV Output (Actual)",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3025,
+      "variable_name": "Fac",
+      "description": "Grid frequency",
+      "unit": "Hz",
+      "note": "Grid frequency",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "Grid frequency",
+        "device_class": "frequency",
+        "unit_of_measurement": "Hz",
+        "state_class": "measurement",
+        "icon": "mdi:waveform"
+      }
+    },
+    {
+      "register_no": 3026,
+      "variable_name": "Vac1",
+      "description": "Three/single phase grid voltage",
+      "unit": "V",
+      "note": "Three/single phase grid",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Phase 1 voltage",
+        "device_class": "voltage",
+        "unit_of_measurement": "V",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3027,
+      "variable_name": "Iac1",
+      "description": "Three/single phase grid output current",
+      "unit": "A",
+      "note": "Three/single phase grid output current",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Phase 1 current",
+        "device_class": "current",
+        "unit_of_measurement": "A",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3028,
+      "variable_name": "Pac1",
+      "description": "Three/single phase grid output power",
+      "unit": "VA",
+      "note": "Three/single phase grid output power",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Phase 1 power",
+        "device_class": "power",
+        "unit_of_measurement": "W",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3049,
+      "variable_name": "Eac today",
+      "description": "Today generate energy",
+      "unit": "kWh",
+      "note": "Today generate energy",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Generated energy (Today)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 3051,
+      "variable_name": "Eac total",
+      "description": "Total generate energy",
+      "unit": "kWh",
+      "note": "Total generate energy",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Generated energy (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total_increasing",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 3053,
+      "variable_name": "Epv_total",
+      "description": "PV energy total",
+      "unit": "kWh",
+      "note": "PV energy total",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Generated PV energy (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 3055,
+      "variable_name": "Epv1_today",
+      "description": "PV1 energy today",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Solar PV1 production",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 3057,
+      "variable_name": "Epv1_total",
+      "description": "PV1 energy total",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Solar PV1 production (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 3059,
+      "variable_name": "Epv2_today",
+      "description": "PV2 energy today",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Solar PV2 production",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 3061,
+      "variable_name": "Epv2_total",
+      "description": "PV2 energy total",
+      "unit": "kWh",
+      "note": null,
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Solar PV2 production (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 3067,
+      "variable_name": "Etouser_today",
+      "description": "Today energy to user",
+      "unit": "kWh",
+      "note": "Today energy to user",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Import from grid (Today)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:solar-power"
+      }
+    },
+    {
+      "register_no": 3069,
+      "variable_name": "Etouser_total",
+      "description": "Total energy to user",
+      "unit": "kWh",
+      "note": "Total energy to user",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Import from grid (Total)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total_increasing",
+        "icon": "mdi:transmission-tower-export"
+      }
+    },
+    {
+      "register_no": 3071,
+      "variable_name": "Etogrid_today",
+      "description": "Today energy to grid",
+      "unit": "kWh",
+      "note": "Today energy to grid",
+      "size": 4,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Energy to grid (Today)",
+        "device_class": "energy",
+        "unit_of_measurement": "kWh",
+        "state_class": "total",
+        "icon": "mdi:transmission-tower-import"
+      }
+    },
+    {
+      "register_no": 3086,
+      "variable_name": "DeratingMode",
+      "description": "DeratingMode",
+      "value_options": {
+        "0": "cNOTDerate",
+        "1": "cPVHighDerate",
+        "2": "cPowerConstantDerate",
+        "3": "cGridVHighDerate",
+        "4": "cFreqHighDerate",
+        "5": "cDcSoureModeDerate",
+        "6": "cInvTemprDerate",
+        "7": "cActivePowerOrder",
+        "8": "cLoadSpeedProcess",
+        "9": "cOverBackbyTime",
+        "10": "cInternalTemprDerate",
+        "11": "cOutTemprDerate",
+        "12": "cLineImpeCalcDerate",
+        "13": "cParallelAntiBackflowDerate",
+        "14": "cLocalAntiBackflowDerate",
+        "15": "cBdcLoadPriDerate",
+        "16": "cChkCTErrDerate"
+      },
+      "unit": null,
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3091,
+      "variable_name": "GFCI",
+      "description": "GFCI Curr",
+      "unit": "mA",
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3093,
+      "variable_name": "Temp1",
+      "description": "Inverter temperature",
+      "unit": "\u2103",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Inverter temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3094,
+      "variable_name": "Temp2",
+      "description": "The inside IPM in inverter temperature",
+      "unit": "\u2103",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "IPM temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3095,
+      "variable_name": "Temp3",
+      "description": "Boost temperature",
+      "unit": "\u2103",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Boost temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3096,
+      "variable_name": "Temp4",
+      "description": "Reserved",
+      "unit": "\u2103",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Reserved temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3097,
+      "variable_name": "Temp5",
+      "description": "Commmunication broad temperature",
+      "unit": "\u2103",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Communication board temperature",
+        "device_class": "temperature",
+        "unit_of_measurement": "\u00b0C",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 3098,
+      "variable_name": "P Bus Voltage",
+      "description": "P Bus inside Voltage",
+      "unit": "V",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1
+    },
+    {
+      "register_no": 3099,
+      "variable_name": "N Bus Voltage",
+      "description": "N Bus inside Voltage",
+      "unit": "V",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1
+    },
+    {
+      "register_no": 3101,
+      "variable_name": "RealOPPercent",
+      "description": "Real Output power Percent",
+      "unit": "%",
+      "note": "1~100",
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3102,
+      "variable_name": "OPFullwatt",
+      "description": "Output Maxpower Limited",
+      "unit": "W",
+      "note": "Output Maxpower Limited",
+      "size": 4,
+      "multiplier": 0.1
+    },
+    {
+      "register_no": 3115,
+      "variable_name": "inv start delay time",
+      "description": "inv start delay time",
+      "unit": "s",
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3119,
+      "variable_name": "DryContactState",
+      "description": "Current status of DryContact",
+      "value_options": {
+        "0": "turn off",
+        "1": "turn on"
+      },
+      "unit": null,
+      "note": "Current status of DryContact",
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3191,
+      "variable_name": "WarnCode",
+      "description": "Storge device warning code",
+      "unit": null,
+      "note": "BDC2",
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3105,
+      "variable_name": "Fault code",
+      "description": "Inverter fault code",
+      "unit": null,
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3107,
+      "variable_name": "Systemfault word0",
+      "description": "System fault word0",
+      "unit": null,
+      "note": "bitfield",
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3108,
+      "variable_name": "Systemfault word1",
+      "description": "System fault word1",
+      "unit": null,
+      "note": "bitfield",
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3109,
+      "variable_name": "Systemfault word2",
+      "description": "System fault word2",
+      "unit": null,
+      "note": "bitfield",
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3110,
+      "variable_name": "Systemfault word3",
+      "description": "System fault word3",
+      "unit": null,
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3111,
+      "variable_name": "Systemfault word4",
+      "description": "System fault word4",
+      "unit": null,
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3112,
+      "variable_name": "Systemfault word5",
+      "description": "System fault word5",
+      "unit": null,
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3113,
+      "variable_name": "Systemfault word6",
+      "description": "System fault word6",
+      "unit": null,
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3114,
+      "variable_name": "Systemfault word7",
+      "description": "System fault word7",
+      "unit": null,
+      "note": null,
+      "size": 2,
+      "multiplier": 1
+    },
+    {
+      "register_no": 3160,
+      "variable_name": "Loadpercent",
+      "description": "Load percent of UPS ouput",
+      "unit": "%",
+      "note": null,
+      "size": 2,
+      "multiplier": 0.1
+    }
+  ]
+}
