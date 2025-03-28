@@ -33,5 +33,5 @@ jobs:
           file: ./Containerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_lowercase }}/grobro:latest
-            ghcr.io/${{ github.repository_lowercase }}/grobro:${{ github.ref_name }}
+            ghcr.io/robertzaage/grobro:latest
+            ghcr.io/robertzaage/grobro:${{ github.ref_name }}
