@@ -26,9 +26,9 @@ for fname in os.listdir("."):
         try:
             with open(fname, "r") as f:
                 config = json.load(f)
-                serial = config.get("serial_number") or fname[7:-5]
-                if serial:
-                    config_cache[serial] = config
+                device_id = config.get("serial_number") or fname[7:-5]
+                if device_id:
+                    config_cache[device_id] = config
         except Exception as e:
             print(f"Failed to load config {fname}: {e}")
 
@@ -57,29 +57,30 @@ if TARGET_MQTT_TLS:
 target_client.connect(TARGET_MQTT_HOST, TARGET_MQTT_PORT, 60)
 target_client.loop_start()
 
-def publish_ha_discovery(serial, reg):
+def publish_ha_discovery(device_id, reg):
     variable = reg['name']
     ha = ha_lookup.get(variable, {})
-    topic = f"{HA_BASE_TOPIC}/sensor/grobro/{serial}_{variable}/config"
+    topic = f"{HA_BASE_TOPIC}/sensor/grobro/{device_id}_{variable}/config"
 
     device_info = {
-        "identifiers": [serial],
-        "name": f"Growatt {serial}",
-        "manufacturer": "Growatt"
+        "identifiers": [device_id],
+        "name": f"Growatt {device_id}",
+        "manufacturer": "Growatt",
+        "serial_number": device_id
     }
 
     # Find matching config
-    config = config_cache.get("QMN000" + serial)
+    config = config_cache.get(device_id)
 
     # Fallback: try loading from file
     if not config:
-        config_path = f"config_QMN000{serial}.json"
+        config_path = f"config_{device_id}.json"
         if os.path.exists(config_path):
             try:
                 with open(config_path, "r") as f:
                     config = json.load(f)
-                    config_cache[serial] = config
-                    print(f"Loaded cached config for {serial} from file (fallback)")
+                    config_cache[device_id] = config
+                    print(f"Loaded cached config for {device_id} from file (fallback)")
             except Exception:
                 config = {}
 
@@ -106,10 +107,10 @@ def publish_ha_discovery(serial, reg):
 
     payload = {
         "name": ha.get("name", variable),
-        "state_topic": f"{HA_BASE_TOPIC}/grobro/{serial}/state",
+        "state_topic": f"{HA_BASE_TOPIC}/grobro/{device_id}/state",
         "value_template": f"{{{{ value_json['{variable}'] }}}}",
-        "unique_id": f"grobro_{serial}_{variable}",
-        "object_id": f"{serial}_{variable}",
+        "unique_id": f"grobro_{device_id}_{variable}",
+        "object_id": f"{device_id}_{variable}",
         "device": device_info
     }
 
@@ -119,25 +120,26 @@ def publish_ha_discovery(serial, reg):
 
     target_client.publish(topic, json.dumps(payload), retain=True)
 
-def publish_state(serial, registers):
+def publish_state(device_id, registers):
     payload = {
         reg["name"]: round(reg["value"], 2) if isinstance(reg["value"], float) else reg["value"]
         for reg in registers
     }
-    topic = f"{HA_BASE_TOPIC}/grobro/{serial}/state"
+    topic = f"{HA_BASE_TOPIC}/grobro/{device_id}/state"
     target_client.publish(topic, json.dumps(payload), retain=False)
 
 def on_message(client, userdata, msg: MQTTMessage):
     try:
         unscrambled = unscramble(msg.payload)
-        msg_counter = struct.unpack_from('>H', unscrambled, 0)[0]
+        msg_type = struct.unpack_from('>H', unscrambled, 4)[0]
 
-        if msg_counter == 1:
+        # NOAH=387 NEO=340
+        if msg_type in (387, 340):
             # Config message
             config_offset = find_config_offset(unscrambled)
             config = parse_config_type(unscrambled, config_offset)
-            serial = config.get("serial_number")
-            config_path = f"config_{serial}.json"
+            device_id = config.get("serial_number")
+            config_path = f"config_{device_id}.json"
 
             save_config = True
             if os.path.exists(config_path):
@@ -152,26 +154,26 @@ def on_message(client, userdata, msg: MQTTMessage):
             if save_config:
                 with open(config_path, "w") as f:
                     json.dump(config, f, indent=2)
-                print(f"Saved updated config for {serial}")
+                print(f"Saved updated config for {device_id}")
             else:
-                print(f"No config change for {serial}")
+                print(f"No config change for {device_id}")
 
-            config_cache[serial] = config  # Update in-memory cache
+            config_cache[device_id] = config  # Update in-memory cache
 
         else:
             # Modbus message
             parsed = parse_modbus_type(unscrambled, modbus_input_register_descriptions)
-            serial = parsed.get("meta_info", {}).get("device_sn", parsed.get("device_id"))
+            device_id = parsed.get("device_id")
 
             all_registers = parsed.get("modbus1", {}).get("registers", []) + \
                             parsed.get("modbus2", {}).get("registers", [])
 
-            publish_state(serial, all_registers)
+            publish_state(device_id, all_registers)
 
             for reg in all_registers:
-                publish_ha_discovery(serial, reg)
+                publish_ha_discovery(device_id, reg)
 
-            print(f"Published state for {serial} with {len(all_registers)} registers")
+            print(f"Published state for {device_id} with {len(all_registers)} registers")
 
     except Exception as e:
         print(f"Error processing message: {e}")

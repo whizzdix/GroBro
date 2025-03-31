@@ -46,7 +46,7 @@ def parse_modbus_block(data, offset, modbus_input_register_descriptions: list):
     qty = end_val - start + 1
     if qty < 1 or qty > 512:
         raise ValueError(f"Wrong register count: start={start}, end={end_val}, qty={qty}")
-    
+
     unpack_typemap = {
         1: "!B",
         2: "!H",
@@ -63,29 +63,29 @@ def parse_modbus_block(data, offset, modbus_input_register_descriptions: list):
         bytesize = reg_desc['size']
         value, = struct.unpack_from(unpack_typemap[bytesize], data, reg_offset)
         value *= reg_desc.get("multiplier", 1)
-        
+
         if "value_options" in reg_desc:
             # Replace numeric value options with their actual meaning where possible
             options = reg_desc["value_options"]
             value = options.get(str(value), value)
-        
+
         input_registers.append({
             'name': reg_desc['variable_name'],
             'unit': reg_desc['unit'],
             'value': value
         })
     offset += qty * 2
-    
+
     return {'start': start, 'end': end_val, 'qty': qty, 'registers': input_registers}, offset
 
 def parse_modbus_type(data, modbus_input_register_descriptions: list):
     """
     Parse a modbus-type message
     The structure is:
-      - 2 bytes: sequence
-      - 2 bytes: dunno (?)
-      - 2 bytes: whoknows (?)
-      - 2 bytes: maybetype (?)
+      - 2 bytes: messageCounter
+      - 2 bytes: unknown_1 (always 7 on modbus-type)
+      - 2 bytes: messageType
+      - 2 bytes: unknown_2 (type-like)
       - 16 bytes: deviceId (ASCII)
       - 51 bytes: metaInfo
       - First ModbusRegisterRead block (2 bytes start, 2 bytes end, then registers)
@@ -94,16 +94,16 @@ def parse_modbus_type(data, modbus_input_register_descriptions: list):
     result = {}
     offset = 0
 
-    result['sequence'] = struct.unpack_from('>H', data, offset)[0]
+    result['msg_ctr'] = struct.unpack_from('>H', data, offset)[0]
     offset += 2
 
-    result['dunno'] = struct.unpack_from('>H', data, offset)[0]
+    result['unknown_1'] = struct.unpack_from('>H', data, offset)[0]
     offset += 2
 
-    result['whoknows'] = struct.unpack_from('>H', data, offset)[0]
+    result['msg_type'] = struct.unpack_from('>H', data, offset)[0]
     offset += 2
 
-    result['maybetype'] = struct.unpack_from('>H', data, offset)[0]
+    result['unknown_2'] = struct.unpack_from('>H', data, offset)[0]
     offset += 2
 
     device_id_raw = data[offset:offset+16]
@@ -138,7 +138,7 @@ def parse_modbus_type(data, modbus_input_register_descriptions: list):
         modbus2, offset = parse_modbus_block(data, offset, modbus_input_register_descriptions)
         result['modbus2'] = modbus2
     except Exception as e:
-        result['modbus2_error'] = str(e)
+        pass
 
     return result
 
@@ -159,10 +159,10 @@ def parse_config_type(data, offset):
         4: "unknown_4", 5: "unknown_5", 6: "unknown_6", 7: "password", 8: "serial_number",
         9: "protocol_version", 10: "unknown_10", 11: "unknown_11", 12: "dns_address",
         13: "device_type", 14: "unknown_ip", 15: "unknown_port", 16: "mac_address",
-        17: "mqtt_host", 18: "mqtt_broker_port", 19: "mqtt_host_2", 20: "model_id",
+        17: "mqtt_host", 18: "mqtt_host_port", 19: "mqtt_host_2", 20: "model_id",
         21: "sw_version", 22: "hw_version", 23: "unknown_23", 24: "unknown_24",
         25: "netmask", 26: "unknown_ip_2", 27: "unknown_27", 28: "unknown_28",
-        29: "unknown_29", 30: "timezone", 31: "datetime", 76: "unknown_76"
+        29: "unknown_29", 30: "timezone", 31: "datetime", 76: "wifi_signal"
     }
 
     max_len = 512
@@ -214,10 +214,12 @@ def parse_growatt_file(filepath, modbus_input_register_descriptions: list):
 
     result = {}
     result['file'] = os.path.basename(filepath)
-    result['msg_counter'] = struct.unpack_from('>H', data, 0)[0]
+    result['msg_ctr'] = struct.unpack_from('>H', data, 0)[0]
+    result['msg_type'] = struct.unpack_from('>H', data, 4)[0]
     result['device_id'] = data[8:24].decode('ascii', errors='ignore').strip('\x00')
 
-    if result['msg_counter'] == 1:
+    # NOAH=387 NEO=340
+    if result['msg_type'] in (387, 340):
         config_offset = find_config_offset(data)
         result['config'] = parse_config_type(data, config_offset)
     else:
@@ -231,7 +233,7 @@ def load_modbus_input_register_file(filepath):
 
     return data["input_registers"]
 
- 
+
 if __name__ == "__main__":
     modbus_input_register_descriptions = load_modbus_input_register_file("growatt_input_registers.json")
     input_file = sys.argv[1]
