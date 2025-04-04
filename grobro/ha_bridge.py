@@ -47,6 +47,29 @@ TARGET_MQTT_TLS = os.getenv("TARGET_MQTT_TLS", "false").lower() == "true"
 
 HA_BASE_TOPIC = os.getenv("HA_BASE_TOPIC", "homeassistant")
 
+# Register filter configuration
+NEO_SP2_REGISTERS = [
+    3001, 3003, 3004, 3005, 3007, 3008, 3009,
+    3023, 3025, 3026, 3027, 3028, 3038, 3047,
+    3049, 3051, 3053, 3055, 3057, 3059, 3061,
+    3087, 3093, 3094, 3095, 3096, 3098, 3100,
+    3101, 3115
+]
+
+REGISTER_FILTER_ENV = os.getenv("REGISTER_FILTER", "")
+device_filter_alias_map = {}
+
+for entry in REGISTER_FILTER_ENV.split(","):
+    if ":" in entry:
+        serial, alias = entry.split(":", 1)
+        device_filter_alias_map[serial] = alias
+
+alias_to_registers = {
+    "NEO600": NEO_SP2_REGISTERS,
+    "NEO800": NEO_SP2_REGISTERS,
+    "NEO1000": NEO_SP2_REGISTERS
+}
+
 # Setup target MQTT client for publishing
 target_client = mqtt.Client(client_id="grobro-target")
 if TARGET_MQTT_USER and TARGET_MQTT_PASS:
@@ -121,10 +144,22 @@ def publish_ha_discovery(device_id, reg):
     target_client.publish(topic, json.dumps(payload), retain=True)
 
 def publish_state(device_id, registers):
+    alias = device_filter_alias_map.get(device_id)
+    allowed_registers = alias_to_registers.get(alias)
+
+    if allowed_registers:
+        registers = [
+            reg for reg in registers
+            if "register_no" in reg and reg["register_no"] in allowed_registers
+        ]
+
     payload = {
         reg["name"]: round(reg["value"], 2) if isinstance(reg["value"], float) else reg["value"]
         for reg in registers
     }
+
+    print(f"Device {device_id} matched {len(registers)} registers after filtering.")
+
     topic = f"{HA_BASE_TOPIC}/grobro/{device_id}/state"
     target_client.publish(topic, json.dumps(payload), retain=False)
 
@@ -167,6 +202,15 @@ def on_message(client, userdata, msg: MQTTMessage):
 
             all_registers = parsed.get("modbus1", {}).get("registers", []) + \
                             parsed.get("modbus2", {}).get("registers", [])
+
+            alias = device_filter_alias_map.get(device_id)
+            allowed_registers = alias_to_registers.get(alias)
+
+            if allowed_registers:
+                all_registers = [
+                    reg for reg in all_registers
+                    if isinstance(reg.get("register_no"), int) and reg["register_no"] in allowed_registers
+                ]
 
             publish_state(device_id, all_registers)
 

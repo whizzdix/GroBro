@@ -70,6 +70,7 @@ def parse_modbus_block(data, offset, modbus_input_register_descriptions: list):
             value = options.get(str(value), value)
 
         input_registers.append({
+            'register_no': reg_desc['register_no'],
             'name': reg_desc['variable_name'],
             'unit': reg_desc['unit'],
             'value': value
