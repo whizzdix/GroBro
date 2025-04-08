@@ -9,15 +9,6 @@ import paho.mqtt.client as mqtt
 from paho.mqtt.client import MQTTMessage
 from grobro import unscramble, parse_modbus_type, load_modbus_input_register_file, parse_config_type, find_config_offset
 
-# Load modbus mapping
-modbus_input_register_descriptions = load_modbus_input_register_file("growatt_inverter_registers.json")
-
-# Lookup for HA metadata
-ha_lookup = {
-    reg["variable_name"]: reg.get("ha")
-    for reg in modbus_input_register_descriptions if reg.get("ha")
-}
-
 # Cache for device config
 config_cache = {}
 
@@ -56,6 +47,13 @@ NEO_SP2_REGISTERS = [
     3101, 3115
 ]
 
+NOAH_REGISTERS = [
+    1,    4,   7,   11,
+   13,   21,  25,   29,
+   71,   73,  75,   77,
+   94,   95,  97,  100
+]
+
 REGISTER_FILTER_ENV = os.getenv("REGISTER_FILTER", "")
 device_filter_alias_map = {}
 
@@ -67,7 +65,8 @@ for entry in REGISTER_FILTER_ENV.split(","):
 alias_to_registers = {
     "NEO600": NEO_SP2_REGISTERS,
     "NEO800": NEO_SP2_REGISTERS,
-    "NEO1000": NEO_SP2_REGISTERS
+    "NEO1000": NEO_SP2_REGISTERS,
+    "NOAH": NOAH_REGISTERS
 }
 
 # Setup target MQTT client for publishing
@@ -79,6 +78,24 @@ if TARGET_MQTT_TLS:
     target_client.tls_insecure_set(True)
 target_client.connect(TARGET_MQTT_HOST, TARGET_MQTT_PORT, 60)
 target_client.loop_start()
+
+def parse_percentage(value):
+    return int(value / 6553.5)
+
+def parse_ascii(value):
+    try:
+        return bytes.fromhex(hex(value)[2:].zfill(4)).decode('ascii').strip()
+    except Exception:
+        return str(value)
+
+def apply_conversion(register):
+    unit = register.get("unit")
+    if unit == "%" and isinstance(register.get("value"), int):
+        register["value"] = parse_percentage(register["value"])
+    elif unit == "ASCII":
+        register["value"] = parse_ascii(register["value"])
+    elif isinstance(register.get("value"), (int, float)) and register.get("multiplier"):
+        register["value"] *= register["multiplier"]
 
 def publish_ha_discovery(device_id, reg):
     variable = reg['name']
@@ -106,7 +123,6 @@ def publish_ha_discovery(device_id, reg):
                     print(f"Loaded cached config for {device_id} from file (fallback)")
             except Exception:
                 config = {}
-
 
     if isinstance(config, dict):
         device_type_map = {
@@ -153,6 +169,9 @@ def publish_state(device_id, registers):
             if "register_no" in reg and reg["register_no"] in allowed_registers
         ]
 
+    for reg in registers:
+        apply_conversion(reg)
+
     payload = {
         reg["name"]: round(reg["value"], 2) if isinstance(reg["value"], float) else reg["value"]
         for reg in registers
@@ -193,10 +212,25 @@ def on_message(client, userdata, msg: MQTTMessage):
             else:
                 print(f"No config change for {device_id}")
 
-            config_cache[device_id] = config  # Update in-memory cache
+            config_cache[device_id] = config
 
         else:
             # Modbus message
+            # Load correct register map based on message type
+            if msg_type == 387:
+                register_file = "growatt_noah_registers.json"
+            else:
+                register_file = "growatt_inverter_registers.json"
+
+            modbus_input_register_descriptions = load_modbus_input_register_file(register_file)
+
+            # Rebuild HA metadata lookup for this register set
+            ha_lookup.clear()
+            ha_lookup.update({
+                reg["variable_name"]: reg.get("ha")
+                for reg in modbus_input_register_descriptions if reg.get("ha")
+            })
+
             parsed = parse_modbus_type(unscrambled, modbus_input_register_descriptions)
             device_id = parsed.get("device_id")
 

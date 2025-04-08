@@ -1,0 +1,240 @@
+{
+  "input_registers": [
+    {
+      "register_no": 13,
+      "variable_name": "bat_1_soc_pct",
+      "description": "Battery 1 SoC",
+      "unit": "%",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Battery 1 SoC",
+        "unit_of_measurement": "%",
+        "icon": "mdi:percent",
+        "state_class": "measurement",
+        "device_class": "battery"
+      }
+    },
+    {
+      "register_no": 95,
+      "variable_name": "temp",
+      "description": "Temperature",
+      "unit": "\u00b0C",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "Temperature",
+        "unit_of_measurement": "\u00b0C",
+        "icon": "mdi:thermometer",
+        "state_class": "measurement",
+        "device_class": "temperature"
+      }
+    },
+    {
+      "register_no": 1,
+      "variable_name": "out_power",
+      "description": "Output power",
+      "unit": "W",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Output power",
+        "unit_of_measurement": "W",
+        "icon": "mdi:flash",
+        "state_class": "measurement",
+        "device_class": "power"
+      }
+    },
+    {
+      "register_no": 4,
+      "variable_name": "pv_input_curr",
+      "description": "PV input current",
+      "unit": "A",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "PV input current",
+        "unit_of_measurement": "A",
+        "icon": "mdi:current-dc",
+        "state_class": "measurement",
+        "device_class": "current"
+      }
+    },
+    {
+      "register_no": 97,
+      "variable_name": "cell_3_volt",
+      "description": "Cell 3 voltage",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "Cell 3 voltage",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
+        "state_class": "measurement",
+        "device_class": "voltage"
+      }
+    },
+    {
+      "register_no": 100,
+      "variable_name": "cell_4_volt",
+      "description": "Cell 4 voltage",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "Cell 4 voltage",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
+        "state_class": "measurement",
+        "device_class": "voltage"
+      }
+    },
+    {
+      "register_no": 7,
+      "variable_name": "pv_tot_power",
+      "description": "PV total power",
+      "unit": "W",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "PV total power",
+        "unit_of_measurement": "W",
+        "icon": "mdi:flash",
+        "state_class": "measurement",
+        "device_class": "power"
+      }
+    },
+    {
+      "register_no": 11,
+      "variable_name": "cell_1_volt",
+      "description": "Cell 1 voltage",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "Cell 1 voltage",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
+        "state_class": "measurement",
+        "device_class": "voltage"
+      }
+    },
+    {
+      "register_no": 71,
+      "variable_name": "pv_eng_today",
+      "description": "PV energy today",
+      "unit": "kWh",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV energy today",
+        "unit_of_measurement": "kWh",
+        "icon": "mdi:solar-power",
+        "state_class": "total_increasing",
+        "device_class": "energy"
+      }
+    },
+    {
+      "register_no": 73,
+      "variable_name": "pv_eng_tot",
+      "description": "PV energy total",
+      "unit": "kWh",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "PV energy total",
+        "unit_of_measurement": "kWh",
+        "icon": "mdi:solar-power",
+        "state_class": "total_increasing",
+        "device_class": "energy"
+      }
+    },
+    {
+      "register_no": 21,
+      "variable_name": "ser_part_1",
+      "description": "Serial Part 1",
+      "unit": "ASCII",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Serial Part 1",
+        "unit_of_measurement": "ASCII",
+        "icon": "mdi:identifier"
+      }
+    },
+    {
+      "register_no": 75,
+      "variable_name": "eng_out_today",
+      "description": "Energy output today",
+      "unit": "kWh",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Energy output today",
+        "unit_of_measurement": "kWh",
+        "icon": "mdi:solar-power",
+        "state_class": "total_increasing",
+        "device_class": "energy"
+      }
+    },
+    {
+      "register_no": 77,
+      "variable_name": "eng_out_tot",
+      "description": "Energy output total",
+      "unit": "kWh",
+      "size": 2,
+      "multiplier": 0.1,
+      "ha": {
+        "name": "Energy output total",
+        "unit_of_measurement": "kWh",
+        "icon": "mdi:solar-power",
+        "state_class": "total_increasing",
+        "device_class": "energy"
+      }
+    },
+    {
+      "register_no": 25,
+      "variable_name": "ser_part_2",
+      "description": "Serial Part 2",
+      "unit": "ASCII",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Serial Part 2",
+        "unit_of_measurement": "ASCII",
+        "icon": "mdi:identifier"
+      }
+    },
+    {
+      "register_no": 29,
+      "variable_name": "bat_2_soc_pct",
+      "description": "Battery 2 SoC",
+      "unit": "%",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Battery 2 SoC",
+        "unit_of_measurement": "%",
+        "icon": "mdi:percent",
+        "state_class": "measurement",
+        "device_class": "battery"
+      }
+    },
+    {
+      "register_no": 94,
+      "variable_name": "cell_2_volt",
+      "description": "Cell 2 voltage",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "Cell 2 voltage",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
+        "state_class": "measurement",
+        "device_class": "voltage"
+      }
+    }
+  ]
+}
