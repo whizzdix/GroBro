@@ -4,8 +4,8 @@
       "register_no": 13,
       "variable_name": "bat_1_soc_pct",
       "description": "Battery 1 SoC",
-      "unit": "%",
-      "size": 2,
+      "unit": "int16",
+      "size": 4,
       "multiplier": 1,
       "ha": {
         "name": "Battery 1 SoC",
@@ -154,12 +154,11 @@
       "register_no": 21,
       "variable_name": "ser_part_1",
       "description": "Serial Part 1",
-      "unit": "ASCII",
-      "size": 2,
+      "unit": "s",
+      "size": 4,
       "multiplier": 1,
       "ha": {
         "name": "Serial Part 1",
-        "unit_of_measurement": "ASCII",
         "icon": "mdi:identifier"
       }
     },
@@ -197,12 +196,11 @@
       "register_no": 25,
       "variable_name": "ser_part_2",
       "description": "Serial Part 2",
-      "unit": "ASCII",
-      "size": 2,
+      "unit": "s",
+      "size": 4,
       "multiplier": 1,
       "ha": {
         "name": "Serial Part 2",
-        "unit_of_measurement": "ASCII",
         "icon": "mdi:identifier"
       }
     },
@@ -210,8 +208,8 @@
       "register_no": 29,
       "variable_name": "bat_2_soc_pct",
       "description": "Battery 2 SoC",
-      "unit": "%",
-      "size": 2,
+      "unit": "int16",
+      "size": 4,
       "multiplier": 1,
       "ha": {
         "name": "Battery 2 SoC",
