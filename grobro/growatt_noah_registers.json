@@ -125,7 +125,7 @@
       "variable_name": "pv_eng_today",
       "description": "PV energy today",
       "unit": "kWh",
-      "size": 2,
+      "size": 4,
       "multiplier": 0.1,
       "ha": {
         "name": "PV energy today",
@@ -140,7 +140,7 @@
       "variable_name": "pv_eng_tot",
       "description": "PV energy total",
       "unit": "kWh",
-      "size": 2,
+      "size": 4,
       "multiplier": 0.1,
       "ha": {
         "name": "PV energy total",
@@ -167,7 +167,7 @@
       "variable_name": "eng_out_today",
       "description": "Energy output today",
       "unit": "kWh",
-      "size": 2,
+      "size": 4,
       "multiplier": 0.1,
       "ha": {
         "name": "Energy output today",
@@ -182,7 +182,7 @@
       "variable_name": "eng_out_tot",
       "description": "Energy output total",
       "unit": "kWh",
-      "size": 2,
+      "size": 4,
       "multiplier": 0.1,
       "ha": {
         "name": "Energy output total",
