@@ -38,8 +38,11 @@ TARGET_MQTT_PASS = os.getenv("TARGET_MQTT_PASS", SOURCE_MQTT_PASS)
 TARGET_MQTT_TLS = os.getenv("TARGET_MQTT_TLS", "false").lower() == "true"
 FORWARD_MQTT_HOST = os.getenv("FORWARD_MQTT_HOST", "mqtt.growatt.com")
 FORWARD_MQTT_PORT = int( os.getenv("FORWARD_MQTT_PORT", 7006))
-ACTIVATE_COMMUNICATION_GROWATT_SERVER= bool( os.getenv("ACTIVATE_COMMUNICATION_GROWATT_SERVER", False))
+ACTIVATE_COMMUNICATION_GROWATT_SERVER = bool( os.getenv("ACTIVATE_COMMUNICATION_GROWATT_SERVER", False))
 HA_BASE_TOPIC = os.getenv("HA_BASE_TOPIC", "homeassistant")
+
+DUMP_MESSAGES = os.getenv("DUMP_MESSAGES", "false").lower() == "true"
+DUMP_DIR = "/dump"
 
 # Register filter configuration
 NEO_SP2_REGISTERS = [
@@ -171,7 +174,26 @@ def publish_state(device_id, registers):
     topic = f"{HA_BASE_TOPIC}/grobro/{device_id}/state"
     target_client.publish(topic, json.dumps(payload), retain=False)
 
+def dump_message_binary(topic, payload):
+    try:
+        # Build path following topic structure
+        topic_parts = topic.strip("/").split("/")
+        dir_path = os.path.join(DUMP_DIR, *topic_parts)
+        os.makedirs(dir_path, exist_ok=True)
+
+        # Write each message to a new file with timestamp
+        import time
+        timestamp = int(time.time() * 1000)
+        file_path = os.path.join(dir_path, f"{timestamp}.bin")
+
+        with open(file_path, "wb") as f:
+            f.write(payload)
+    except Exception as e:
+        print(f"Failed to dump message for topic {topic}: {e}")
+
 def on_message(client, userdata, msg: MQTTMessage):
+    if DUMP_MESSAGES:
+        dump_message_binary(msg.topic, msg.payload)
     try:
         if ACTIVATE_COMMUNICATION_GROWATT_SERVER:
             clientidd= msg.topic.split("/")[-1]
@@ -253,11 +275,10 @@ def start_source_client_loop():
 def start_forward_client_loop(forward_client_with_clientid):
     forward_client_with_clientid.loop_forever()
 
+# Setup Growatt Server MQTT for forwarding messages
 def connect_to_growatt_server(client_id):
-# Setup Growatt Server MQTT for  forwarding messages
-    
     if f"forward_client_{client_id}" in Forwarding_Clients:
-        print(f"Already connectet to Growatt Server with ClientID: {client_id}")
+        print(f"Already connected to Growatt Server with ClientID: {client_id}")
     else:
         Forwarding_Clients[f"forward_client_{client_id}"] = mqtt.Client(client_id=client_id)
         Forwarding_Clients[f"forward_client_{client_id}"].tls_set(cert_reqs=ssl.CERT_NONE)
@@ -265,7 +286,7 @@ def connect_to_growatt_server(client_id):
         Forwarding_Clients[f"forward_client_{client_id}"].on_message = on_message_forward_client
         Forwarding_Clients[f"forward_client_{client_id}"].connect(FORWARD_MQTT_HOST, FORWARD_MQTT_PORT, 60)
         Forwarding_Clients[f"forward_client_{client_id}"].subscribe("#")
-        print(f"Connected to Forwarding Server  at {FORWARD_MQTT_HOST}:{FORWARD_MQTT_PORT} with ClientId{client_id}, listening on 's/#'")
+        print(f"Connected to Forwarding Server at {FORWARD_MQTT_HOST}:{FORWARD_MQTT_PORT} with ClientId{client_id}, listening on 's/#'")
         forward_thread = threading.Thread(target=start_forward_client_loop, args=(Forwarding_Clients[f"forward_client_{client_id}"],))
         forward_thread.start()
     return Forwarding_Clients[f"forward_client_{client_id}"]
