@@ -8,8 +8,10 @@ It supports auto-discovery via MQTT and allows full integration of Growatt data 
 ---
 
 ## Features
-- Decodes and maps encrypted register payloads from Growatt NEO-series inverters
+- Decodes and maps encrypted register payloads from Growatt NEO-series inverters and NOAH-series batteries
 - Bridges inverter data from a dedicated MQTT source
+- Proxies messages to the Growatt Cloud to keep the ShinePhone app functional (optional)
+- Enables a local-only setup - keeping your device off the cloud
 - Supports Home Assistant MQTT auto-discovery
 - Containerized and configurable via environment variables
 
@@ -17,7 +19,7 @@ It supports auto-discovery via MQTT and allows full integration of Growatt data 
 
 ## Setup Instructions
 
-1. Configure your **Growatt NEO inverter** to send data to a custom MQTT broker
+1. Configure your **Growatt NEO inverter** or **NOAH battery** to send data to a custom MQTT broker
 2. Configure a Mosquitto instance **with TLS**
 3. Run **GroBro HA Bridge** Container
 
