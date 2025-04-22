@@ -2,13 +2,13 @@
   "input_registers": [
     {
       "register_no": 13,
-      "variable_name": "bat_1_soc_pct",
-      "description": "Battery 1 SoC",
+      "variable_name": "tot_bat_soc_pct",
+      "description": "Total Battery SoC",
       "unit": "int16",
       "size": 4,
       "multiplier": 1,
       "ha": {
-        "name": "Battery 1 SoC",
+        "name": "Total Battery SoC",
         "unit_of_measurement": "%",
         "icon": "mdi:percent",
         "state_class": "measurement",
@@ -21,7 +21,7 @@
       "description": "Temperature",
       "unit": "\u00b0C",
       "size": 2,
-      "multiplier": 0.01,
+      "multiplier": 1,
       "ha": {
         "name": "Temperature",
         "unit_of_measurement": "\u00b0C",
@@ -43,21 +43,6 @@
         "icon": "mdi:flash",
         "state_class": "measurement",
         "device_class": "power"
-      }
-    },
-    {
-      "register_no": 4,
-      "variable_name": "pv_input_curr",
-      "description": "PV input current",
-      "unit": "A",
-      "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "PV input current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-dc",
-        "state_class": "measurement",
-        "device_class": "current"
       }
     },
     {
@@ -194,6 +179,18 @@
     },
     {
       "register_no": 25,
+      "variable_name": "ser_part_3",
+      "description": "Serial Part 3",
+      "unit": "s",
+      "size": 4,
+      "multiplier": 1,
+      "ha": {
+        "name": "Serial Part 3",
+        "icon": "mdi:identifier"
+      }
+    },
+    {
+      "register_no": 23,
       "variable_name": "ser_part_2",
       "description": "Serial Part 2",
       "unit": "s",
@@ -205,14 +202,26 @@
       }
     },
     {
+      "register_no": 27,
+      "variable_name": "ser_part_4",
+      "description": "Serial Part 4",
+      "unit": "s",
+      "size": 4,
+      "multiplier": 1,
+      "ha": {
+        "name": "Serial Part 4",
+        "icon": "mdi:identifier"
+      }
+    },
+    {
       "register_no": 29,
-      "variable_name": "bat_2_soc_pct",
-      "description": "Battery 2 SoC",
+      "variable_name": "bat_1_soc_pct",
+      "description": "Battery 1 SoC",
       "unit": "int16",
       "size": 4,
       "multiplier": 1,
       "ha": {
-        "name": "Battery 2 SoC",
+        "name": "Battery 1 SoC",
         "unit_of_measurement": "%",
         "icon": "mdi:percent",
         "state_class": "measurement",
