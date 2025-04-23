@@ -16,18 +16,33 @@
       }
     },
     {
-      "register_no": 95,
-      "variable_name": "temp",
-      "description": "Temperature",
-      "unit": "°C",
+      "register_no": 92,
+      "variable_name": "Vpv1",
+      "description": "PV1 voltage",
+      "unit": "V",
       "size": 2,
-      "multiplier": 1,
+      "multiplier": 0.01,
       "ha": {
-        "name": "Temperature",
-        "unit_of_measurement": "°C",
-        "icon": "mdi:thermometer",
+        "name": "PV1 voltage",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
         "state_class": "measurement",
-        "device_class": "temperature"
+        "device_class": "voltage"
+      }
+    },
+    {
+      "register_no": 95,
+      "variable_name": "Vpv2",
+      "description": "PV2 voltage",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "PV2 voltage",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
+        "state_class": "measurement",
+        "device_class": "voltage"
       }
     },
     {
@@ -46,14 +61,43 @@
       }
     },
     {
-      "register_no": 97,
-      "variable_name": "Vpv2",
-      "description": "PV2 voltage",
+      "register_no": 109,
+      "variable_name": "out_voltage",
+      "description": "Output voltage",
       "unit": "V",
       "size": 2,
       "multiplier": 0.01,
       "ha": {
-        "name": "PV2 voltage",
+        "name": "Output voltage",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 97,
+      "variable_name": "temp2",
+      "description": "Temperature 2",
+      "unit": "°C",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "Temperature 2",
+        "unit_of_measurement": "°C",
+        "icon": "mdi:thermometer",
+        "state_class": "measurement",
+        "device_class": "temperature"
+      }
+    },
+    {
+      "register_no": 99,
+      "variable_name": "vbat1",
+      "description": "Battery 1 voltage",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "Battery 1 voltage",
         "unit_of_measurement": "V",
         "icon": "mdi:flash",
         "state_class": "measurement",
@@ -62,13 +106,13 @@
     },
     {
       "register_no": 100,
-      "variable_name": "cell_4_volt",
-      "description": "Cell 4 voltage",
+      "variable_name": "vbat2",
+      "description": "Battery 2 voltage",
       "unit": "V",
       "size": 2,
       "multiplier": 0.01,
       "ha": {
-        "name": "Cell 4 voltage",
+        "name": "Battery 2 voltage",
         "unit_of_measurement": "V",
         "icon": "mdi:flash",
         "state_class": "measurement",
@@ -257,17 +301,17 @@
     },
     {
       "register_no": 94,
-      "variable_name": "Vpv1",
-      "description": "PV1 voltage",
-      "unit": "V",
+      "variable_name": "temp1",
+      "description": "Temperature 1",
+      "unit": "°C",
       "size": 2,
       "multiplier": 0.01,
       "ha": {
-        "name": "PV1 voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash",
+        "name": "Temperature 1",
+        "unit_of_measurement": "°C",
+        "icon": "mdi:thermometer",
         "state_class": "measurement",
-        "device_class": "voltage"
+        "device_class": "temperature"
       }
     },
     {
