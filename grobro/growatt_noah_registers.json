@@ -274,7 +274,7 @@
       "register_no": 93,
       "variable_name": "Ipv1",
       "description": "PV1 input current",
-      "unit": "V",
+      "unit": "A",
       "size": 2,
       "multiplier": 0.01,
       "ha": {
@@ -288,7 +288,7 @@
       "register_no": 96,
       "variable_name": "Ipv2",
       "description": "PV2 input current",
-      "unit": "V",
+      "unit": "A",
       "size": 2,
       "multiplier": 0.01,
       "ha": {
