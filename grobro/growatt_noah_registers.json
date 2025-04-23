@@ -19,19 +19,19 @@
       "register_no": 95,
       "variable_name": "temp",
       "description": "Temperature",
-      "unit": "\u00b0C",
+      "unit": "°C",
       "size": 2,
       "multiplier": 1,
       "ha": {
         "name": "Temperature",
-        "unit_of_measurement": "\u00b0C",
+        "unit_of_measurement": "°C",
         "icon": "mdi:thermometer",
         "state_class": "measurement",
         "device_class": "temperature"
       }
     },
     {
-      "register_no": 1,
+      "register_no": 2,
       "variable_name": "out_power",
       "description": "Output power",
       "unit": "W",
@@ -47,13 +47,13 @@
     },
     {
       "register_no": 97,
-      "variable_name": "cell_3_volt",
-      "description": "Cell 3 voltage",
+      "variable_name": "Vpv2",
+      "description": "PV2 voltage",
       "unit": "V",
       "size": 2,
       "multiplier": 0.01,
       "ha": {
-        "name": "Cell 3 voltage",
+        "name": "PV2 voltage",
         "unit_of_measurement": "V",
         "icon": "mdi:flash",
         "state_class": "measurement",
@@ -96,7 +96,7 @@
       "description": "Cell 1 voltage",
       "unit": "V",
       "size": 2,
-      "multiplier": 0.01,
+      "multiplier": 1,
       "ha": {
         "name": "Cell 1 voltage",
         "unit_of_measurement": "V",
@@ -243,13 +243,13 @@
     },
     {
       "register_no": 90,
-      "variable_name": "charging_limit",
-      "description": "Charging Limit",
+      "variable_name": "charge_limit",
+      "description": "Charge Limit",
       "unit": "%",
       "size": 2,
       "multiplier": 1,
       "ha": {
-        "name": "Charging Limit",
+        "name": "Charge Limit",
         "unit_of_measurement": "%",
         "icon": "mdi:percent",
         "state_class": "measurement"
@@ -257,17 +257,45 @@
     },
     {
       "register_no": 94,
-      "variable_name": "cell_2_volt",
-      "description": "Cell 2 voltage",
+      "variable_name": "Vpv1",
+      "description": "PV1 voltage",
       "unit": "V",
       "size": 2,
       "multiplier": 0.01,
       "ha": {
-        "name": "Cell 2 voltage",
+        "name": "PV1 voltage",
         "unit_of_measurement": "V",
         "icon": "mdi:flash",
         "state_class": "measurement",
         "device_class": "voltage"
+      }
+    },
+    {
+      "register_no": 93,
+      "variable_name": "Ipv1",
+      "description": "PV1 input current",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "PV1 input current",
+        "unit_of_measurement": "A",
+        "icon": "mdi:current-ac",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 96,
+      "variable_name": "Ipv2",
+      "description": "PV2 input current",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 0.01,
+      "ha": {
+        "name": "PV2 input current",
+        "unit_of_measurement": "A",
+        "icon": "mdi:current-ac",
+        "state_class": "measurement"
       }
     }
   ]

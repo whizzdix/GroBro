@@ -46,7 +46,7 @@ except Exception as e:
     logging.basicConfig(
         level=logging.ERROR,
         format="%(asctime)s [%(levelname)s] %(message)s",
-    )    
+    )
     print(f"Failed to setup Logger {e} USING DEFAULT LOG Level(Error)")
 logger = logging.getLogger(__name__)
 
@@ -73,10 +73,10 @@ NEO_SP2_REGISTERS = [
 ]
 
 NOAH_REGISTERS = [
-    1, 4, 7, 11,
-    13, 21, 25, 29,
-    71, 73, 75, 77,
-    94, 95, 97, 100
+    2, 4, 7, 11, 13, 21, 23, 25, 27, 29,
+    72, 74, 76, 78,
+    90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100,
+    109
 ]
 
 REGISTER_FILTER_ENV = os.getenv("REGISTER_FILTER", "")
@@ -103,9 +103,6 @@ if TARGET_MQTT_TLS:
 target_client.connect(TARGET_MQTT_HOST, TARGET_MQTT_PORT, 60)
 target_client.loop_start()
 
-def parse_percentage(value):
-    return int(value / 65535)
-
 def parse_ascii(value):
     try:
         return bytes.fromhex(hex(value)[2:].zfill(4)).decode('ascii').strip()
@@ -114,9 +111,7 @@ def parse_ascii(value):
 
 def apply_conversion(register):
     unit = register.get("unit")
-    if unit == "int16" and isinstance(register.get("value"), int):
-        register["value"] = parse_percentage(register["value"])
-    elif unit == "s":
+    if unit == "s":
         register["value"] = parse_ascii(register["value"])
     elif isinstance(register.get("value"), (int, float)) and register.get("multiplier"):
         register["value"] *= register["multiplier"]
@@ -245,7 +240,8 @@ def on_message(client, userdata, msg: MQTTMessage):
             else:
                 logger.debug(f"No config change for {device_id}")
             config_cache[device_id] = config
-        else:
+        # NOAH=323 NEO=577
+        elif msg_type in (323, 577):
             # Modbus message
             temp_descriptions = load_modbus_input_register_file("growatt_inverter_registers.json")
             parsed = parse_modbus_type(unscrambled, temp_descriptions)
