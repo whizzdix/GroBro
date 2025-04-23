@@ -4,8 +4,8 @@
       "register_no": 13,
       "variable_name": "tot_bat_soc_pct",
       "description": "Total Battery SoC",
-      "unit": "int16",
-      "size": 4,
+      "unit": "%",
+      "size": 2,
       "multiplier": 1,
       "ha": {
         "name": "Total Battery SoC",
@@ -106,11 +106,11 @@
       }
     },
     {
-      "register_no": 71,
+      "register_no": 72,
       "variable_name": "pv_eng_today",
       "description": "PV energy today",
       "unit": "kWh",
-      "size": 4,
+      "size": 2,
       "multiplier": 0.1,
       "ha": {
         "name": "PV energy today",
@@ -121,11 +121,11 @@
       }
     },
     {
-      "register_no": 73,
+      "register_no": 74,
       "variable_name": "pv_eng_tot",
       "description": "PV energy total",
       "unit": "kWh",
-      "size": 4,
+      "size": 2,
       "multiplier": 0.1,
       "ha": {
         "name": "PV energy total",
@@ -148,11 +148,11 @@
       }
     },
     {
-      "register_no": 75,
+      "register_no": 76,
       "variable_name": "eng_out_today",
       "description": "Energy output today",
       "unit": "kWh",
-      "size": 4,
+      "size": 2,
       "multiplier": 0.1,
       "ha": {
         "name": "Energy output today",
@@ -163,11 +163,11 @@
       }
     },
     {
-      "register_no": 77,
+      "register_no": 78,
       "variable_name": "eng_out_tot",
       "description": "Energy output total",
       "unit": "kWh",
-      "size": 4,
+      "size": 2,
       "multiplier": 0.1,
       "ha": {
         "name": "Energy output total",
@@ -217,15 +217,42 @@
       "register_no": 29,
       "variable_name": "bat_1_soc_pct",
       "description": "Battery 1 SoC",
-      "unit": "int16",
-      "size": 4,
+      "unit": "%",
+      "size": 2,
       "multiplier": 1,
       "ha": {
         "name": "Battery 1 SoC",
         "unit_of_measurement": "%",
         "icon": "mdi:percent",
-        "state_class": "measurement",
-        "device_class": "battery"
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 91,
+      "variable_name": "discharge_limit",
+      "description": "Discharge Limit",
+      "unit": "%",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Discharge Limit",
+        "unit_of_measurement": "%",
+        "icon": "mdi:percent",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 90,
+      "variable_name": "charging_limit",
+      "description": "Charging Limit",
+      "unit": "%",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Charging Limit",
+        "unit_of_measurement": "%",
+        "icon": "mdi:percent",
+        "state_class": "measurement"
       }
     },
     {
