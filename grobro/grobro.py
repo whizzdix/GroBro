@@ -73,7 +73,7 @@ def parse_modbus_block(data, offset, modbus_input_register_descriptions: list):
         value *= reg_desc.get("multiplier", 1)
 
         if "value_options" in reg_desc:
-            # Replace numeric value options with their actual meaning where possible
+            # Replace numeric value options with their actual meaning
             options = reg_desc["value_options"]
             value = options.get(str(value), value)
 
@@ -109,10 +109,10 @@ def parse_modbus_type(data, modbus_input_register_descriptions: list):
     result['unknown_1'] = struct.unpack_from('>H', data, offset)[0]
     offset += 2
 
-    result['msg_type'] = struct.unpack_from('>H', data, offset)[0]
+    result['msg_length'] = struct.unpack_from('>H', data, offset)[0]
     offset += 2
 
-    result['unknown_2'] = struct.unpack_from('>H', data, offset)[0]
+    result['msg_type'] = struct.unpack_from('>H', data, offset)[0]
     offset += 2
 
     device_id_raw = data[offset:offset+16]
@@ -227,19 +227,20 @@ def parse_growatt_file(filepath, modbus_input_register_descriptions: list):
     result = {}
     result['file'] = os.path.basename(filepath)
     result['msg_ctr'] = struct.unpack_from('>H', data, 0)[0]
-    result['msg_type'] = struct.unpack_from('>H', data, 4)[0]
+    result['msg_type'] = struct.unpack_from('>H', data, 6)[0]
     result['device_id'] = data[8:24].decode('ascii', errors='ignore').strip('\x00')
 
-    # NOAH=387 NEO=340
-    if result['msg_type'] in (387, 340):
+    # NOAH=0 NEO=281
+    if result['msg_type'] == 281 or result['msg_ctr'] == 0:
         config_offset = find_config_offset(data)
         result['config'] = parse_config_type(data, config_offset)
-    # NOAH=323 NEO=577
-    elif result['msg_type'] in (323, 577):
+    # NOAH=259,260 NEO=259,260,336
+    elif result['msg_type'] in (259, 260, 336):
         result.update(parse_modbus_type(data, modbus_input_register_descriptions))
-    # Still unknown: NOAH=37,831
+    # Still unknown: NOAH=272
     else:
-        pass #print(f"Error parsing message type: {result['msg_type']}")
+        pass
+        #print(f"Error parsing message type: {result['msg_type']}")
 
     return result
 

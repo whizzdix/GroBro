@@ -1,6 +1,38 @@
 {
   "input_registers": [
     {
+      "register_no": 8,
+      "variable_name": "priority_mode",
+      "description": "Priority Mode",
+      "value_options": {
+        "0": "Load First",
+        "1": "Battery First",
+        "2": "Grid First"
+      },
+      "unit": null,
+      "size": 2,
+      "ha": {
+        "name": "Priority Mode",
+        "icon": "mdi:alert-circle"
+      }
+    },
+    {
+      "register_no": 10,
+      "variable_name": "bat_sysstate",
+      "description": "Battery System State",
+      "value_options": {
+        "0": "Idle",
+        "1": "Charging",
+        "2": "Discharging"
+      },
+      "unit": null,
+      "size": 2,
+      "ha": {
+        "name": "Battery System State",
+        "icon": "mdi:battery-sync"
+      }
+    },
+    {
       "register_no": 13,
       "variable_name": "tot_bat_soc_pct",
       "description": "Total Battery SoC",
@@ -136,17 +168,16 @@
     },
     {
       "register_no": 11,
-      "variable_name": "cell_1_volt",
-      "description": "Cell 1 voltage",
+      "variable_name": "register_11",
+      "description": "Register No 11",
       "unit": "V",
       "size": 2,
       "multiplier": 1,
       "ha": {
-        "name": "Cell 1 voltage",
+        "name": "Register No 11",
         "unit_of_measurement": "V",
         "icon": "mdi:flash",
-        "state_class": "measurement",
-        "device_class": "voltage"
+        "state_class": "measurement"
       }
     },
     {
@@ -339,6 +370,74 @@
         "name": "PV2 input current",
         "unit_of_measurement": "A",
         "icon": "mdi:current-ac",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 12,
+      "variable_name": "register_12",
+      "description": "Register No 12",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Register No 12",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 30,
+      "variable_name": "register_30",
+      "description": "Register No 30",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Register No 30",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 98,
+      "variable_name": "register_98",
+      "description": "Register No 98",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Register No 98",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 101,
+      "variable_name": "bat_cyclecnt",
+      "description": "Battery Cycle Count",
+      "unit": null,
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Battery Cycle Count",
+        "icon": "mdi:counter"
+      }
+    },
+    {
+      "register_no": 102,
+      "variable_name": "register_102",
+      "description": "Register No 102",
+      "unit": "V",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Register No 102",
+        "unit_of_measurement": "V",
+        "icon": "mdi:flash",
         "state_class": "measurement"
       }
     }
