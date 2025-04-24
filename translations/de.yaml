@@ -1,0 +1,43 @@
+configuration:
+  SOURCE_MQTT_HOST:
+    name: SOURCE_MQTT_HOST
+    description: Hostname oder IP-Adresse des Quell-MQTT-Brokers (für Growatt)
+  SOURCE_MQTT_PORT:
+    name: SOURCE_MQTT_PORT
+    description: Port-Nummer des Quell-MQTT-Brokers
+  SOURCE_MQTT_TLS:
+    name: SOURCE_MQTT_TLS
+    description: Auf true setzen, um TLS ohne Zertifikatsvalidierung zu aktivieren
+  SOURCE_MQTT_USER:
+    name: SOURCE_MQTT_USER
+    description: Benutzername für den Quell-MQTT-Broker (falls Authentifizierung erforderlich)
+  SOURCE_MQTT_PASS:
+    name: SOURCE_MQTT_PASS
+    description: Passwort für den Quell-MQTT-Broker
+  TARGET_MQTT_HOST:
+    name: TARGET_MQTT_HOST
+    description: Hostname oder IP-Adresse des Ziel-MQTT-Brokers (für Home Assistant)
+  TARGET_MQTT_PORT:
+    name: TARGET_MQTT_PORT
+    description: Port-Nummer des Ziel-MQTT-Brokers
+  TARGET_MQTT_TLS:
+    name: TARGET_MQTT_TLS
+    description: Auf true setzen, um TLS ohne Zertifikatsvalidierung zu aktivieren
+  TARGET_MQTT_USER:
+    name: TARGET_MQTT_USER
+    description: Benutzername für den Ziel-MQTT-Broker (falls Authentifizierung erforderlich)
+  TARGET_MQTT_PASS:
+    name: TARGET_MQTT_PASS
+    description: Passwort für den Ziel-MQTT-Broker
+  HA_BASE_TOPIC:
+    name: HA_BASE_TOPIC
+    description: Basis-MQTT-Topic für Home Assistant Auto-Discovery und Sensor-Status
+  REGISTER_FILTER:
+    name: REGISTER_FILTER
+    description: Kommagetrennte Liste von Serial:Alias-Paaren (z.B. 123456789:NOAH,987654321:NEO800). Ermöglicht die Angabe, welcher Registersatz pro Gerät angewendet werden soll. Standardmäßig wird die Wechselrichter-Registerkarte verwendet, wenn nicht gesetzt.
+  ACTIVATE_COMMUNICATION_GROWATT_SERVER:
+    name: ACTIVATE_COMMUNICATION_GROWATT_SERVER
+    description: Auf True setzen, um Nachrichten zum und vom Growatt-Server umzuleiten. Standard ist False
+  LOG_LEVEL:
+    name: LOG_LEVEL
+    description: Legt den Logging-Level fest. Das Programm verwendet derzeit nur die Level ERROR, DEBUG und INFO. Standard ist ERROR.

@@ -1,0 +1,43 @@
+configuration:
+  SOURCE_MQTT_HOST:
+    name: SOURCE_MQTT_HOST
+    description: Hostname or IP of the source MQTT broker (for Growatt)
+  SOURCE_MQTT_PORT:
+    name: SOURCE_MQTT_PORT
+    description: Port number of the source MQTT broker
+  SOURCE_MQTT_TLS:
+    name: SOURCE_MQTT_TLS
+    description: Set to true to enable TLS without certificate validation
+  SOURCE_MQTT_USER:
+    name: SOURCE_MQTT_USER
+    description: Username for the source MQTT broker (if authentication is required)
+  SOURCE_MQTT_PASS:
+    name: SOURCE_MQTT_PASS
+    description: Password for the source MQTT broker
+  TARGET_MQTT_HOST:
+    name: TARGET_MQTT_HOST
+    description: Hostname or IP of the target MQTT broker (for Home Assistant)
+  TARGET_MQTT_PORT:
+    name: TARGET_MQTT_PORT
+    description: Port number of the target MQTT broker
+  TARGET_MQTT_TLS:
+    name: TARGET_MQTT_TLS
+    description: Set to true to enable TLS without certificate validation
+  TARGET_MQTT_USER:
+    name: TARGET_MQTT_USER
+    description: Username for the target MQTT broker (if authentication is required)
+  TARGET_MQTT_PASS:
+    name: TARGET_MQTT_PASS
+    description: Password for the target MQTT broker
+  HA_BASE_TOPIC:
+    name: HA_BASE_TOPIC
+    description: Base MQTT topic used for Home Assistant auto-discovery and sensor states
+  REGISTER_FILTER:
+    name: REGISTER_FILTER
+    description: Comma-separated list of serial:alias pairs (e.g. 123456789:NOAH,987654321:NEO800). Allows specifying which register set to apply per device. Defaults to inverter register map if not set.
+  ACTIVATE_COMMUNICATION_GROWATT_SERVER:
+    name: ACTIVATE_COMMUNICATION_GROWATT_SERVER
+    description: Set to True to redirect messages to and from the Growatt Server. Default is False
+  LOG_LEVEL:
+    name: LOG_LEVEL
+    description: Sets the Logging Level. The program currently only use the levels ERROR, DEBUG, and INFO. Default is ERROR.
