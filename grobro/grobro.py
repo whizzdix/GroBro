@@ -7,6 +7,13 @@ import sys
 import os
 from itertools import cycle
 
+def hexdump(data: bytes, width: int = 16):
+    for i in range(0, len(data), width):
+        chunk = data[i:i + width]
+        hex_bytes = ' '.join(f'{b:02X}' for b in chunk)
+        ascii_repr = ''.join(chr(b) if 32 <= b <= 126 else '.' for b in chunk)
+        print(f"{i:08X}  {hex_bytes:<{width*3}}  |{ascii_repr}|")
+
 def unscramble(decdata: bytes):
     """
     Unscrambling algorithm based on XOR with "Growatt" mask
@@ -20,6 +27,7 @@ def unscramble(decdata: bytes):
     for i, j in zip(range(0, ndecdata - 8), cycle(range(0, nmask))):
         unscrambled += bytes([decdata[i + 8] ^ int(hex_mask[j], 16)])
 
+    #hexdump(unscrambled)
     return unscrambled
 
 def parse_timestamp(data, offset):
@@ -157,13 +165,16 @@ def parse_config_type(data, offset):
     any_params = False
 
     param_map = {
-        4: "unknown_4", 5: "unknown_5", 6: "unknown_6", 7: "password", 8: "serial_number",
-        9: "protocol_version", 10: "unknown_10", 11: "unknown_11", 12: "dns_address",
-        13: "device_type", 14: "unknown_ip", 15: "unknown_port", 16: "mac_address",
-        17: "mqtt_host", 18: "mqtt_host_port", 19: "mqtt_host_2", 20: "model_id",
-        21: "sw_version", 22: "hw_version", 23: "unknown_23", 24: "unknown_24",
-        25: "netmask", 26: "unknown_ip_2", 27: "unknown_27", 28: "unknown_28",
-        29: "unknown_29", 30: "timezone", 31: "datetime", 76: "wifi_signal"
+        4: "data_interval", 5: "unknown_5", 6: "unknown_6", 7: "password",
+        8: "serial_number", 9: "protocol_version", 10: "unknown_10",
+        11: "unknown_11", 12: "dns_address", 13: "device_type",
+        14: "local_ip", 15: "unknown_port", 16: "mac_address",
+        17: "remote_ip", 18: "remote_port", 19: "remote_url",
+        20: "model_id", 21: "sw_version", 22: "hw_version",
+        23: "unknown_23", 24: "unknown_24", 25: "subnet_mask",
+        26: "default_gateway", 27: "unknown_27", 28: "unknown_28",
+        29: "unknown_29", 30: "timezone", 31: "datetime",
+        76: "wifi_signal"
     }
 
     max_len = 512
@@ -223,8 +234,12 @@ def parse_growatt_file(filepath, modbus_input_register_descriptions: list):
     if result['msg_type'] in (387, 340):
         config_offset = find_config_offset(data)
         result['config'] = parse_config_type(data, config_offset)
-    else:
+    # NOAH=323 NEO=577
+    elif result['msg_type'] in (323, 577):
         result.update(parse_modbus_type(data, modbus_input_register_descriptions))
+    # Still unknown: NOAH=37,831
+    else:
+        pass #print(f"Error parsing message type: {result['msg_type']}")
 
     return result
 
@@ -236,8 +251,9 @@ def load_modbus_input_register_file(filepath):
 
 
 if __name__ == "__main__":
-    modbus_input_register_descriptions = load_modbus_input_register_file("growatt_input_registers.json")
-    input_file = sys.argv[1]
+    register_file = sys.argv[1]
+    modbus_input_register_descriptions = load_modbus_input_register_file(register_file)
+    input_file = sys.argv[2]
     try:
         parsed = parse_growatt_file(input_file, modbus_input_register_descriptions)
     except Exception as e:
