@@ -79,13 +79,13 @@
     },
     {
       "register_no": 2,
-      "variable_name": "out_power",
-      "description": "Output power",
+      "variable_name": "out_power_limit",
+      "description": "Output power limit",
       "unit": "W",
       "size": 2,
       "multiplier": 1,
       "ha": {
-        "name": "Output power",
+        "name": "Output power limit",
         "unit_of_measurement": "W",
         "icon": "mdi:flash",
         "state_class": "measurement",
@@ -168,16 +168,17 @@
     },
     {
       "register_no": 11,
-      "variable_name": "register_11",
-      "description": "Register No 11",
-      "unit": "V",
-      "size": 2,
+      "variable_name": "out_power",
+      "description": "Output power",
+      "unit": "W",
+      "size": 1,
       "multiplier": 1,
       "ha": {
-        "name": "Register No 11",
-        "unit_of_measurement": "V",
+        "name": "Output power",
+        "unit_of_measurement": "W",
         "icon": "mdi:flash",
-        "state_class": "measurement"
+        "state_class": "measurement",
+        "device_class": "power"
       }
     },
     {
