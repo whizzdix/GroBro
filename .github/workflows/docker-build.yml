@@ -16,9 +16,6 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -42,10 +39,10 @@ jobs:
           fi
 
       - name: Build and push to GHCR
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          context: .
           file: ./Containerfile
           push: true
           tags: ${{ env.TAGS }}
+          provenance: false
