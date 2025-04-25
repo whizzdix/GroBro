@@ -225,13 +225,13 @@
     },
     {
       "register_no": 76,
-      "variable_name": "eng_out_total",
-      "description": "Energy output total",
+      "variable_name": "pv_eng_year",
+      "description": "PV energy year",
       "unit": "kWh",
       "size": 2,
       "multiplier": 0.1,
       "ha": {
-        "name": "Energy output total",
+        "name": "PV energy year",
         "unit_of_measurement": "kWh",
         "icon": "mdi:solar-power",
         "state_class": "total_increasing",
