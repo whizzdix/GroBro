@@ -376,16 +376,14 @@
     },
     {
       "register_no": 12,
-      "variable_name": "register_12",
-      "description": "Register No 12",
+      "variable_name": "bat_cnt",
+      "description": "Battery Count",
       "unit": "V",
       "size": 2,
       "multiplier": 1,
       "ha": {
-        "name": "Register No 12",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash",
-        "state_class": "measurement"
+        "name": "Battery Count",
+        "icon": "mdi:information"
       }
     },
     {
