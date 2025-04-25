@@ -39,15 +39,15 @@ docker run --rm \
 ```
 
 ### Installation as Add-On
-1. Click the Add Add-On Repository button below to add this repositiory on your Home Assistant instance.
+1. Click the button below to add this repositiory on your Home Assistant instance
 
    [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Frobertzaage%2FGroBro)
 
-1. Refresh your add-ons in your Add-On Store and search for GroBro
-1. Click the `Install` button to install the add-on.
-1. Configure the `GroBro` add-on. Don't forget to set your register mappings.
-1. Start the `GroBro` add-on.
-1. Check the logs of the `GroBro` add-on to see it in action.
+2. Refresh your add-ons in your `Add-On Store` and search for `GroBro`
+3. Click the `Install` button to install the add-on
+4. Configure the `GroBro` add-on. Don't forget to set your register filter.
+5. Start the `GroBro` add-on
+6. Check the logs of the `GroBro` add-on to see it in action
 
 ## Hint
 Growatt NEO and NOAH devices rely on a TLS-enabled Mosquitto broker to send their packages. 

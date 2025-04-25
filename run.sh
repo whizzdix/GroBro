@@ -1,6 +1,5 @@
 #!/usr/bin/with-contenv bashio
 
-# Liest die Optionen aus
 SOURCE_MQTT_HOST=$(bashio::config 'SOURCE_MQTT_HOST')
 SOURCE_MQTT_PORT=$(bashio::config 'SOURCE_MQTT_PORT')
 SOURCE_MQTT_TLS=$(bashio::config 'SOURCE_MQTT_TLS')
@@ -16,7 +15,6 @@ REGISTER_FILTER=$(bashio::config 'REGISTER_FILTER')
 ACTIVATE_COMMUNICATION_GROWATT_SERVER=$(bashio::config 'ACTIVATE_COMMUNICATION_GROWATT_SERVER')
 LOG_LEVEL=$(bashio::config 'LOG_LEVEL')
 
-# Exportiere die Umgebungsvariablen
 export SOURCE_MQTT_HOST
 export SOURCE_MQTT_PORT
 export SOURCE_MQTT_TLS
@@ -32,5 +30,4 @@ export REGISTER_FILTER
 export ACTIVATE_COMMUNICATION_GROWATT_SERVER
 export LOG_LEVEL
 
-# Jetzt den Python-Befehl ausführen
 exec python3 ha_bridge.py

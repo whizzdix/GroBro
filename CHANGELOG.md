@@ -1,3 +1,7 @@
+## v1.6
++ Large update of NOAH mappings.
++ Small fixes in message detection.
+
 ## v1.5
 + Updated the NOAH and NEO mappings.
 + Added a new message dump option, DUMP_MESSAGES=True, which writes all incoming messages to /data.
