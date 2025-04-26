@@ -1,19 +1,23 @@
+
+
 #!/usr/bin/env python3
 # Growatt NOAH/NEO register message decoder
 
 import struct
 import argparse
 import pathlib
-import json 
+import json
 import binascii
 import sys
 import string
 import crc
 
+crc16 = crc.Calculator(crc.Crc16.MODBUS)
+
 def descramble(pkt: bytes) -> bytes:
     MASK = b"Growatt"
     body, crc_stored = pkt[:-2], pkt[-2:]
-    if struct.pack('>H', crc.crc16(body)) != crc_stored:
+    if not crc16.verify(pkt[:-2], struct.unpack("!H", pkt[-2:])[0]):
         print("Warning! CRC mismatch – continuing anyway...", file=sys.stderr)
     out = bytearray(pkt[:8])
     out += bytes(b ^ MASK[i % len(MASK)] for i, b in enumerate(pkt[8:-2]))
@@ -82,6 +86,13 @@ def noah_decode_datetime(body: bytes):
         return {"datetime": text}
     return None
 
+def noah_decode_inverter(body: bytes):
+    pos = body.find(b"\x01\x2C")
+    if pos == -1 or pos + 2 > len(body):
+        return None
+    model_id = body[-2:].hex()
+    return {"action": "inverter_config", "model_id": model_id}
+
 def decode_noah(mtype: int, payload: bytes):
     body = payload
     for fn in (
@@ -89,6 +100,7 @@ def decode_noah(mtype: int, payload: bytes):
         noah_decode_slot,
         noah_decode_output_limit,
         noah_decode_datetime,
+        noah_decode_inverter,
     ):
         res = fn(body)
         if res:
