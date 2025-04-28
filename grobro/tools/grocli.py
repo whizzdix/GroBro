@@ -113,7 +113,7 @@ def on_connect(client, userdata, flags, rc):
         print(f"Failed to connect, return code {rc}")
 
 def publish_message(broker, port, username, password, tls, device_id, payload):
-    topic = f"/s/33/{device_id}"
+    topic = f"s/33/{device_id}"
     client_id = f"grobro-{random.randint(0,9999)}"
 
     client = mqtt.Client(client_id=client_id)
