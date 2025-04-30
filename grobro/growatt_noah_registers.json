@@ -1,6 +1,48 @@
 {
   "input_registers": [
     {
+      "register_no": 41,
+      "variable_name": "bat_2_soc_pct",
+      "description": "Battery 1 SoC",
+      "unit": "%",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Battery 2 SoC",
+        "unit_of_measurement": "%",
+        "icon": "mdi:percent",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 53,
+      "variable_name": "bat_3_soc_pct",
+      "description": "Battery 1 SoC",
+      "unit": "%",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Battery 3 SoC",
+        "unit_of_measurement": "%",
+        "icon": "mdi:percent",
+        "state_class": "measurement"
+      }
+    },
+    {
+      "register_no": 65,
+      "variable_name": "bat_4_soc_pct",
+      "description": "Battery 1 SoC",
+      "unit": "%",
+      "size": 2,
+      "multiplier": 1,
+      "ha": {
+        "name": "Battery 4 SoC",
+        "unit_of_measurement": "%",
+        "icon": "mdi:percent",
+        "state_class": "measurement"
+      }
+    },
+    {
       "register_no": 8,
       "variable_name": "priority_mode",
       "description": "Priority Mode",

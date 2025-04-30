@@ -72,12 +72,13 @@ NEO_SP2_REGISTERS = [
     3101, 3115
 ]
 
+# TODO: Add additional registers based on battery count
 NOAH_REGISTERS = [
      2,   7,   8,  10,  11,  12,  13,
     21,  23,  25,  27,  29,  72,  74,
     76,  78,  90,  91,  92,  93,  94,
     95,  96,  97,  99, 100, 101, 102,
-   109
+   109,  65,  53,  41
 ]
 
 REGISTER_FILTER_ENV = os.getenv("REGISTER_FILTER", "")
