@@ -5,6 +5,8 @@ It supports auto-discovery via MQTT and allows full integration of Growatt data 
 
 ![GroBro Logos](https://raw.githubusercontent.com/robertzaage/GroBro/refs/heads/main/assets/grobro_logo.png)
 
+Join us at [#grobro:matrix.org](https://matrix.to/#/#grobro:matrix.org)
+
 ---
 
 ## Features
