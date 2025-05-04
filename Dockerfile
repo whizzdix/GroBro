@@ -1,4 +1,4 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=python:3.11-alpine
 FROM $BUILD_FROM
 
 RUN apk add --no-cache python3
