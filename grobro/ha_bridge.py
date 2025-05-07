@@ -2,6 +2,7 @@
 # Reads Growatt MQTT packets, decodes them, maps registers and republishes values for Home Assistant auto-discovery
 
 import os
+from dataclasses import asdict
 import json
 import struct
 import ssl
@@ -13,9 +14,9 @@ from .grobro import unscramble, parse_modbus_type, load_modbus_input_register_fi
 import grobro.ha as ha
 import time
 from threading import Timer
+import grobro.model as model
 
 Forwarding_Clients = {}
-ha_lookup = {}
 device_timers = {}
 
 # Configuration from environment variables
@@ -55,16 +56,6 @@ LOG = logging.getLogger(__name__)
 
 
 ha_client = ha.Client(TARGET_MQTT_HOST, TARGET_MQTT_PORT, TARGET_MQTT_TLS, TARGET_MQTT_USER, TARGET_MQTT_PASS)
-for fname in os.listdir("."):
-    if fname.startswith("config_") and fname.endswith(".json"):
-        try:
-            with open(fname, "r") as f:
-                config = json.load(f)
-                device_id = config.get("serial_number") or fname[7:-5]
-                if device_id:
-                    ha_client.set_config(device_id, config)
-        except Exception as e:
-            LOG.error(f"Failed to load config {fname}: {e}")
 
 # Ensure that the dump directory exists (not sure if needed, but for safety)
 if DUMP_MESSAGES and not os.path.exists(DUMP_DIR):
@@ -171,23 +162,6 @@ def on_message(client, userdata, msg: MQTTMessage):
             # Config message
             config_offset = find_config_offset(unscrambled)
             config = parse_config_type(unscrambled, config_offset)
-            device_id = config.get("serial_number")
-            config_path = f"config_{device_id}.json"
-            save_config = True
-            if os.path.exists(config_path):
-                try:
-                    with open(config_path, "r") as f:
-                        existing = json.load(f)
-                        if existing == config:
-                            save_config = False
-                except Exception:
-                    pass
-            if save_config:
-                with open(config_path, "w") as f:
-                    json.dump(config, f, indent=2)
-                LOG.info(f"Saved updated config for {device_id}")
-            else:
-                LOG.debug(f"No config change for {device_id}")
             ha_client.set_config(device_id=device_id, config=config)
         # NOAH=323 NEO=577
         elif msg_type in (323, 577):
@@ -202,11 +176,13 @@ def on_message(client, userdata, msg: MQTTMessage):
             modbus_input_register_descriptions = load_modbus_input_register_file(regfile)
 
             # Rebuild HA metadata lookup for this register set
-            ha_lookup.clear()
-            ha_lookup.update({
-                reg["variable_name"]: reg.get("ha")
-                for reg in modbus_input_register_descriptions if reg.get("ha")
-            })
+            ha_lookup = {}
+            for reg in modbus_input_register_descriptions:
+                if reg.get("ha"):
+                    ha_lookup[reg["variable_name"]] = model.DeviceState(
+                        variable_name = reg["variable_name"],
+                        **reg["ha"],
+                    )
             parsed = parse_modbus_type(unscrambled, modbus_input_register_descriptions)
             device_id = parsed.get("device_id")
             all_registers = parsed.get("modbus1", {}).get("registers", []) + parsed.get("modbus2", {}).get("registers", [])
@@ -220,7 +196,7 @@ def on_message(client, userdata, msg: MQTTMessage):
             publish_state(device_id, all_registers)
             for reg in all_registers:
                 ha = ha_lookup.get(reg['name'], {})
-                ha_client.publish_discovery(device_id, reg['name'], ha)
+                ha_client.publish_discovery(device_id, ha)
             LOG.info(f"Published state for {device_id} with {len(all_registers)} registers")
     except Exception as e:
         LOG.error(f"Error processing message: {e}")
