@@ -13,20 +13,18 @@ class Client:
     config_cache: dict[str, model.DeviceConfig] = {}
     discovery_cache: dict[str, list[str]] = {}
 
-    def __init__(
-        self, host: str, port: str, tls: bool, user: str | None, password: str | None
-    ):
+    def __init__(self, mqtt_config: model.MQTTConfig):
         # Setup target MQTT client for publishing
-        LOG.info(f"connecting to HA mqtt '{host}:{port}'")
+        LOG.info(f"connecting to HA mqtt '{mqtt_config.host}:{mqtt_config.port}'")
         self.client = mqtt.Client(
             mqtt.CallbackAPIVersion.VERSION2, client_id="grobro-ha"
         )
-        if user and password:
-            self.client.username_pw_set(user, password)
-        if tls:
+        if mqtt_config.username and mqtt_config.password:
+            self.client.username_pw_set(mqtt_config.user, mqtt_config.password)
+        if mqtt_config.use_tls:
             self.client.tls_set(cert_reqs=ssl.CERT_NONE)
             self.client.tls_insecure_set(True)
-        self.client.connect(host, port, 60)
+        self.client.connect(mqtt_config.host, mqtt_config.port, 60)
         self.client.loop_start()
 
         for fname in os.listdir("."):

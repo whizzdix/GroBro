@@ -20,19 +20,10 @@ Forwarding_Clients = {}
 device_timers = {}
 
 # Configuration from environment variables
-SOURCE_MQTT_HOST = os.getenv("SOURCE_MQTT_HOST", "localhost")
-SOURCE_MQTT_PORT = int(os.getenv("SOURCE_MQTT_PORT", 1883))
-SOURCE_MQTT_USER = os.getenv("SOURCE_MQTT_USER")
-SOURCE_MQTT_PASS = os.getenv("SOURCE_MQTT_PASS")
-SOURCE_MQTT_TLS = os.getenv("SOURCE_MQTT_TLS", "false").lower() == "true"
+grobro_mqtt_config = model.MQTTConfig.from_env(prefix="SOURCE", defaults=model.MQTTConfig(host="localhost", port=1883))
+ha_mqtt_config = model.MQTTConfig.from_env(prefix="TARGET", defaults = grobro_mqtt_config)
+forward_mqtt_config = model.MQTTConfig.from_env(prefix="FORWARD", defaults=model.MQTTConfig(host="mqtt.growatt.com", port=7006))
 
-TARGET_MQTT_HOST = os.getenv("TARGET_MQTT_HOST", SOURCE_MQTT_HOST)
-TARGET_MQTT_PORT = int(os.getenv("TARGET_MQTT_PORT", SOURCE_MQTT_PORT))
-TARGET_MQTT_USER = os.getenv("TARGET_MQTT_USER", SOURCE_MQTT_USER)
-TARGET_MQTT_PASS = os.getenv("TARGET_MQTT_PASS", SOURCE_MQTT_PASS)
-TARGET_MQTT_TLS = os.getenv("TARGET_MQTT_TLS", "false").lower() == "true"
-FORWARD_MQTT_HOST = os.getenv("FORWARD_MQTT_HOST", "mqtt.growatt.com")
-FORWARD_MQTT_PORT = int( os.getenv("FORWARD_MQTT_PORT", 7006))
 ACTIVATE_COMMUNICATION_GROWATT_SERVER = os.getenv("ACTIVATE_COMMUNICATION_GROWATT_SERVER", "false").lower() == "true"
 LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR").upper()
 
@@ -55,7 +46,7 @@ except Exception as e:
 LOG = logging.getLogger(__name__)
 
 
-ha_client = ha.Client(TARGET_MQTT_HOST, TARGET_MQTT_PORT, TARGET_MQTT_TLS, TARGET_MQTT_USER, TARGET_MQTT_PASS)
+ha_client = ha.Client(ha_mqtt_config)
 
 # Ensure that the dump directory exists (not sure if needed, but for safety)
 if DUMP_MESSAGES and not os.path.exists(DUMP_DIR):
@@ -218,9 +209,9 @@ def connect_to_growatt_server(client_id):
         Forwarding_Clients[f"forward_client_{client_id}"].tls_set(cert_reqs=ssl.CERT_NONE)
         Forwarding_Clients[f"forward_client_{client_id}"].tls_insecure_set(True)
         Forwarding_Clients[f"forward_client_{client_id}"].on_message = on_message_forward_client
-        Forwarding_Clients[f"forward_client_{client_id}"].connect(FORWARD_MQTT_HOST, FORWARD_MQTT_PORT, 60)
+        Forwarding_Clients[f"forward_client_{client_id}"].connect(forward_mqtt_config.host, forward_mqtt_config.port, 60)
         Forwarding_Clients[f"forward_client_{client_id}"].subscribe(f"+/{client_id}")
-        LOG.info(f"Connected to Forwarding Server at {FORWARD_MQTT_HOST}:{FORWARD_MQTT_PORT} with ClientId{client_id}, listening on 's/#'")
+        LOG.info(f"Connected to Forwarding Server at {forward_mqtt_config.host}:{forward_mqtt_config.port} with ClientId{client_id}, listening on 's/#'")
         forward_thread = threading.Thread(target=Forwarding_Clients[f"forward_client_{client_id}"].loop_forever)
         forward_thread.start()
     return Forwarding_Clients[f"forward_client_{client_id}"]
@@ -241,14 +232,14 @@ def reset_device_timer(device_id):
 
 # Setup source MQTT client for subscribing
 source_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id="grobro-source")
-if SOURCE_MQTT_USER and SOURCE_MQTT_PASS:
-    source_client.username_pw_set(SOURCE_MQTT_USER, SOURCE_MQTT_PASS)
-if SOURCE_MQTT_TLS:
+if grobro_mqtt_config.username and grobro_mqtt_config.password:
+    source_client.username_pw_set(grobro_mqtt_config.username, grobro_mqtt_config.password)
+if grobro_mqtt_config.use_tls:
     source_client.tls_set(cert_reqs=ssl.CERT_NONE)
     source_client.tls_insecure_set(True)
 source_client.on_message = on_message
-source_client.connect(SOURCE_MQTT_HOST, SOURCE_MQTT_PORT, 60)
+source_client.connect(grobro_mqtt_config.host, grobro_mqtt_config.port, 60)
 source_client.subscribe("c/#")
-LOG.info(f"Connected to source MQTT at {SOURCE_MQTT_HOST}:{SOURCE_MQTT_PORT}, listening on 'c/#'")
+LOG.info(f"Connected to source MQTT at {grobro_mqtt_config.host}:{grobro_mqtt_config.port}, listening on 'c/#'")
 source_thread = threading.Thread(target=source_client.loop_forever)
 source_thread.start()
