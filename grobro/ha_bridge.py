@@ -10,7 +10,7 @@ import paho.mqtt.client as mqtt
 from paho.mqtt.client import MQTTMessage
 import threading
 import logging
-from .grobro import unscramble, parse_modbus_type, load_modbus_input_register_file, parse_config_type, find_config_offset # TODO avoid relative import with more refactoring
+import grobro.grobro.parser as parser
 import grobro.ha as ha
 import time
 from threading import Timer
@@ -143,28 +143,28 @@ def on_message(client, userdata, msg: MQTTMessage):
         if ACTIVATE_COMMUNICATION_GROWATT_SERVER:
             Forwarding_Client = connect_to_growatt_server(msg.topic.split("/")[-1])
             Forwarding_Client.publish(msg.topic, payload=msg.payload, qos=msg.qos, retain=msg.retain)
-        unscrambled = unscramble(msg.payload)
+        unscrambled = parser.unscramble(msg.payload)
         msg_type = struct.unpack_from('>H', unscrambled, 4)[0]
-        unscrambled = unscramble(msg.payload)
+        unscrambled = parser.unscramble(msg.payload)
         msg_type = struct.unpack_from('>H', unscrambled, 4)[0]
 
         # NOAH=387 NEO=340
         if msg_type in (387, 340):
             # Config message
-            config_offset = find_config_offset(unscrambled)
-            config = parse_config_type(unscrambled, config_offset)
+            config_offset = parser.find_config_offset(unscrambled)
+            config = parser.parse_config_type(unscrambled, config_offset)
             ha_client.set_config(device_id=device_id, config=config)
         # NOAH=323 NEO=577
         elif msg_type in (323, 577):
             # Modbus message
-            temp_descriptions = load_modbus_input_register_file("growatt_inverter_registers.json")
-            parsed = parse_modbus_type(unscrambled, temp_descriptions)
+            temp_descriptions = parser.load_modbus_input_register_file("growatt_inverter_registers.json")
+            parsed = parser.parse_modbus_type(unscrambled, temp_descriptions)
             device_id = parsed.get("device_id")
             alias = device_filter_alias_map.get(device_id)
             regfile = "growatt_inverter_registers.json"
             if alias and alias.strip().upper() == "NOAH":
                 regfile = "growatt_noah_registers.json"
-            modbus_input_register_descriptions = load_modbus_input_register_file(regfile)
+            modbus_input_register_descriptions = parser.load_modbus_input_register_file(regfile)
 
             # Rebuild HA metadata lookup for this register set
             ha_lookup = {}
@@ -174,7 +174,7 @@ def on_message(client, userdata, msg: MQTTMessage):
                         variable_name = reg["variable_name"],
                         **reg["ha"],
                     )
-            parsed = parse_modbus_type(unscrambled, modbus_input_register_descriptions)
+            parsed = parser.parse_modbus_type(unscrambled, modbus_input_register_descriptions)
             device_id = parsed.get("device_id")
             all_registers = parsed.get("modbus1", {}).get("registers", []) + parsed.get("modbus2", {}).get("registers", [])
             alias = device_filter_alias_map.get(device_id)
