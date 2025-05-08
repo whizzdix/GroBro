@@ -1,35 +1,16 @@
-# Home Assistant extension for GroBro to act as a MQTT bridge between source and target MQTT brokers
-# Reads Growatt MQTT packets, decodes them, maps registers and republishes values for Home Assistant auto-discovery
+"""
+Home Assistant extension for GroBro to act as a MQTT bridge
+between source and target MQTT brokers.
+Reads Growatt MQTT packets, decodes them, maps registers
+and republishes values for Home Assistant auto-discovery.
+"""
 
 import os
-from dataclasses import asdict
-import json
 import signal
-import ssl
-import paho.mqtt.client as mqtt
-import importlib.resources as resources
-import threading
 import logging
 import time
-import grobro.model as model
-import grobro.ha as ha
-import grobro.grobro as grobro
 
-REGISTER_FILTER_ENV = os.getenv("REGISTER_FILTER", "")
-REGISTER_FILTER: dict[str, model.DeviceAlias] = {}
-for entry in REGISTER_FILTER_ENV.split(","):
-    if ":" in entry:
-        serial, alias = entry.split(":", 1)
-        REGISTER_FILTER[serial] = model.DeviceAlias(alias)
-
-# Configuration from environment variables
-grobro_mqtt_config = model.MQTTConfig.from_env(
-    prefix="SOURCE", defaults=model.MQTTConfig(host="localhost", port=1883)
-)
-ha_mqtt_config = model.MQTTConfig.from_env(prefix="TARGET", defaults=grobro_mqtt_config)
-forward_mqtt_config = model.MQTTConfig.from_env(
-    prefix="FORWARD", defaults=model.MQTTConfig(host="mqtt.growatt.com", port=7006)
-)
+from grobro import model, ha, grobro
 
 # Setup Logger
 LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR").upper()
@@ -38,6 +19,7 @@ try:
         level=LOG_LEVEL,
         format="%(asctime)s [%(levelname)s] %(message)s",
     )
+# pylint: disable-next=broad-exception-caught
 except Exception as e:
     logging.basicConfig(
         level=logging.ERROR,
@@ -46,34 +28,78 @@ except Exception as e:
     print(f"Failed to setup Logger {e} USING DEFAULT LOG Level(Error)")
 LOG = logging.getLogger(__name__)
 
+# Configuration from environment variables
+REGISTER_FILTER_ENV = os.getenv("REGISTER_FILTER", "")
+REGISTER_FILTER: dict[str, model.DeviceAlias] = {}
+for entry in REGISTER_FILTER_ENV.split(","):
+    if ":" in entry:
+        serial, alias = entry.split(":", 1)
+        REGISTER_FILTER[serial] = model.DeviceAlias(alias)
 
-ha_client = ha.Client(ha_mqtt_config, REGISTER_FILTER)
-grobro_client = grobro.Client(grobro_mqtt_config)
+GROBRO_MQTT_CONFIG = model.MQTTConfig.from_env(
+    prefix="SOURCE",
+    defaults=model.MQTTConfig(host="localhost", port=1883),
+)
+HA_MQTT_CONFIG = model.MQTTConfig.from_env(
+    prefix="TARGET",
+    defaults=GROBRO_MQTT_CONFIG,
+)
+FORWARD_MQTT_CONFIG = model.MQTTConfig.from_env(
+    prefix="FORWARD",
+    defaults=model.MQTTConfig(host="mqtt.growatt.com", port=7006),
+)
 
-grobro_client.on_state = ha_client.publish_state
-grobro_client.on_config = ha_client.set_config
-
-running = True
+RUNNING = True
 
 
-def signal_handler(signum, frame):
-    global running
-    print(f"Signal {signum} received, shutting down...")
-    running = False
+# pylint: disable-next=too-few-public-methods
+class SignalHandler:
+    """
+    Catches SIGINT and SIGTERM in order to trigger
+    graceful shutdown.
+    """
+
+    _caught: bool
+
+    def __init__(self):
+        self._running = True
+        # Register signal handlers for graceful shutdown
+        signal.signal(signal.SIGINT, self._handle)
+        signal.signal(signal.SIGTERM, self._handle)
+
+    def _handle(self, _, __):
+        """
+        Handles signal by setting RUNNING to false.
+        """
+        LOG.info("signal received, shutting down...")
+        self._running = False
+
+    @property
+    def caught(self) -> bool:
+        """
+        Wether the signal was caught.
+        """
+        return self._running
 
 
-# Register signal handlers for graceful shutdown
-signal.signal(signal.SIGINT, signal_handler)
-signal.signal(signal.SIGTERM, signal_handler)
+if __name__ == "__main__":
+    ha_client = ha.Client(HA_MQTT_CONFIG, REGISTER_FILTER)
+    grobro_client = grobro.Client(GROBRO_MQTT_CONFIG)
 
-# Assume client1 and client2 have .start() and .stop()
-ha_client.start()
-grobro_client.start()
+    grobro_client.on_state = ha_client.publish_state
+    grobro_client.on_config = ha_client.set_config
 
-try:
-    while running:
-        time.sleep(0.1)
-finally:
-    ha_client.stop()
-    grobro_client.stop()
-    print("Stopped both clients. Exiting.")
+    RUNNING = True
+    signal_handler = SignalHandler()
+
+    # Assume client1 and client2 have .start() and .stop()
+    ha_client.start()
+    grobro_client.start()
+
+    try:
+        while signal_handler.caught:
+            time.sleep(0.1)
+    finally:
+        ha_client.stop()
+        grobro_client.stop()
+        LOG.info("stopped both clients. Exiting.")
