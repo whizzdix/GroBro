@@ -6,13 +6,7 @@
       "description": "Battery 1 SoC",
       "unit": "%",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Battery 2 SoC",
-        "unit_of_measurement": "%",
-        "icon": "mdi:percent",
-        "state_class": "measurement"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 53,
@@ -20,13 +14,7 @@
       "description": "Battery 1 SoC",
       "unit": "%",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Battery 3 SoC",
-        "unit_of_measurement": "%",
-        "icon": "mdi:percent",
-        "state_class": "measurement"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 65,
@@ -34,13 +22,7 @@
       "description": "Battery 1 SoC",
       "unit": "%",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Battery 4 SoC",
-        "unit_of_measurement": "%",
-        "icon": "mdi:percent",
-        "state_class": "measurement"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 8,
@@ -52,11 +34,7 @@
         "2": "Grid First"
       },
       "unit": null,
-      "size": 2,
-      "ha": {
-        "name": "Priority Mode",
-        "icon": "mdi:alert-circle"
-      }
+      "size": 2
     },
     {
       "register_no": 10,
@@ -68,11 +46,7 @@
         "2": "Discharging"
       },
       "unit": null,
-      "size": 2,
-      "ha": {
-        "name": "Battery System State",
-        "icon": "mdi:battery-sync"
-      }
+      "size": 2
     },
     {
       "register_no": 13,
@@ -80,14 +54,7 @@
       "description": "Total Battery SoC",
       "unit": "%",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Total Battery SoC",
-        "unit_of_measurement": "%",
-        "icon": "mdi:percent",
-        "state_class": "measurement",
-        "device_class": "battery"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 92,
@@ -95,14 +62,7 @@
       "description": "PV1 voltage",
       "unit": "V",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "PV1 voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash",
-        "state_class": "measurement",
-        "device_class": "voltage"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 95,
@@ -110,14 +70,7 @@
       "description": "PV2 voltage",
       "unit": "V",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "PV2 voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash",
-        "state_class": "measurement",
-        "device_class": "voltage"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 2,
@@ -125,14 +78,7 @@
       "description": "Output power",
       "unit": "W",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Output power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash",
-        "state_class": "measurement",
-        "device_class": "power"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 109,
@@ -140,13 +86,7 @@
       "description": "Output voltage",
       "unit": "V",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "Output voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash",
-        "state_class": "measurement"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 97,
@@ -154,14 +94,7 @@
       "description": "Temperature 2",
       "unit": "°C",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "Temperature 2",
-        "unit_of_measurement": "°C",
-        "icon": "mdi:thermometer",
-        "state_class": "measurement",
-        "device_class": "temperature"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 99,
@@ -169,14 +102,7 @@
       "description": "Maximum Cell Voltage",
       "unit": "V",
       "size": 2,
-      "multiplier": 0.001,
-      "ha": {
-        "name": "Battery 1 max. Cell Voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash",
-        "state_class": "measurement",
-        "device_class": "voltage"
-      }
+      "multiplier": 0.001
     },
     {
       "register_no": 100,
@@ -184,14 +110,7 @@
       "description": "Minimum Cell Voltage",
       "unit": "V",
       "size": 2,
-      "multiplier": 0.001,
-      "ha": {
-        "name": "Battery 1 min. Cell Voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash",
-        "state_class": "measurement",
-        "device_class": "voltage"
-      }
+      "multiplier": 0.001
     },
     {
       "register_no": 7,
@@ -199,14 +118,7 @@
       "description": "PV total power",
       "unit": "W",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "PV total power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash",
-        "state_class": "measurement",
-        "device_class": "power"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 11,
@@ -215,14 +127,7 @@
       "unit": "W",
       "size": 2,
       "multiplier": 1,
-      "delta": -30000,
-      "ha": {
-        "name": "Charging Power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash",
-        "state_class": "measurement",
-        "device_class": "power"
-      }
+      "delta": -30000
     },
     {
       "register_no": 72,
@@ -230,14 +135,7 @@
       "description": "PV energy today",
       "unit": "kWh",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV energy today",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power",
-        "state_class": "total_increasing",
-        "device_class": "energy"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 74,
@@ -245,14 +143,7 @@
       "description": "PV energy month",
       "unit": "kWh",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV energy month",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power",
-        "state_class": "total_increasing",
-        "device_class": "energy"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 21,
@@ -260,11 +151,7 @@
       "description": "Serial Part 1",
       "unit": "s",
       "size": 4,
-      "multiplier": 1,
-      "ha": {
-        "name": "Serial Part 1",
-        "icon": "mdi:identifier"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 76,
@@ -272,14 +159,7 @@
       "description": "PV energy year",
       "unit": "kWh",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV energy year",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power",
-        "state_class": "total_increasing",
-        "device_class": "energy"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 78,
@@ -287,14 +167,7 @@
       "description": "Energy output device",
       "unit": "kWh",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Energy output device",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power",
-        "state_class": "total_increasing",
-        "device_class": "energy"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 25,
@@ -302,11 +175,7 @@
       "description": "Serial Part 3",
       "unit": "s",
       "size": 4,
-      "multiplier": 1,
-      "ha": {
-        "name": "Serial Part 3",
-        "icon": "mdi:identifier"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 23,
@@ -314,11 +183,7 @@
       "description": "Serial Part 2",
       "unit": "s",
       "size": 4,
-      "multiplier": 1,
-      "ha": {
-        "name": "Serial Part 2",
-        "icon": "mdi:identifier"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 27,
@@ -326,11 +191,7 @@
       "description": "Serial Part 4",
       "unit": "s",
       "size": 4,
-      "multiplier": 1,
-      "ha": {
-        "name": "Serial Part 4",
-        "icon": "mdi:identifier"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 29,
@@ -338,13 +199,7 @@
       "description": "Battery 1 SoC",
       "unit": "%",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Battery 1 SoC",
-        "unit_of_measurement": "%",
-        "icon": "mdi:percent",
-        "state_class": "measurement"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 91,
@@ -352,13 +207,7 @@
       "description": "Discharge Limit",
       "unit": "%",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Discharge Limit",
-        "unit_of_measurement": "%",
-        "icon": "mdi:percent",
-        "state_class": "measurement"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 90,
@@ -366,13 +215,7 @@
       "description": "Charge Limit",
       "unit": "%",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Charge Limit",
-        "unit_of_measurement": "%",
-        "icon": "mdi:percent",
-        "state_class": "measurement"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 94,
@@ -380,14 +223,7 @@
       "description": "Temperature 1",
       "unit": "°C",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "Temperature 1",
-        "unit_of_measurement": "°C",
-        "icon": "mdi:thermometer",
-        "state_class": "measurement",
-        "device_class": "temperature"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 93,
@@ -395,13 +231,7 @@
       "description": "PV1 input current",
       "unit": "A",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "PV1 input current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac",
-        "state_class": "measurement"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 96,
@@ -409,13 +239,7 @@
       "description": "PV2 input current",
       "unit": "A",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "PV2 input current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac",
-        "state_class": "measurement"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 12,
@@ -423,11 +247,7 @@
       "description": "Battery Count",
       "unit": "V",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Battery Count",
-        "icon": "mdi:information"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 101,
@@ -435,11 +255,7 @@
       "description": "Battery Cycle Count",
       "unit": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Battery Cycle Count",
-        "icon": "mdi:counter"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 102,
@@ -447,13 +263,7 @@
       "description": "Register No 102",
       "unit": "V",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Register No 102",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash",
-        "state_class": "measurement"
-      }
+      "multiplier": 1
     }
   ]
 }

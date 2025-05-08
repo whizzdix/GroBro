@@ -19,11 +19,7 @@
       "note": null,
       "offset": 0,
       "size": 1,
-      "multiplier": 1,
-      "ha": {
-        "name": "Inverter run state",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3000,
@@ -39,11 +35,7 @@
       "note": null,
       "offset": 1,
       "size": 1,
-      "multiplier": 1,
-      "ha": {
-        "name": "Inverter run state. Indicate the machine status (web page display)",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3001,
@@ -52,14 +44,7 @@
       "unit": "W",
       "note": "Output power",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV total power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3003,
@@ -68,14 +53,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV1 voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3004,
@@ -84,14 +62,7 @@
       "unit": "A",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV1 input current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3005,
@@ -100,14 +71,7 @@
       "unit": "W",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV1 power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3007,
@@ -116,14 +80,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV2 voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3008,
@@ -132,14 +89,7 @@
       "unit": "A",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV2 input current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3009,
@@ -148,14 +98,7 @@
       "unit": "W",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV2 power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3011,
@@ -164,14 +107,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV3 voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3012,
@@ -180,14 +116,7 @@
       "unit": "A",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV3 input current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3013,
@@ -196,14 +125,7 @@
       "unit": "W",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV3 power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3015,
@@ -212,14 +134,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV4 voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3016,
@@ -228,14 +143,7 @@
       "unit": "A",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV4 input current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3017,
@@ -244,14 +152,7 @@
       "unit": "W",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV4 power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3023,
@@ -260,14 +161,7 @@
       "unit": "W",
       "note": "Output power",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Output power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3025,
@@ -276,14 +170,7 @@
       "unit": "Hz",
       "note": "Grid frequency",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "Grid frequency",
-        "state_class": "measurement",
-        "device_class": "frequency",
-        "unit_of_measurement": "Hz",
-        "icon": "mdi:sine-wave"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 3026,
@@ -292,14 +179,7 @@
       "unit": "V",
       "note": "Three or single phase grid",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three or single phase grid voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3027,
@@ -308,14 +188,7 @@
       "unit": "A",
       "note": "Three or single phase grid output current",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three or single phase grid output current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3028,
@@ -324,14 +197,7 @@
       "unit": "VA",
       "note": "Three or single phase grid output power",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three or single phase grid output power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3030,
@@ -340,14 +206,7 @@
       "unit": "V",
       "note": "Three phase grid voltage",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three phase grid voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3031,
@@ -356,14 +215,7 @@
       "unit": "A",
       "note": "Three phase grid output current",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three phase grid output current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3032,
@@ -372,14 +224,7 @@
       "unit": "VA",
       "note": "Three phase grid output power",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three phase grid output power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3034,
@@ -388,14 +233,7 @@
       "unit": "V",
       "note": "Three phase grid voltage",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three phase grid voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3035,
@@ -404,14 +242,7 @@
       "unit": "A",
       "note": "Three phase grid output current",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three phase grid output current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3036,
@@ -420,14 +251,7 @@
       "unit": "VA",
       "note": "Three phase grid output power",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three phase grid output power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3038,
@@ -436,14 +260,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three phase grid voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3039,
@@ -452,14 +269,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three phase grid voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3040,
@@ -468,14 +278,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Three phase grid voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3041,
@@ -484,14 +287,7 @@
       "unit": "W",
       "note": "Total forward power",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Total forward power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3043,
@@ -500,14 +296,7 @@
       "unit": "W",
       "note": "Total reverse power",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Total reverse power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3045,
@@ -516,14 +305,7 @@
       "unit": "W",
       "note": "Total load power",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Total load power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3047,
@@ -532,13 +314,7 @@
       "unit": "s",
       "note": null,
       "size": 4,
-      "multiplier": 0.5,
-      "ha": {
-        "name": "Work time total",
-        "state_class": "measurement",
-        "unit_of_measurement": "s",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 0.5
     },
     {
       "register_no": 3049,
@@ -547,14 +323,7 @@
       "unit": "kWh",
       "note": "Today generate energy",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Today generate energy",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3051,
@@ -563,14 +332,7 @@
       "unit": "kWh",
       "note": "Total generate energy",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Total generate energy",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3053,
@@ -579,14 +341,7 @@
       "unit": "kWh",
       "note": "PV energy total",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV energy total",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3055,
@@ -595,14 +350,7 @@
       "unit": "kWh",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV1 energy today",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3057,
@@ -611,14 +359,7 @@
       "unit": "kWh",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV1 energy total",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3059,
@@ -627,14 +368,7 @@
       "unit": "kWh",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV2 energy today",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3061,
@@ -643,14 +377,7 @@
       "unit": "kWh",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV2 energy total",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3063,
@@ -659,14 +386,7 @@
       "unit": "kWh",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV3 energy today",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3065,
@@ -675,14 +395,7 @@
       "unit": "kWh",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "PV3 energy total",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3067,
@@ -691,14 +404,7 @@
       "unit": "kWh",
       "note": "Today energy to user",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Today energy to user",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3069,
@@ -707,14 +413,7 @@
       "unit": "kWh",
       "note": "Total energy to user",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Total energy to user",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3071,
@@ -723,14 +422,7 @@
       "unit": "kWh",
       "note": "Today energy to grid",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Today energy to grid",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3073,
@@ -739,14 +431,7 @@
       "unit": "kWh",
       "note": "Total energy to grid",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Total energy to grid",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3075,
@@ -755,14 +440,7 @@
       "unit": "kWh",
       "note": "Today energy of user load",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Today energy of user load",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3077,
@@ -771,14 +449,7 @@
       "unit": "kWh",
       "note": "Total energy of user load",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Total energy of user load",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3086,
@@ -806,26 +477,16 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Derating Mode",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3087,
       "variable_name": "PV ISO value",
       "description": "PV ISO value",
-      "unit": "K\u03a9",
+      "unit": "KΩ",
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "PV ISO value",
-        "state_class": "measurement",
-        "unit_of_measurement": "k\u03a9",
-        "icon": "mdi:omega"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3088,
@@ -834,13 +495,7 @@
       "unit": "mA",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "R DCI Curr",
-        "state_class": "measurement",
-        "unit_of_measurement": "ma",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3089,
@@ -849,13 +504,7 @@
       "unit": "mA",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "S DCI Curr",
-        "state_class": "measurement",
-        "unit_of_measurement": "ma",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3090,
@@ -864,13 +513,7 @@
       "unit": "mA",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "T DCI Curr",
-        "state_class": "measurement",
-        "unit_of_measurement": "ma",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3091,
@@ -879,93 +522,52 @@
       "unit": "mA",
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "GFCI Curr",
-        "state_class": "measurement",
-        "unit_of_measurement": "ma",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3093,
       "variable_name": "Temp1",
       "description": "Inverter temperature",
-      "unit": "\u2103",
+      "unit": "℃",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Inverter temperature",
-        "state_class": "measurement",
-        "device_class": "temperature",
-        "unit_of_measurement": "\u00b0C",
-        "icon": "mdi:thermometer"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3094,
       "variable_name": "Temp2",
       "description": "The inside IPM in inverter temperature",
-      "unit": "\u2103",
+      "unit": "℃",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "The inside IPM in inverter temperature",
-        "state_class": "measurement",
-        "device_class": "temperature",
-        "unit_of_measurement": "\u00b0C",
-        "icon": "mdi:thermometer"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3095,
       "variable_name": "Temp3",
       "description": "Boost temperature",
-      "unit": "\u2103",
+      "unit": "℃",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Boost temperature",
-        "state_class": "measurement",
-        "device_class": "temperature",
-        "unit_of_measurement": "\u00b0C",
-        "icon": "mdi:thermometer"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3096,
       "variable_name": "Temp4",
       "description": "Reserved",
-      "unit": "\u2103",
+      "unit": "℃",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Reserved",
-        "state_class": "measurement",
-        "device_class": "temperature",
-        "unit_of_measurement": "\u00b0C",
-        "icon": "mdi:thermometer"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3097,
       "variable_name": "Temp5",
       "description": "Commmunication broad temperature",
-      "unit": "\u2103",
+      "unit": "℃",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Commmunication broad temperature",
-        "state_class": "measurement",
-        "device_class": "temperature",
-        "unit_of_measurement": "\u00b0C",
-        "icon": "mdi:thermometer"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3098,
@@ -974,14 +576,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "P Bus inside Voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3099,
@@ -990,14 +585,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "N Bus inside Voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3100,
@@ -1008,12 +596,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Inverter output PF now",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3101,
@@ -1022,13 +605,7 @@
       "unit": "%",
       "note": "1~100",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Real Output power",
-        "state_class": "measurement",
-        "unit_of_measurement": "%",
-        "icon": "mdi:percent"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3102,
@@ -1037,14 +614,7 @@
       "unit": "W",
       "note": "Output Maxpower Limited",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Output Maxpower Limited",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3104,
@@ -1059,12 +629,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Inverter standby flag",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3105,
@@ -1073,11 +638,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Inverter fault code",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3106,
@@ -1086,12 +647,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Inverter Warning code",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3107,
@@ -1100,11 +656,7 @@
       "unit": null,
       "note": "bitfield",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "System fault word0",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3108,
@@ -1113,11 +665,7 @@
       "unit": null,
       "note": "bitfield",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "System fault word1",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3109,
@@ -1126,11 +674,7 @@
       "unit": null,
       "note": "bitfield",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "System fault word2",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3110,
@@ -1139,11 +683,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "System fault word3",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3111,
@@ -1152,11 +692,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "System fault word4",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3112,
@@ -1165,11 +701,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "System fault word5",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3113,
@@ -1178,11 +710,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "System fault word6",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3114,
@@ -1191,11 +719,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "System fault word7",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3115,
@@ -1204,13 +728,7 @@
       "unit": "s",
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "inv start delay time",
-        "state_class": "measurement",
-        "unit_of_measurement": "s",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3118,
@@ -1225,12 +743,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "BDC connect state",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3119,
@@ -1243,12 +756,7 @@
       "unit": null,
       "note": "Current status of DryContact",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Current status of DryContact",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3125,
@@ -1257,14 +765,7 @@
       "unit": "kWh",
       "note": "Today discharge energy",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Today discharge energy",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3127,
@@ -1273,14 +774,7 @@
       "unit": "kWh",
       "note": "Total discharge energy",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Total discharge energy",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3129,
@@ -1289,14 +783,7 @@
       "unit": "kWh",
       "note": "Charge energy today",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Charge energy today",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3131,
@@ -1305,14 +792,7 @@
       "unit": "kWh",
       "note": "Charge energy total",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Charge energy total",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3133,
@@ -1321,14 +801,7 @@
       "unit": "kWh",
       "note": "Today energy of AC charge",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Today energy of AC charge",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3135,
@@ -1337,14 +810,7 @@
       "unit": "kWh",
       "note": "Total energy of AC charge",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Total energy of AC charge",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3144,
@@ -1358,11 +824,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Priority Word Mode",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3145,
@@ -1371,14 +833,7 @@
       "unit": "Hz",
       "note": null,
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "UPS frequency",
-        "state_class": "measurement",
-        "device_class": "frequency",
-        "unit_of_measurement": "Hz",
-        "icon": "mdi:sine-wave"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 3146,
@@ -1387,14 +842,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "UPS phase R output voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3147,
@@ -1403,14 +851,7 @@
       "unit": "A",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "UPS phase R output current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3148,
@@ -1419,14 +860,7 @@
       "unit": "VA",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "UPS phase R output power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3150,
@@ -1435,14 +869,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "UPS phase S output voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3151,
@@ -1451,14 +878,7 @@
       "unit": "A",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "UPS phase S output current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3152,
@@ -1467,14 +887,7 @@
       "unit": "VA",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "UPS phase S output power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3154,
@@ -1483,14 +896,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "UPS phase T output voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3155,
@@ -1499,14 +905,7 @@
       "unit": "A",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "UPS phase T output current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3156,
@@ -1515,14 +914,7 @@
       "unit": "VA",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "UPS phase T output power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3158,
@@ -1531,14 +923,7 @@
       "unit": "VA",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "UPS output power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3160,
@@ -1547,13 +932,7 @@
       "unit": "%",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Load of UPS ouput",
-        "state_class": "measurement",
-        "unit_of_measurement": "%",
-        "icon": "mdi:percent"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3161,
@@ -1562,12 +941,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Power factor",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3162,
@@ -1576,26 +950,19 @@
       "unit": "mV",
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "DC voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3166,
       "variable_name": "SysState_Mode",
       "description": "System work State and mode",
       "value_options": {
-        "\u9ad8 8 \u4f4d\u8868\u793a\u6a21\u5f0f": {
+        "高 8 位表示模式": {
           "0": "No charge and discharge",
           "1": "charge",
           "2": "Discharge"
         },
-        "\u4f4e 8 \u4f4d\u8868\u793a\u72b6\u6001": {
+        "低 8 位表示状态": {
           "0": "StandbyStatus",
           "1": "NormalStatus",
           "2": "FaultStatus",
@@ -1605,11 +972,7 @@
       "unit": null,
       "note": "BDC1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "System work State and mode",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3167,
@@ -1618,11 +981,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Storge device fault code",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3168,
@@ -1631,12 +990,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Storge device warning code",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3169,
@@ -1645,14 +999,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "Battery voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 3170,
@@ -1661,14 +1008,7 @@
       "unit": "A",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Battery current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3171,
@@ -1677,14 +1017,7 @@
       "unit": "%",
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "State of charge Capacity",
-        "state_class": "measurement",
-        "device_class": "battery",
-        "unit_of_measurement": "%",
-        "icon": "mdi:battery"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3172,
@@ -1693,14 +1026,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "BUS1 voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3173,
@@ -1709,14 +1035,7 @@
       "unit": "V",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "BUS2 voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3174,
@@ -1725,14 +1044,7 @@
       "unit": "A",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "BUCK-BOOST Current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3175,
@@ -1741,46 +1053,25 @@
       "unit": "A",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "LLC Current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3176,
       "variable_name": "TempA",
       "description": "Temperture A",
-      "unit": "\u2103",
+      "unit": "℃",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Temperture A",
-        "state_class": "measurement",
-        "device_class": "temperature",
-        "unit_of_measurement": "\u00b0C",
-        "icon": "mdi:thermometer"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3177,
       "variable_name": "TempB",
       "description": "Temperture B",
-      "unit": "\u2103",
+      "unit": "℃",
       "note": null,
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Temperture B",
-        "state_class": "measurement",
-        "device_class": "temperature",
-        "unit_of_measurement": "\u00b0C",
-        "icon": "mdi:thermometer"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3178,
@@ -1789,14 +1080,7 @@
       "unit": "W",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Discharge power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3180,
@@ -1805,14 +1089,7 @@
       "unit": "W",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Charge power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3182,
@@ -1821,14 +1098,7 @@
       "unit": "kWh",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Discharge total energy of storge device",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3184,
@@ -1837,14 +1107,7 @@
       "unit": "kWh",
       "note": null,
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Charge total energy of storge device",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3187,
@@ -1860,24 +1123,19 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "BDC mark (charge and discharge, fault alarm code)",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3189,
       "variable_name": "SysState_Mode",
       "description": "System work State and mode",
       "value_options": {
-        "\u9ad8 8 \u4f4d\u8868\u793a\u6a21\u5f0f": {
+        "高 8 位表示模式": {
           "0": "No charge and discharge",
           "1": "charge",
           "2": "Discharge"
         },
-        "\u4f4e 8 \u4f4d\u8868\u793a\u72b6\u6001": {
+        "低 8 位表示状态": {
           "0": "StandbyStatus",
           "1": "NormalStatus",
           "2": "FaultStatus",
@@ -1887,11 +1145,7 @@
       "unit": null,
       "note": "BDC2",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "System work State and mode",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3190,
@@ -1900,11 +1154,7 @@
       "unit": null,
       "note": "BDC2",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Storge device fault code",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3191,
@@ -1913,12 +1163,7 @@
       "unit": null,
       "note": "BDC2",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Storge device warning code",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3192,
@@ -1927,14 +1172,7 @@
       "unit": "V",
       "note": "BDC2",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "Battery voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 3193,
@@ -1943,14 +1181,7 @@
       "unit": "A",
       "note": "BDC2",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Battery current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3194,
@@ -1959,14 +1190,7 @@
       "unit": "%",
       "note": "BDC2",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "State of charge Capacity",
-        "state_class": "measurement",
-        "device_class": "battery",
-        "unit_of_measurement": "%",
-        "icon": "mdi:battery"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3195,
@@ -1975,14 +1199,7 @@
       "unit": "V",
       "note": "BDC2",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "BUS1 voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3196,
@@ -1991,14 +1208,7 @@
       "unit": "V",
       "note": "BDC2",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "BUS2 voltage",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3197,
@@ -2007,14 +1217,7 @@
       "unit": "A",
       "note": "BDC2",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "BUCK-BOOST Current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3198,
@@ -2023,46 +1226,25 @@
       "unit": "A",
       "note": "BDC2",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "LLC Current",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3199,
       "variable_name": "TempA",
       "description": "Temperture A",
-      "unit": "\u2103",
+      "unit": "℃",
       "note": "BDC2",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Temperture A",
-        "state_class": "measurement",
-        "device_class": "temperature",
-        "unit_of_measurement": "\u00b0C",
-        "icon": "mdi:thermometer"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3200,
       "variable_name": "TempB",
       "description": "Temperture B",
-      "unit": "\u2103",
+      "unit": "℃",
       "note": "BDC2",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Temperture B",
-        "state_class": "measurement",
-        "device_class": "temperature",
-        "unit_of_measurement": "\u00b0C",
-        "icon": "mdi:thermometer"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3201,
@@ -2071,14 +1253,7 @@
       "unit": "W",
       "note": "BDC2",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Discharge power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3203,
@@ -2087,14 +1262,7 @@
       "unit": "W",
       "note": "BDC2",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Charge power",
-        "state_class": "measurement",
-        "device_class": "power",
-        "unit_of_measurement": "W",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3205,
@@ -2103,14 +1271,7 @@
       "unit": "kWh",
       "note": "BDC2",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Discharge total energy of storge device",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3207,
@@ -2119,14 +1280,7 @@
       "unit": "kWh",
       "note": "BDC2",
       "size": 4,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Charge total energy of storge device",
-        "state_class": "total_increasing",
-        "device_class": "energy",
-        "unit_of_measurement": "kWh",
-        "icon": "mdi:solar-power"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3210,
@@ -2142,12 +1296,7 @@
       "unit": null,
       "note": null,
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "BDC mark (charge and discharge, fault alarm code)",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3212,
@@ -2156,11 +1305,7 @@
       "unit": null,
       "note": "R 1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Status from BMS",
-        "icon": "mdi:alert-circle"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3213,
@@ -2169,12 +1314,7 @@
       "unit": null,
       "note": "R 1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Error information from BMS",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3214,
@@ -2183,12 +1323,7 @@
       "unit": null,
       "note": "R 1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Warning information from BMS",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3215,
@@ -2197,14 +1332,7 @@
       "unit": "%",
       "note": "R 1%",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "SOC from BMS",
-        "state_class": "measurement",
-        "device_class": "battery",
-        "unit_of_measurement": "%",
-        "icon": "mdi:battery"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3216,
@@ -2213,14 +1341,7 @@
       "unit": "V",
       "note": "R 0.01V",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "Battery voltage from BMS",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 3217,
@@ -2229,30 +1350,16 @@
       "unit": "A",
       "note": "R 0.01A",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "Battery current from BMS",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 3218,
       "variable_name": "BMS_BatteryTemp",
       "description": "Battery temperature from BMS",
-      "unit": "\u2103",
-      "note": "R 0.1\u2103",
+      "unit": "℃",
+      "note": "R 0.1℃",
       "size": 2,
-      "multiplier": 0.1,
-      "ha": {
-        "name": "Battery temperature from BMS",
-        "state_class": "measurement",
-        "device_class": "temperature",
-        "unit_of_measurement": "\u00b0C",
-        "icon": "mdi:thermometer"
-      }
+      "multiplier": 0.1
     },
     {
       "register_no": 3219,
@@ -2261,14 +1368,7 @@
       "unit": "A",
       "note": "R 0.01A",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "Max. charge or discharge current from BMS (pylon)",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 3220,
@@ -2277,14 +1377,7 @@
       "unit": "A",
       "note": "R 0.01A",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "Delta V from BMS",
-        "state_class": "measurement",
-        "device_class": "current",
-        "unit_of_measurement": "A",
-        "icon": "mdi:current-ac"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 3221,
@@ -2293,12 +1386,7 @@
       "unit": "1",
       "note": "R 1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Cycle Count from BMS",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3222,
@@ -2307,12 +1395,7 @@
       "unit": "1",
       "note": "R 1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "SOH from BMS",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3223,
@@ -2321,14 +1404,7 @@
       "unit": "V",
       "note": "R 0.01V",
       "size": 2,
-      "multiplier": 0.01,
-      "ha": {
-        "name": "CV voltage from BMS",
-        "state_class": "measurement",
-        "device_class": "voltage",
-        "unit_of_measurement": "V",
-        "icon": "mdi:flash"
-      }
+      "multiplier": 0.01
     },
     {
       "register_no": 3224,
@@ -2337,12 +1413,7 @@
       "unit": "1",
       "note": "R 1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "BMSInformation from BMS",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3225,
@@ -2351,12 +1422,7 @@
       "unit": "1",
       "note": "R 1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Pack Information from BMS",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3226,
@@ -2365,12 +1431,7 @@
       "unit": "1",
       "note": "R 1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "Using Cap from BMS",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3227,
@@ -2379,11 +1440,7 @@
       "unit": "1",
       "note": "R 1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3228,
@@ -2392,12 +1449,7 @@
       "unit": "1",
       "note": "R 1",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "MCU Software version from BMS",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     },
     {
       "register_no": 3229,
@@ -2410,12 +1462,7 @@
       "unit": null,
       "note": "BMS Communication Type",
       "size": 2,
-      "multiplier": 1,
-      "ha": {
-        "name": "BMS Communication Type",
-        "state_class": "measurement",
-        "icon": "mdi:information-outline"
-      }
+      "multiplier": 1
     }
   ]
 }

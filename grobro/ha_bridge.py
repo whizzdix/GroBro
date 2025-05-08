@@ -4,34 +4,35 @@
 import os
 from dataclasses import asdict
 import json
-import struct
+import signal
 import ssl
 import paho.mqtt.client as mqtt
-from paho.mqtt.client import MQTTMessage
+import importlib.resources as resources
 import threading
 import logging
-import grobro.grobro.parser as parser
-import grobro.ha as ha
 import time
-from threading import Timer
 import grobro.model as model
+import grobro.ha as ha
+import grobro.grobro as grobro
 
-Forwarding_Clients = {}
-device_timers = {}
+REGISTER_FILTER_ENV = os.getenv("REGISTER_FILTER", "")
+REGISTER_FILTER: dict[str, model.DeviceAlias] = {}
+for entry in REGISTER_FILTER_ENV.split(","):
+    if ":" in entry:
+        serial, alias = entry.split(":", 1)
+        REGISTER_FILTER[serial] = model.DeviceAlias(alias)
 
 # Configuration from environment variables
-grobro_mqtt_config = model.MQTTConfig.from_env(prefix="SOURCE", defaults=model.MQTTConfig(host="localhost", port=1883))
-ha_mqtt_config = model.MQTTConfig.from_env(prefix="TARGET", defaults = grobro_mqtt_config)
-forward_mqtt_config = model.MQTTConfig.from_env(prefix="FORWARD", defaults=model.MQTTConfig(host="mqtt.growatt.com", port=7006))
-
-ACTIVATE_COMMUNICATION_GROWATT_SERVER = os.getenv("ACTIVATE_COMMUNICATION_GROWATT_SERVER", "false").lower() == "true"
-LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR").upper()
-
-DUMP_MESSAGES = os.getenv("DUMP_MESSAGES", "false").lower() == "true"
-DUMP_DIR = os.getenv("DUMP_DIR", "/dump")
-DEVICE_TIMEOUT = int(os.getenv("DEVICE_TIMEOUT", 0))
+grobro_mqtt_config = model.MQTTConfig.from_env(
+    prefix="SOURCE", defaults=model.MQTTConfig(host="localhost", port=1883)
+)
+ha_mqtt_config = model.MQTTConfig.from_env(prefix="TARGET", defaults=grobro_mqtt_config)
+forward_mqtt_config = model.MQTTConfig.from_env(
+    prefix="FORWARD", defaults=model.MQTTConfig(host="mqtt.growatt.com", port=7006)
+)
 
 # Setup Logger
+LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR").upper()
 try:
     logging.basicConfig(
         level=LOG_LEVEL,
@@ -46,200 +47,33 @@ except Exception as e:
 LOG = logging.getLogger(__name__)
 
 
-ha_client = ha.Client(ha_mqtt_config)
+ha_client = ha.Client(ha_mqtt_config, REGISTER_FILTER)
+grobro_client = grobro.Client(grobro_mqtt_config)
 
-# Ensure that the dump directory exists (not sure if needed, but for safety)
-if DUMP_MESSAGES and not os.path.exists(DUMP_DIR):
-    os.makedirs(DUMP_DIR, exist_ok=True)
-    LOG.info(f"Dump directory created: {DUMP_DIR}")
+grobro_client.on_state = ha_client.publish_state
+grobro_client.on_config = ha_client.set_config
 
-# Register filter configuration
-NEO_SP2_REGISTERS = [
-    3001, 3003, 3004, 3005, 3007, 3008, 3009,
-    3023, 3025, 3026, 3027, 3028, 3038, 3047,
-    3049, 3051, 3053, 3055, 3057, 3059, 3061,
-    3087, 3093, 3094, 3095, 3096, 3098, 3100,
-    3101, 3115
-]
+running = True
 
-# TODO: Add additional registers based on battery count
-NOAH_REGISTERS = [
-     2,   7,   8,  10,  11,  12,  13,
-    21,  23,  25,  27,  29,  72,  74,
-    76,  78,  90,  91,  92,  93,  94,
-    95,  96,  97,  99, 100, 101, 102,
-   109,  65,  53,  41
-]
 
-REGISTER_FILTER_ENV = os.getenv("REGISTER_FILTER", "")
-device_filter_alias_map = {}
-for entry in REGISTER_FILTER_ENV.split(","):
-    if ":" in entry:
-        serial, alias = entry.split(":", 1)
-        device_filter_alias_map[serial] = alias
+def signal_handler(signum, frame):
+    global running
+    print(f"Signal {signum} received, shutting down...")
+    running = False
 
-alias_to_registers = {
-    "NEO600": NEO_SP2_REGISTERS,
-    "NEO800": NEO_SP2_REGISTERS,
-    "NEO1000": NEO_SP2_REGISTERS,
-    "NOAH": NOAH_REGISTERS
-}
 
-def parse_ascii(value):
-    try:
-        return bytes.fromhex(hex(value)[2:].zfill(4)).decode('ascii').strip()
-    except Exception:
-        return str(value)
+# Register signal handlers for graceful shutdown
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
 
-def apply_conversion(register):
-    unit = register.get("unit")
-    if unit == "s":
-        register["value"] = parse_ascii(register["value"])
-    elif isinstance(register.get("value"), (int, float)) and register.get("multiplier"):
-        register["value"] *= register["multiplier"]
+# Assume client1 and client2 have .start() and .stop()
+ha_client.start()
+grobro_client.start()
 
-def publish_state(device_id, registers):
-    alias = device_filter_alias_map.get(device_id)
-    allowed_registers = alias_to_registers.get(alias)
-    if allowed_registers:
-        registers = [
-            reg for reg in registers
-            if "register_no" in reg and reg["register_no"] in allowed_registers
-        ]
-    for reg in registers:
-        apply_conversion(reg)
-    payload = {
-        reg["name"]: round(reg["value"], 3) if isinstance(reg["value"], float) else reg["value"]
-        for reg in registers
-    }
-    LOG.info(f"Device {device_id} matched {len(registers)} registers after filtering.")
-    if DEVICE_TIMEOUT > 0:
-        reset_device_timer(device_id)
-    ha_client.publish_state(device_id, payload)
-    ha_client.publish_availability(device_id, "online")
-
-def dump_message_binary(topic, payload):
-    try:
-        # Build path following topic structure
-        topic_parts = topic.strip("/").split("/")
-        dir_path = os.path.join(DUMP_DIR, *topic_parts)
-        os.makedirs(dir_path, exist_ok=True)
-
-        # Write each message to a new file with timestamp
-        import time
-        timestamp = int(time.time() * 1000)
-        file_path = os.path.join(dir_path, f"{timestamp}.bin")
-
-        with open(file_path, "wb") as f:
-            f.write(payload)
-    except Exception as e:
-        LOG.error(f"Failed to dump message for topic {topic}: {e}")
-
-def on_message(client, userdata, msg: MQTTMessage):
-    LOG.debug(f"received: {msg.topic} {msg.payload}")
-    if DUMP_MESSAGES:
-        dump_message_binary(msg.topic, msg.payload)
-    try:
-        if ACTIVATE_COMMUNICATION_GROWATT_SERVER:
-            Forwarding_Client = connect_to_growatt_server(msg.topic.split("/")[-1])
-            Forwarding_Client.publish(msg.topic, payload=msg.payload, qos=msg.qos, retain=msg.retain)
-        unscrambled = parser.unscramble(msg.payload)
-        msg_type = struct.unpack_from('>H', unscrambled, 4)[0]
-        unscrambled = parser.unscramble(msg.payload)
-        msg_type = struct.unpack_from('>H', unscrambled, 4)[0]
-
-        # NOAH=387 NEO=340
-        if msg_type in (387, 340):
-            # Config message
-            config_offset = parser.find_config_offset(unscrambled)
-            config = parser.parse_config_type(unscrambled, config_offset)
-            ha_client.set_config(device_id=device_id, config=config)
-        # NOAH=323 NEO=577
-        elif msg_type in (323, 577):
-            # Modbus message
-            temp_descriptions = parser.load_modbus_input_register_file("growatt_inverter_registers.json")
-            parsed = parser.parse_modbus_type(unscrambled, temp_descriptions)
-            device_id = parsed.get("device_id")
-            alias = device_filter_alias_map.get(device_id)
-            regfile = "growatt_inverter_registers.json"
-            if alias and alias.strip().upper() == "NOAH":
-                regfile = "growatt_noah_registers.json"
-            modbus_input_register_descriptions = parser.load_modbus_input_register_file(regfile)
-
-            # Rebuild HA metadata lookup for this register set
-            ha_lookup = {}
-            for reg in modbus_input_register_descriptions:
-                if reg.get("ha"):
-                    ha_lookup[reg["variable_name"]] = model.DeviceState(
-                        variable_name = reg["variable_name"],
-                        **reg["ha"],
-                    )
-            parsed = parser.parse_modbus_type(unscrambled, modbus_input_register_descriptions)
-            device_id = parsed.get("device_id")
-            all_registers = parsed.get("modbus1", {}).get("registers", []) + parsed.get("modbus2", {}).get("registers", [])
-            alias = device_filter_alias_map.get(device_id)
-            allowed_registers = alias_to_registers.get(alias)
-            if allowed_registers:
-                all_registers = [
-                    reg for reg in all_registers
-                    if isinstance(reg.get("register_no"), int) and reg["register_no"] in allowed_registers
-                ]
-            publish_state(device_id, all_registers)
-            for reg in all_registers:
-                ha = ha_lookup.get(reg['name'], {})
-                ha_client.publish_discovery(device_id, ha)
-            LOG.info(f"Published state for {device_id} with {len(all_registers)} registers")
-    except Exception as e:
-        LOG.error(f"Error processing message: {e}")
-def on_message_forward_client(client, userdata, msg: MQTTMessage):
-    if DUMP_MESSAGES:
-        dump_message_binary(msg.topic, msg.payload)
-    try:
-        if ACTIVATE_COMMUNICATION_GROWATT_SERVER:
-            # We need to publish the messages from Growatt on the Topic s/33/{deviceid}. Growatt sends them on Topic s/{deviceid}
-            LOG.debug(f"msg from Growatt for client {msg.topic.split("/")[-1]}")
-            source_client.publish(msg.topic.split("/")[0] + "/33/" + msg.topic.split("/")[-1], payload=msg.payload, qos=msg.qos, retain=msg.retain)
-    except Exception as e:
-        LOG.error(f"Error processing message: {e}")
-
-# Setup Growatt Server MQTT for forwarding messages
-def connect_to_growatt_server(client_id):
-    if f"forward_client_{client_id}" not in Forwarding_Clients:
-        Forwarding_Clients[f"forward_client_{client_id}"] = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=client_id)
-        Forwarding_Clients[f"forward_client_{client_id}"].tls_set(cert_reqs=ssl.CERT_NONE)
-        Forwarding_Clients[f"forward_client_{client_id}"].tls_insecure_set(True)
-        Forwarding_Clients[f"forward_client_{client_id}"].on_message = on_message_forward_client
-        Forwarding_Clients[f"forward_client_{client_id}"].connect(forward_mqtt_config.host, forward_mqtt_config.port, 60)
-        Forwarding_Clients[f"forward_client_{client_id}"].subscribe(f"+/{client_id}")
-        LOG.info(f"Connected to Forwarding Server at {forward_mqtt_config.host}:{forward_mqtt_config.port} with ClientId{client_id}, listening on 's/#'")
-        forward_thread = threading.Thread(target=Forwarding_Clients[f"forward_client_{client_id}"].loop_forever)
-        forward_thread.start()
-    return Forwarding_Clients[f"forward_client_{client_id}"]
-
-# Set the device state to unavailable in Home Assistant.
-def set_device_unavailable(device_id):
-    LOG.warning(f"Device {device_id} timed out. Setting to unavailable.")
-    ha_client.publish_availability(device_id, "offline")
-    
-# Reset the timeout timer for a device.
-def reset_device_timer(device_id):
-    if device_id in device_timers:
-        device_timers[device_id].cancel()  # Cancel the existing timer
-    
-    timer = Timer(DEVICE_TIMEOUT, set_device_unavailable, args=[device_id])  # Pass function reference and arguments
-    device_timers[device_id] = timer
-    timer.start()
-
-# Setup source MQTT client for subscribing
-source_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id="grobro-source")
-if grobro_mqtt_config.username and grobro_mqtt_config.password:
-    source_client.username_pw_set(grobro_mqtt_config.username, grobro_mqtt_config.password)
-if grobro_mqtt_config.use_tls:
-    source_client.tls_set(cert_reqs=ssl.CERT_NONE)
-    source_client.tls_insecure_set(True)
-source_client.on_message = on_message
-source_client.connect(grobro_mqtt_config.host, grobro_mqtt_config.port, 60)
-source_client.subscribe("c/#")
-LOG.info(f"Connected to source MQTT at {grobro_mqtt_config.host}:{grobro_mqtt_config.port}, listening on 'c/#'")
-source_thread = threading.Thread(target=source_client.loop_forever)
-source_thread.start()
+try:
+    while running:
+        time.sleep(0.1)
+finally:
+    ha_client.stop()
+    grobro_client.stop()
+    print("Stopped both clients. Exiting.")
