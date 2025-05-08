@@ -1,20 +1,25 @@
-import paho.mqtt.client as mqtt
+"""
+Client for the grobro mqtt side, handling messages from/to
+* growatt cloud
+* growatt devices
+"""
+
 import os
-import threading
 import struct
-import json
 import logging
 import ssl
-import grobro.grobro.parser as parser
-
-from grobro.model import DeviceAlias, DeviceConfig, DeviceState, MQTTConfig
-from paho.mqtt.client import MQTTMessage
 from typing import Callable
+
+import paho.mqtt.client as mqtt
+from paho.mqtt.client import MQTTMessage
+
+from grobro.grobro import parser
+from grobro.model import DeviceAlias, DeviceConfig, MQTTConfig
 
 LOG = logging.getLogger(__name__)
 HA_BASE_TOPIC = os.getenv("HA_BASE_TOPIC", "homeassistant")
 ACTIVATE_COMMUNICATION_GROWATT_SERVER = (
-    os.getenv("ACTIVATE_COMMUNICATION_GROWATT_SERVER", "false").lower() == "true"
+    os.getenv("ACTIVATE_COMMUNICATION_GROWATT_SERVER", "").lower() == "true"
 )
 DUMP_MESSAGES = os.getenv("DUMP_MESSAGES", "false").lower() == "true"
 DUMP_DIR = os.getenv("DUMP_DIR", "/dump")
@@ -51,7 +56,12 @@ ALIAS_TO_REGISTERS = {
     DeviceAlias.NOAH: NOAH_REGISTERS,
 }
 
-Forwarding_Clients = {}
+# property to flag messages forwarded from growatt cloud
+MQTT_PROP_FORWARD_GROWATT = mqtt.Properties(mqtt.PacketTypes.PUBLISH)
+MQTT_PROP_FORWARD_GROWATT.UserProperty = [("source", "growatt")]
+# property to flag messages forwarded from ha
+MQTT_PROP_FORWARD_HA = mqtt.Properties(mqtt.PacketTypes.PUBLISH)
+MQTT_PROP_FORWARD_HA = [("source", "ha")]
 
 
 class Client:
@@ -59,20 +69,29 @@ class Client:
     on_state: Callable[[str, dict], None]
 
     _client: mqtt.Client
+    _forward_mqtt_config: MQTTConfig
+    _forward_clients = {}
 
-    def __init__(self, mqtt_config: MQTTConfig):
-        LOG.info(f"connecting to HA mqtt '{mqtt_config.host}:{mqtt_config.port}'")
+    def __init__(
+        self,
+        grobro_mqtt: MQTTConfig,
+        forward_mqtt: MQTTConfig,
+    ):
+        LOG.info(f"connecting to HA mqtt '{grobro_mqtt.host}:{grobro_mqtt.port}'")
         self._client = mqtt.Client(
-            mqtt.CallbackAPIVersion.VERSION2, client_id="grobro-grobro"
+            client_id="grobro-grobro",
+            callback_api_version=mqtt.CallbackAPIVersion.VERSION2,
+            protocol=mqtt.MQTTv5,
         )
-        if mqtt_config.username and mqtt_config.password:
-            self._client.username_pw_set(mqtt_config.username, mqtt_config.password)
-        if mqtt_config.use_tls:
+        if grobro_mqtt.username and grobro_mqtt.password:
+            self._client.username_pw_set(grobro_mqtt.username, grobro_mqtt.password)
+        if grobro_mqtt.use_tls:
             self._client.tls_set(cert_reqs=ssl.CERT_NONE)
             self._client.tls_insecure_set(True)
-        self._client.connect(mqtt_config.host, mqtt_config.port, 60)
+        self._client.connect(grobro_mqtt.host, grobro_mqtt.port, 60)
         self._client.on_message = self.__on_message
         self._client.subscribe("c/#")
+        self._forward_mqtt_config = forward_mqtt
 
     def start(self):
         LOG.debug("grobro: start")
@@ -82,7 +101,7 @@ class Client:
         LOG.debug("grobro: stop")
         self._client.loop_stop()
         self._client.disconnect()
-        for key, client in Forwarding_Clients.items():
+        for key, client in self._forward_clients.items():
             client.loop_stop()
             client.disconnect()
 
@@ -92,9 +111,14 @@ class Client:
             dump_message_binary(msg.topic, msg.payload)
         try:
             if ACTIVATE_COMMUNICATION_GROWATT_SERVER:
-                Forwarding_Client = connect_to_growatt_server(msg.topic.split("/")[-1])
-                Forwarding_Client.publish(
-                    msg.topic, payload=msg.payload, qos=msg.qos, retain=msg.retain
+                forward_client = self.__connect_to_growatt_server(
+                    msg.topic.split("/")[-1]
+                )
+                forward_client.publish(
+                    msg.topic,
+                    payload=msg.payload,
+                    qos=msg.qos,
+                    retain=msg.retain,
                 )
             unscrambled = parser.unscramble(msg.payload)
             msg_type = struct.unpack_from(">H", unscrambled, 4)[0]
@@ -162,6 +186,53 @@ class Client:
         )
         self.on_state(device_id, payload)
 
+    def __on_message_forward_client(self, client, userdata, msg: MQTTMessage):
+        if DUMP_MESSAGES:
+            dump_message_binary(msg.topic, msg.payload)
+        try:
+            if ACTIVATE_COMMUNICATION_GROWATT_SERVER:
+                # We need to publish the messages from Growatt on the Topic
+                # s/33/{deviceid}. Growatt sends them on Topic s/{deviceid}
+                LOG.debug(
+                    "msg from Growatt for client %s",
+                    msg.topic.split("/")[-1],
+                )
+                self._client.publish(
+                    msg.topic.split("/")[0] + "/33/" + msg.topic.split("/")[-1],
+                    payload=msg.payload,
+                    qos=msg.qos,
+                    retain=msg.retain,
+                    properties=MQTT_PROP_FORWARD_GROWATT,
+                )
+        except Exception as e:
+            LOG.error(f"forwarding message: {e}")
+
+    # Setup Growatt Server MQTT for forwarding messages
+    def __connect_to_growatt_server(self, client_id):
+        if f"forward_client_{client_id}" not in self._forward_clients:
+            LOG.info(
+                "connect to Forwarding Server at %s:%s, subscribed to '+/%s'",
+                self._forward_mqtt_config.host,
+                self._forward_mqtt_config.port,
+                client_id,
+            )
+            client = mqtt.Client(
+                client_id=client_id,
+                callback_api_version=mqtt.CallbackAPIVersion.VERSION2,
+            )
+            client.tls_set(cert_reqs=ssl.CERT_NONE)
+            client.tls_insecure_set(True)
+            client.on_message = self.__on_message_forward_client
+            client.connect(
+                self._forward_mqtt_config.host,
+                self._forward_mqtt_config.port,
+                60,
+            )
+            client.subscribe(f"+/{client_id}")
+            client.loop_start()
+            self._forward_clients[f"forward_client_{client_id}"] = client
+        return self._forward_clients[f"forward_client_{client_id}"]
+
 
 # Ensure that the dump directory exists (not sure if needed, but for safety)
 if DUMP_MESSAGES and not os.path.exists(DUMP_DIR):
@@ -201,47 +272,3 @@ def dump_message_binary(topic, payload):
             f.write(payload)
     except Exception as e:
         LOG.error(f"Failed to dump message for topic {topic}: {e}")
-
-
-def on_message_forward_client(client, userdata, msg: MQTTMessage):
-    if DUMP_MESSAGES:
-        dump_message_binary(msg.topic, msg.payload)
-    try:
-        if ACTIVATE_COMMUNICATION_GROWATT_SERVER:
-            # We need to publish the messages from Growatt on the Topic s/33/{deviceid}. Growatt sends them on Topic s/{deviceid}
-            LOG.debug(f"msg from Growatt for client {msg.topic.split("/")[-1]}")
-            source_client.publish(
-                msg.topic.split("/")[0] + "/33/" + msg.topic.split("/")[-1],
-                payload=msg.payload,
-                qos=msg.qos,
-                retain=msg.retain,
-            )
-    except Exception as e:
-        LOG.error(f"forwarding message: {e}")
-
-
-# Setup Growatt Server MQTT for forwarding messages
-def connect_to_growatt_server(client_id):
-    if f"forward_client_{client_id}" not in Forwarding_Clients:
-        Forwarding_Clients[f"forward_client_{client_id}"] = mqtt.Client(
-            mqtt.CallbackAPIVersion.VERSION2, client_id=client_id
-        )
-        Forwarding_Clients[f"forward_client_{client_id}"].tls_set(
-            cert_reqs=ssl.CERT_NONE
-        )
-        Forwarding_Clients[f"forward_client_{client_id}"].tls_insecure_set(True)
-        Forwarding_Clients[f"forward_client_{client_id}"].on_message = (
-            on_message_forward_client
-        )
-        Forwarding_Clients[f"forward_client_{client_id}"].connect(
-            forward_mqtt_config.host, forward_mqtt_config.port, 60
-        )
-        Forwarding_Clients[f"forward_client_{client_id}"].subscribe(f"+/{client_id}")
-        LOG.info(
-            f"Connected to Forwarding Server at {forward_mqtt_config.host}:{forward_mqtt_config.port} with ClientId{client_id}, listening on 's/#'"
-        )
-        forward_thread = threading.Thread(
-            target=Forwarding_Clients[f"forward_client_{client_id}"].loop_forever
-        )
-        forward_thread.start()
-    return Forwarding_Clients[f"forward_client_{client_id}"]
