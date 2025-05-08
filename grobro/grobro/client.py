@@ -58,10 +58,10 @@ ALIAS_TO_REGISTERS = {
 
 # property to flag messages forwarded from growatt cloud
 MQTT_PROP_FORWARD_GROWATT = mqtt.Properties(mqtt.PacketTypes.PUBLISH)
-MQTT_PROP_FORWARD_GROWATT.UserProperty = [("source", "growatt")]
+MQTT_PROP_FORWARD_GROWATT.UserProperty = [("forwarded-for", "growatt")]
 # property to flag messages forwarded from ha
 MQTT_PROP_FORWARD_HA = mqtt.Properties(mqtt.PacketTypes.PUBLISH)
-MQTT_PROP_FORWARD_HA = [("source", "ha")]
+MQTT_PROP_FORWARD_HA = [("forwarded-for", "ha")]
 
 
 class Client:
@@ -106,6 +106,13 @@ class Client:
             client.disconnect()
 
     def __on_message(self, client, userdata, msg: MQTTMessage):
+        # check for forwarded messages and ignore them
+        props = msg.properties.json().get("UserProperty", [])
+        for key, value in props:
+            if key == "forwarded-for" and value in ["ha", "growatt"]:
+                LOG.debug("message forwarded from %s. skip.", value)
+                return
+
         LOG.debug(f"received: {msg.topic} {msg.payload}")
         if DUMP_MESSAGES:
             dump_message_binary(msg.topic, msg.payload)
