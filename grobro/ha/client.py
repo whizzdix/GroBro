@@ -46,7 +46,7 @@ class Client:
             mqtt.CallbackAPIVersion.VERSION2, client_id="grobro-ha"
         )
         if mqtt_config.username and mqtt_config.password:
-            self._client.username_pw_set(mqtt_config.user, mqtt_config.password)
+            self._client.username_pw_set(mqtt_config.username, mqtt_config.password)
         if mqtt_config.use_tls:
             self._client.tls_set(cert_reqs=ssl.CERT_NONE)
             self._client.tls_insecure_set(True)
