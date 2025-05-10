@@ -161,7 +161,7 @@ class Client:
             LOG.error(f"ha: publish state: {e}")
 
     # Reset the timeout timer for a device.
-    def __reset_device_timer(device_id):
+    def __reset_device_timer(self, device_id):
         def set_device_unavailable(device_id):
             LOG.warning(f"Device {device_id} timed out. Setting to unavailable.")
             ha_client.publish_availability(device_id, "offline")
