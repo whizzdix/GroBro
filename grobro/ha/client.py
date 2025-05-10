@@ -146,8 +146,7 @@ class Client:
             if DEVICE_TIMEOUT > 0:
                 self.__reset_device_timer(device_id)
             # update availability
-            topic = f"{HA_BASE_TOPIC}/grobro/{device_id}/availability"
-            self._client.publish(topic, "online", retain=False)
+            self.__publish_availability(device_id, True)
 
             device_type = "inverter"
             if "noah" == self._aliases.get(device_id, "").lower():
@@ -163,14 +162,23 @@ class Client:
     # Reset the timeout timer for a device.
     def __reset_device_timer(self, device_id):
         def set_device_unavailable(device_id):
-            LOG.warning(f"Device {device_id} timed out. Setting to unavailable.")
-            ha_client.publish_availability(device_id, "offline")
+            LOG.warning("Device %s timed out. Setting to unavailable.", device_id)
+            self.__publish_availability(device_id, False)
 
-        if device_id in device_timers:
-            device_timers[device_id].cancel()  # Cancel the existing timer
+        if device_id in self._device_timers:
+            self._device_timers[device_id].cancel()  # Cancel the existing timer
 
         timer = Timer(
-            DEVICE_TIMEOUT, set_device_unavailable, args=[device_id]
+            DEVICE_TIMEOUT,
+            set_device_unavailable,
+            args=[device_id],
         )  # Pass function reference and arguments
-        device_timers[device_id] = timer
+        self._device_timers[device_id] = timer
         timer.start()
+
+    def __publish_availability(self, device_id, online: bool):
+        self._client.publish(
+            f"{HA_BASE_TOPIC}/grobro/{device_id}/availability",
+            "online" if online else "offline",
+            retain=False,
+        )
