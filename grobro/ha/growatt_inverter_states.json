@@ -1,9 +1,9 @@
 {
-  "Inverter Status (mode)": {
+  "Inverter_Status_Mode": {
     "name": "Inverter run state",
     "icon": "mdi:alert-circle"
   },
-  "Inverter Status": {
+  "Inverter_Status": {
     "name": "Inverter run state. Indicate the machine status (web page display)",
     "icon": "mdi:alert-circle"
   },
@@ -196,41 +196,41 @@
     "unit_of_measurement": "V",
     "icon": "mdi:flash"
   },
-  "Ptouser total": {
+  "Ptouser_total": {
     "name": "Total forward power",
     "state_class": "measurement",
     "device_class": "power",
     "unit_of_measurement": "W",
     "icon": "mdi:flash"
   },
-  "Ptogrid total": {
+  "Ptogrid_total": {
     "name": "Total reverse power",
     "state_class": "measurement",
     "device_class": "power",
     "unit_of_measurement": "W",
     "icon": "mdi:flash"
   },
-  "Ptoload total": {
+  "Ptoload_total": {
     "name": "Total load power",
     "state_class": "measurement",
     "device_class": "power",
     "unit_of_measurement": "W",
     "icon": "mdi:flash"
   },
-  "Time total": {
+  "Time_total": {
     "name": "Work time total",
     "state_class": "measurement",
     "unit_of_measurement": "s",
     "icon": "mdi:information-outline"
   },
-  "Eac today": {
+  "Eac_today": {
     "name": "Today generate energy",
     "state_class": "total_increasing",
     "device_class": "energy",
     "unit_of_measurement": "kWh",
     "icon": "mdi:solar-power"
   },
-  "Eac total": {
+  "Eac_total": {
     "name": "Total generate energy",
     "state_class": "total_increasing",
     "device_class": "energy",
@@ -328,11 +328,11 @@
     "unit_of_measurement": "kWh",
     "icon": "mdi:solar-power"
   },
-  "Derating Mode": {
+  "Derating_Mode": {
     "name": "Derating Mode",
     "icon": "mdi:alert-circle"
   },
-  "PV ISO value": {
+  "PV_ISO_value": {
     "name": "PV ISO value",
     "state_class": "measurement",
     "unit_of_measurement": "kΩ",
@@ -397,14 +397,14 @@
     "unit_of_measurement": "°C",
     "icon": "mdi:thermometer"
   },
-  "P Bus Voltage": {
+  "P_Bus_Voltage": {
     "name": "P Bus inside Voltage",
     "state_class": "measurement",
     "device_class": "voltage",
     "unit_of_measurement": "V",
     "icon": "mdi:flash"
   },
-  "N Bus Voltage": {
+  "N_Bus_Voltage": {
     "name": "N Bus inside Voltage",
     "state_class": "measurement",
     "device_class": "voltage",
@@ -434,48 +434,48 @@
     "state_class": "measurement",
     "icon": "mdi:information-outline"
   },
-  "Fault code": {
+  "Fault_code": {
     "name": "Inverter fault code",
     "icon": "mdi:alert-circle"
   },
-  "Warning code": {
+  "Warning_code": {
     "name": "Inverter Warning code",
     "state_class": "measurement",
     "icon": "mdi:information-outline"
   },
-  "Systemfault word0": {
+  "Systemfault_word0": {
     "name": "System fault word0",
     "icon": "mdi:alert-circle"
   },
-  "Systemfault word1": {
+  "Systemfault_word1": {
     "name": "System fault word1",
     "icon": "mdi:alert-circle"
   },
-  "Systemfault word2": {
+  "Systemfault_word2": {
     "name": "System fault word2",
     "icon": "mdi:alert-circle"
   },
-  "Systemfault word3": {
+  "Systemfault_word3": {
     "name": "System fault word3",
     "icon": "mdi:alert-circle"
   },
-  "Systemfault word4": {
+  "Systemfault_word4": {
     "name": "System fault word4",
     "icon": "mdi:alert-circle"
   },
-  "Systemfault word5": {
+  "Systemfault_word5": {
     "name": "System fault word5",
     "icon": "mdi:alert-circle"
   },
-  "Systemfault word6": {
+  "Systemfault_word6": {
     "name": "System fault word6",
     "icon": "mdi:alert-circle"
   },
-  "Systemfault word7": {
+  "Systemfault_word7": {
     "name": "System fault word7",
     "icon": "mdi:alert-circle"
   },
-  "inv start delay time": {
+  "inv_start_delay_time": {
     "name": "inv start delay time",
     "state_class": "measurement",
     "unit_of_measurement": "s",
@@ -533,88 +533,88 @@
     "unit_of_measurement": "kWh",
     "icon": "mdi:solar-power"
   },
-  "Priority Word Mode": {
+  "Priority_Word_Mode": {
     "name": "Priority Word Mode",
     "icon": "mdi:alert-circle"
   },
-  "EPS Fac": {
+  "EPS_Fac": {
     "name": "UPS frequency",
     "state_class": "measurement",
     "device_class": "frequency",
     "unit_of_measurement": "Hz",
     "icon": "mdi:sine-wave"
   },
-  "EPS Vac1": {
+  "EPS_Vac1": {
     "name": "UPS phase R output voltage",
     "state_class": "measurement",
     "device_class": "voltage",
     "unit_of_measurement": "V",
     "icon": "mdi:flash"
   },
-  "EPS Iac1": {
+  "EPS_Iac1": {
     "name": "UPS phase R output current",
     "state_class": "measurement",
     "device_class": "current",
     "unit_of_measurement": "A",
     "icon": "mdi:current-ac"
   },
-  "EPS Pac1": {
+  "EPS_Pac1": {
     "name": "UPS phase R output power",
     "state_class": "measurement",
     "device_class": "power",
     "unit_of_measurement": "W",
     "icon": "mdi:flash"
   },
-  "EPS Vac2": {
+  "EPS_Vac2": {
     "name": "UPS phase S output voltage",
     "state_class": "measurement",
     "device_class": "voltage",
     "unit_of_measurement": "V",
     "icon": "mdi:flash"
   },
-  "EPS Iac2": {
+  "EPS_Iac2": {
     "name": "UPS phase S output current",
     "state_class": "measurement",
     "device_class": "current",
     "unit_of_measurement": "A",
     "icon": "mdi:current-ac"
   },
-  "EPS Pac2": {
+  "EPS_Pac2": {
     "name": "UPS phase S output power",
     "state_class": "measurement",
     "device_class": "power",
     "unit_of_measurement": "W",
     "icon": "mdi:flash"
   },
-  "EPS Vac3": {
+  "EPS_Vac3": {
     "name": "UPS phase T output voltage",
     "state_class": "measurement",
     "device_class": "voltage",
     "unit_of_measurement": "V",
     "icon": "mdi:flash"
   },
-  "EPS Iac3": {
+  "EPS_Iac3": {
     "name": "UPS phase T output current",
     "state_class": "measurement",
     "device_class": "current",
     "unit_of_measurement": "A",
     "icon": "mdi:current-ac"
   },
-  "EPS Pac3": {
+  "EPS_Pac3": {
     "name": "UPS phase T output power",
     "state_class": "measurement",
     "device_class": "power",
     "unit_of_measurement": "W",
     "icon": "mdi:flash"
   },
-  "EPS Pac": {
+  "EPS_Pac": {
     "name": "UPS output power",
     "state_class": "measurement",
     "device_class": "power",
     "unit_of_measurement": "W",
     "icon": "mdi:flash"
   },
-  "Load Percent": {
+  "Load_Percent": {
     "name": "Load of UPS ouput",
     "state_class": "measurement",
     "unit_of_measurement": "%",
