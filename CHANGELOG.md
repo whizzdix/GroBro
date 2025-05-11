@@ -1,3 +1,8 @@
+## v1.7.0
++ Introduced semantic versioning.
++ Refactoring for a new modular design.
++ Added a new unavailability option.
+
 ## v1.6
 + Large update of NOAH mappings.
 + Small fixes in message detection.
