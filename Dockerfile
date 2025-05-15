@@ -1,21 +1,15 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=python:3.11-alpine
 FROM $BUILD_FROM
 
-RUN apk add --no-cache python3 py3-pip
+RUN apk add --no-cache python3 jq
 
-RUN python3 -m venv /venv
-
+COPY requirements.txt /tmp
 ENV PATH="/venv/bin:$PATH"
+RUN python3 -m venv /venv && \
+    pip install --no-cache-dir -r /tmp/requirements.txt
 
 WORKDIR /app
+COPY . /app
+RUN chmod +x ./run.sh
 
-COPY grobro/requirements.txt ./requirements.txt
-
-RUN pip install --no-cache-dir -r requirements.txt
-
-WORKDIR /app/grobro
-COPY grobro/ /app/grobro/
-COPY run.sh /
-RUN chmod a+x /run.sh
-
-CMD [ "/run.sh" ]
+CMD [ "./run.sh" ]

@@ -1,3 +1,17 @@
+## v1.7.3
+
++ Fix #52: missing ssl import in ha client
+
+## v1.7.2
+
++ Fix broken shebang in run.sh
++ Add missing jq dependency in docker build
+
+## v1.7.0
++ Introduced semantic versioning.
++ Refactoring for a new modular design.
++ Added a new unavailability option.
+
 ## v1.6
 + Large update of NOAH mappings.
 + Small fixes in message detection.

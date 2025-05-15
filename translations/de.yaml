@@ -41,3 +41,12 @@ configuration:
   LOG_LEVEL:
     name: LOG_LEVEL
     description: Legt den Logging-Level fest. Das Programm verwendet derzeit nur die Level ERROR, DEBUG und INFO. Standard ist ERROR.
+  DUMP_MESSAGES:
+    name: DUMP_MESSAGES
+    description: Speichert jede empfangene Nachricht in $DUMP_DIR für eine spätere detaillierte Analyse.
+  DUMP_DIR:
+    name: DUMP_DIR
+    description: Verzeichnis zum Speichern abgefangener Nachrichten. Standard ist /share/GroBro/dump. Im Addon muss es mit /share beginnen.
+  DEVICE_TIMEOUT:
+    name: DEVICE_TIMEOUT
+    description: Legt den Timeout in Sekunden fest, wann das Gerät als Nicht Verfügbar angezeigt wird. Default ist 0 (deaktiviert). Empfehlung 300+ Sekunden.

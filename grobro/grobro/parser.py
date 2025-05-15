@@ -5,7 +5,12 @@ import struct
 import json
 import sys
 import os
+import logging
+import grobro.model as model
 from itertools import cycle
+import importlib.resources as resources
+
+LOG = logging.getLogger(__name__)
 
 def hexdump(data: bytes, width: int = 16):
     for i in range(0, len(data), width):
@@ -71,18 +76,24 @@ def parse_modbus_block(data, offset, modbus_input_register_descriptions: list):
         bytesize = reg_desc['size']
         value, = struct.unpack_from(unpack_typemap[bytesize], data, reg_offset)
         value *= reg_desc.get("multiplier", 1)
+        value += reg_desc.get("delta", 0)
 
         if "value_options" in reg_desc:
             # Replace numeric value options with their actual meaning
             options = reg_desc["value_options"]
             value = options.get(str(value), value)
 
+        reg_name = reg_desc['variable_name']
+        if ' ' in reg_name:
+            LOG.warning("register '%s' contains illegal whitespace", reg_name)
+
         input_registers.append({
             'register_no': reg_desc['register_no'],
-            'name': reg_desc['variable_name'],
+            'name': reg_name,
             'unit': reg_desc['unit'],
             'value': value
         })
+
     offset += qty * 2
 
     return {'start': start, 'end': end_val, 'qty': qty, 'registers': input_registers}, offset
@@ -151,7 +162,7 @@ def parse_modbus_type(data, modbus_input_register_descriptions: list):
 
     return result
 
-def parse_config_type(data, offset):
+def parse_config_type(data, offset) -> model.DeviceConfig:
     """
     Parse a configuration message starting at offset as a TLV block
     Each parameter is stored as:
@@ -204,7 +215,7 @@ def parse_config_type(data, offset):
     if not any_params:
         config["raw"] = raw_hex
 
-    return config
+    return model.DeviceConfig(**config)
 
 def find_config_offset(data):
     """
@@ -219,7 +230,7 @@ def find_config_offset(data):
     return 0x1C
 
 def parse_growatt_file(filepath, modbus_input_register_descriptions: list):
-    with open(filepath, 'rb') as f:
+    with resources.files(__package__).joinpath(filepath).open("rb") as f:
         raw = f.read()
 
     data = unscramble(raw)
@@ -245,7 +256,7 @@ def parse_growatt_file(filepath, modbus_input_register_descriptions: list):
     return result
 
 def load_modbus_input_register_file(filepath):
-    with open(filepath, "rb") as f:
+    with resources.files(__package__).joinpath(filepath).open("rb") as f:
         data = json.load(f)
 
     return data["input_registers"]
