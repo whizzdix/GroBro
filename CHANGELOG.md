@@ -1,3 +1,8 @@
+## v1.7.4
+
++ Enabled automatic selection of the correct register map based on device ID, deprecating the user-unfriendly `REGISTER_FILTER` variable.
++ Replaced `ACTIVATE_COMMUNICATION_GROWATT_SERVER` with `GROWATT_CLOUD`, enabling selective message forwarding via a comma-separated list.
+
 ## v1.7.3
 
 + Fix #52: missing ssl import in ha client
