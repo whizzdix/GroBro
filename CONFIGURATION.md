@@ -111,11 +111,10 @@ docker run --detach \
 | `TARGET_MQTT_USER`   | ❌ No    | Username for the target MQTT broker (if authentication is required)        |
 | `TARGET_MQTT_PASS`   | ❌ No    | Password for the target MQTT broker                                        |
 | `HA_BASE_TOPIC`      | ❌ No    | Base MQTT topic used for Home Assistant auto-discovery and sensor states   |
-| `REGISTER_FILTER`    | ❌ No    | Comma-separated list of `serial:alias` pairs (e.g. `123456789:NOAH,987654321:NEO800`). Allows specifying which register set to apply per device. Defaults to inverter register map if not set. |
-| `ACTIVATE_COMMUNICATION_GROWATT_SERVER` | ❌ No    | Set to `true` to redirect messages to and from the Growatt Server. This is turned off by default. |
-| `LOG_LEVEL` | ❌ No    | Sets the logging level to either `ERROR`, `DEBUG`, or `INFO`. If not set `ERROR` is used. |
+| `GROWATT_CLOUD`      | ❌ No    | Set to `true` to redirect messages to and from the Growatt Cloud. This is turned off by default. Supports a comma-separated list of device serials (e.g. `123456789,987654321`) for selective forwarding. |
+| `LOG_LEVEL`          | ❌ No    | Sets the logging level to either `ERROR`, `DEBUG`, or `INFO`. If not set `ERROR` is used. |
 | `DUMP_MESSAGES`      | ❌ No    | Dumps every received messages into `/dump` for later in-depth inspection. |
-| `DEVICE_TIMEOUT`      | ❌ No    | Set the timeout in seconds for the device communication. Default is 0 (disabled). Recommendation 300+ seconds. |
+| `DEVICE_TIMEOUT`     | ❌ No    | Set the timeout in seconds for the device communication. Default is 0 (disabled). Recommendation 300+ seconds. |
 
 # Example Setup with DuckDNS and HA-MQTT
 
@@ -129,7 +128,7 @@ If you completed step 1, you should already know how to do this. Open port **700
 (It might also be possible to use the default MQTT TLS port **8883**. In that case, you must also change the port in the ShinePhone app as described in step 4 of the configuration guide above. Alternatively, you can open external port **7006** and redirect it internally to **8883** — there are many ways to set it up 😉.)
 
 ### 3. Set up HA-MQTT
-You just need to create a new user.  
+You just need to create a new user.
 The username must be the serial number of your inverter. (If you are unsure, enable debug logging and check the logs while reconfiguring your inverter or Noah. You should see a line like `"checking auth cache for <username>"` in the logs.)
 
 The password is **Growatt**.

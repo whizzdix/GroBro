@@ -1,6 +1,6 @@
 # GroBro - Growatt MQTT Message Broker
 
-GroBro is a bridge service that decodes encrypted MQTT packets from Growatt inverters and republishes them in a format compatible with Home Assistant. 
+GroBro is a bridge service that decodes encrypted MQTT packets from Growatt NEO and NOAH devices and republishes them in a format compatible with Home Assistant. 
 It supports auto-discovery via MQTT and allows full integration of Growatt data into your smart home.
 
 ![GroBro Logos](https://raw.githubusercontent.com/robertzaage/GroBro/refs/heads/main/assets/grobro_logo.png)

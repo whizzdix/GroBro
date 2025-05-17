@@ -14,7 +14,6 @@ LOG = logging.getLogger(__name__)
 
 class Client:
     _client: mqtt.Client
-    _aliases: dict[str, model.DeviceAlias]
 
     _config_cache: dict[str, model.DeviceConfig] = {}
     _discovery_cache: dict[str, list[str]] = {}
@@ -25,12 +24,10 @@ class Client:
     def __init__(
         self,
         mqtt_config: model.MQTTConfig,
-        aliases: dict[str, model.DeviceAlias],
     ):
-        self._aliases = aliases
 
-        # load possible device states
-        for device_type in ["inverter", "noah"]:
+        # Load possible device states
+        for device_type in ["neo", "noah"]:
             self._known_states[device_type] = {}
             file = resources.files(__package__).joinpath(
                 f"growatt_{device_type}_states.json"
@@ -38,13 +35,13 @@ class Client:
             with file.open("r") as f:
                 for variable_name, state in json.load(f).items():
                     if " " in variable_name:
-                        LOG.warning("sttate '%s' contains illegal whitespace")
+                        LOG.warning("State '%s' contains illegal whitespace")
                     self._known_states[device_type][variable_name] = model.DeviceState(
                         variable_name=variable_name, **state
                     )
 
         # Setup target MQTT client for publishing
-        LOG.info(f"connecting to HA mqtt '{mqtt_config.host}:{mqtt_config.port}'")
+        LOG.info(f"Connecting to MQTT broker at '{mqtt_config.host}:{mqtt_config.port}'")
         self._client = mqtt.Client(
             mqtt.CallbackAPIVersion.VERSION2, client_id="grobro-ha"
         )
@@ -74,10 +71,10 @@ class Client:
         config_path = f"config_{config.device_id}.json"
         existing_config = model.DeviceConfig.from_file(config_path)
         if existing_config is None or existing_config != config:
-            LOG.info(f"save updated config for {config.device_id}")
+            LOG.info(f"Saving updated config for {config.device_id}")
             config.to_file(config_path)
         else:
-            LOG.debug(f"no config change for {config.device_id}")
+            LOG.debug(f"No config change for {config.device_id}")
         self._config_cache[config.device_id] = config
 
     def publish_discovery(self, device_id: str, ha: model.DeviceState):
@@ -98,7 +95,7 @@ class Client:
             config = model.DeviceConfig(serial_number=device_id)
             config.to_file(config_path)
             self._config_cache[device_id] = config
-            LOG.info(f"saved minimal config for unknown device: {config}")
+            LOG.info(f"Saved minimal config for new device: {config}")
 
         device_info = {
             "identifiers": [device_id],
@@ -142,17 +139,18 @@ class Client:
 
     def publish_state(self, device_id, state):
         try:
-            # update state
+            # Update state
             topic = f"{HA_BASE_TOPIC}/grobro/{device_id}/state"
             self._client.publish(topic, json.dumps(state), retain=False)
 
             if DEVICE_TIMEOUT > 0:
                 self.__reset_device_timer(device_id)
-            # update availability
+            # Update availability
             self.__publish_availability(device_id, True)
 
-            device_type = "inverter"
-            if "noah" == self._aliases.get(device_id, "").lower():
+            if device_id.startswith("QMN"):
+                device_type = "neo"
+            if device_id.startswith("0PVP"):
                 device_type = "noah"
             state_lookup = self._known_states[device_type]
 
@@ -160,12 +158,12 @@ class Client:
                 state = state_lookup[variable_name]
                 self.publish_discovery(device_id, state)
         except Exception as e:
-            LOG.error(f"ha: publish state: {e}")
+            LOG.error(f"Publish device state: {e}")
 
     # Reset the timeout timer for a device.
     def __reset_device_timer(self, device_id):
         def set_device_unavailable(device_id):
-            LOG.warning("Device %s timed out. Setting to unavailable.", device_id)
+            LOG.warning("Device %s timed out. Mark it as unavailable.", device_id)
             self.__publish_availability(device_id, False)
 
         if device_id in self._device_timers:
