@@ -25,17 +25,10 @@ except Exception as e:
         level=logging.ERROR,
         format="%(asctime)s [%(levelname)s] %(message)s",
     )
-    print(f"Failed to setup Logger {e} USING DEFAULT LOG Level(Error)")
+    print(f"Failed to setup logger {e} USING DEFAULT LOG Level(Error)")
 LOG = logging.getLogger(__name__)
 
 # Configuration from environment variables
-REGISTER_FILTER_ENV = os.getenv("REGISTER_FILTER", "")
-REGISTER_FILTER: dict[str, model.DeviceAlias] = {}
-for entry in REGISTER_FILTER_ENV.split(","):
-    if ":" in entry:
-        serial, alias = entry.split(":", 1)
-        REGISTER_FILTER[serial] = model.DeviceAlias(alias)
-
 GROBRO_MQTT_CONFIG = model.MQTTConfig.from_env(
     prefix="SOURCE",
     defaults=model.MQTTConfig(host="localhost", port=1883),
@@ -71,7 +64,7 @@ class SignalHandler:
         """
         Handles signal by setting RUNNING to false.
         """
-        LOG.info("signal received, shutting down...")
+        LOG.info("Signal received, shutting down...")
         self._running = False
 
     @property
@@ -83,11 +76,15 @@ class SignalHandler:
 
 
 if __name__ == "__main__":
-    ha_client = ha.Client(HA_MQTT_CONFIG, REGISTER_FILTER)
+    ha_client = ha.Client(HA_MQTT_CONFIG)
     grobro_client = grobro.Client(GROBRO_MQTT_CONFIG, FORWARD_MQTT_CONFIG)
 
+    # setup com: grobro -> ha
     grobro_client.on_state = ha_client.publish_state
     grobro_client.on_config = ha_client.set_config
+    grobro_client.on_message = ha_client.publish_message
+    # setup com: ha -> grobro
+    ha_client.on_command = grobro_client.send_command
 
     RUNNING = True
     signal_handler = SignalHandler()
@@ -102,4 +99,4 @@ if __name__ == "__main__":
     finally:
         ha_client.stop()
         grobro_client.stop()
-        LOG.info("stopped both clients. Exiting.")
+        LOG.info("Stopped both clients. Exiting...")

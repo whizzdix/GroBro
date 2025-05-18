@@ -43,7 +43,7 @@ To satisfy Growatt clients, you must provide a **fullchain.pem** that includes:
 
 2. **Download the Intermediate Certificate (E6)**
    ```bash
-   wget https://letsencrypt.org/certs/lets-encrypt-e6.pem
+   wget https://letsencrypt.org/certs/2024/e6.pem
    ```
 
 3. **Download the Root Certificate (ISRG Root X2)**
@@ -54,7 +54,7 @@ To satisfy Growatt clients, you must provide a **fullchain.pem** that includes:
 4. **Create the Full Chain**
    Concatenate all three in the correct order:
    ```bash
-   cat cert.pem lets-encrypt-e6.pem isrg-root-x2.pem > fullchain.pem
+   cat cert.pem e6.pem isrg-root-x2.pem > fullchain.pem
    ```
 
 5. **Use the Full Chain**
