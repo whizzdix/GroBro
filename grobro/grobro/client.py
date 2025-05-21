@@ -43,10 +43,9 @@ DUMP_DIR = os.getenv("DUMP_DIR", "/dump")
 # Register filter configuration
 NEO_REGISTERS = [
     3001, 3003, 3004, 3005, 3007, 3008, 3009,
-    3023, 3025, 3026, 3027, 3028, 3038, 3047,
+    3023, 3025, 3026, 3027, 3028, 3038, 3087,
     3049, 3051, 3053, 3055, 3057, 3059, 3061,
-    3087, 3093, 3094, 3095, 3096, 3098, 3100,
-    3101, 3115
+    3093, 3094, 3095, 3096, 3098, 3100, 3101
 ]
 
 # TODO: Add additional registers based on battery count
@@ -149,12 +148,15 @@ class Client:
             LOG.debug(f"received: %s %s", msg.topic, unscrambled.hex(" "))
             msg_type = struct.unpack_from(">H", unscrambled, 4)[0]
 
-            # NOAH=387 NEO=340
-            if msg_type in (387, 340):
+            # NOAH=387 NEO=340,341
+            if msg_type in (387, 340, 341):
                 # Config message
                 config_offset = parser.find_config_offset(unscrambled)
                 config = parser.parse_config_type(unscrambled, config_offset)
-                self.on_config(device_id=device_id, config=config)
+                self.on_config(config)
+                LOG.info(
+                    f"Received config message for {device_id}"
+                )
                 return
             # NOAH=323 NEO=577
             elif msg_type in (323, 577):
