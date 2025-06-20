@@ -45,6 +45,52 @@
         "max": 800,
         "step": 1
       }
+    },
+    "discharge_limit": {
+      "growatt": {
+        "position": {
+          "register_no": 251
+        },
+        "data": {
+          "data_type": "FLOAT",
+          "float_options": {
+            "delta": 0.0,
+            "multiplier": 1
+          }
+        }
+      },
+      "homeassistant": {
+        "publish": true,
+        "name": "Discharge Limit",
+        "unit_of_measurement": "%",
+        "type": "number",
+        "min": 0,
+        "max": 30,
+        "step": 1
+      }
+    },
+    "charge_limit": {
+      "growatt": {
+        "position": {
+          "register_no": 250
+        },
+        "data": {
+          "data_type": "FLOAT",
+          "float_options": {
+            "delta": 0.0,
+            "multiplier": 1
+          }
+        }
+      },
+      "homeassistant": {
+        "publish": true,
+        "name": "Charge Limit",
+        "unit_of_measurement": "%",
+        "type": "number",
+        "min": 70,
+        "max": 100,
+        "step": 1
+      }
     }
   },
   "input_registers": {
