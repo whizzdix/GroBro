@@ -77,6 +77,11 @@ class Client:
             LOG.debug(f"No config change for {config.device_id}")
         self._config_cache[config.device_id] = config
 
+        if device_id in self._discovery_cache:
+            self._discovery_cache.remove(device_id)
+        self.__publish_device_discovery(device_id)
+
+
     def publish_input_register(self, state: HomeAssistantInputRegister):
         LOG.debug("ha: publish: %s", state)
         # publish discovery
