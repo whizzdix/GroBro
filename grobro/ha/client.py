@@ -59,6 +59,8 @@ class Client:
                 if config:
                     self._config_cache[config.device_id] = config
 
+        self._discovery_payload_cache: dict[str, str] = {}
+
     def start(self):
         self._client.loop_start()
 
@@ -83,7 +85,7 @@ class Client:
 
 
     def publish_input_register(self, state: HomeAssistantInputRegister):
-        LOG.debug("ha: publish: %s", state)
+        LOG.debug("HA: publish: %s", state)
         # publish discovery
         self.__publish_device_discovery(state.device_id)
         # update availability
@@ -99,12 +101,12 @@ class Client:
         self, ha_input: HomeAssistantHoldingRegisterInput
     ):
         try:
-            LOG.debug("ha: publish: %s", ha_input)
+            LOG.debug("HA: publish: %s", ha_input)
             for value in ha_input.payload:
                 topic = f"{HA_BASE_TOPIC}/{value.register.type}/grobro/{ha_input.device_id}/{value.name}/get"
                 self._client.publish(topic, value.value, retain=False)
         except Exception as e:
-            LOG.error(f"ha: publish msg: {e}")
+            LOG.error(f"HA: publish msg: {e}")
 
     def __on_message(self, client, userdata, msg: mqtt.MQTTMessage):
         parts = msg.topic.removeprefix(f"{HA_BASE_TOPIC}/").split("/")
@@ -116,7 +118,7 @@ class Client:
             cmd_type, _, device_id, cmd_name, action = parts
 
         LOG.debug(
-            "received %s %s command %s for device %s",
+            "Received %s %s command %s for device %s",
             cmd_type,
             action,
             cmd_name,
@@ -131,10 +133,9 @@ class Client:
         elif device_id.startswith("0HVR"):
             known_registers = KNOWN_NEXA_REGISTERS
         if not known_registers:
-            LOG.info("unknown device type: %s", device_id)
+            LOG.info("Unknown device type: %s", device_id)
             return
 
-        
         if cmd_type == "button" and cmd_name == "read_all":
             for name, register in known_registers.holding_registers.items():
                 pos = register.growatt.position
@@ -143,9 +144,9 @@ class Client:
                         device_id=device_id,
                         function=GrowattModbusFunction.READ_SINGLE_REGISTER,
                         register=pos.register_no,
-                        value=pos.register_no,  
+                        value=pos.register_no,
                     )
-                ) 
+                )
             return
         if cmd_type == "button" and action == "read":
             pos = known_registers.holding_registers[cmd_name].growatt.position
@@ -156,7 +157,7 @@ class Client:
                     register=pos.register_no,
                     value=pos.register_no,
                 )
-            )        
+            )
         if cmd_type == "number" and action == "set":
             # TODO: find a way to pack multi-register commands only by json declaration
             if cmd_name == "slot1_power":
@@ -210,7 +211,7 @@ class Client:
         timer.start()
 
     def __publish_availability(self, device_id, online: bool):
-        LOG.debug("set device %s availability: %s", device_id, online)
+        LOG.debug("Set device %s availability: %s", device_id, online)
         self._client.publish(
             f"{HA_BASE_TOPIC}/grobro/{device_id}/availability",
             "online" if online else "offline",
@@ -218,9 +219,6 @@ class Client:
         )
 
     def __publish_device_discovery(self, device_id):
-        if device_id in self._discovery_cache:
-            return  # already pulished
-
         known_registers: Optional[GroBroRegisters] = None
         if device_id.startswith("QMN"):
             known_registers = KNOWN_NEO_REGISTERS
@@ -229,15 +227,12 @@ class Client:
         elif device_id.startswith("0HVR"):
             known_registers = KNOWN_NEXA_REGISTERS
         if not known_registers:
-            LOG.info("unable to pubish unknown device type: %s", device_id)
+            LOG.info("Unable to publish unknown device type: %s", device_id)
             return
 
         self.__migrate_entity_discovery(device_id, known_registers)
 
         topic = f"{HA_BASE_TOPIC}/device/{device_id}/config"
-
-        # unpublish device first to get rid of old entities
-        self._client.publish(topic, "", retain=True)
 
         # prepare discovery payload
         payload = {
@@ -262,13 +257,14 @@ class Client:
                 "unique_id": unique_id,
                 **cmd.homeassistant.dict(exclude_none=True),
             }
-            
+
         payload["cmps"][f"grobro_{device_id}_cmd_read_all"] = {
-                    "command_topic": f"{HA_BASE_TOPIC}/button/grobro/{device_id}/read_all/read",
-                    "platform": "button",
-                    "unique_id": f"grobro_{device_id}_cmd_read_all",
-                    "name": "Read All Values",
-                }
+            "command_topic": f"{HA_BASE_TOPIC}/button/grobro/{device_id}/read_all/read",
+            "platform": "button",
+            "unique_id": f"grobro_{device_id}_cmd_read_all",
+            "name": "Read All Values",
+        }
+
         for state_name, state in known_registers.input_registers.items():
             if not state.homeassistant.publish:
                 continue
@@ -285,18 +281,20 @@ class Client:
                 "unit_of_measurement": state.homeassistant.unit_of_measurement,
                 "icon": state.homeassistant.icon,
             }
-        LOG.debug(
-            "announce device %s under %s: %s",
-            device_id,
-            topic,
-            json.dumps(payload, indent=2),
-        )
-        self._client.publish(
-            topic,
-            json.dumps(payload),
-            retain=True,
-        )
+
+        payload_str = json.dumps(payload, sort_keys=True)
+
+        if self._discovery_payload_cache.get(device_id) == payload_str:
+            LOG.debug("Discovery unchanged for %s, skipping", device_id)
+            self._discovery_cache.append(device_id)
+            return
+
+        LOG.info("Publishing updated discovery for %s", device_id)
+        self._client.publish(topic, "", retain=True)
+        self._client.publish(topic, payload_str, retain=True)
+        self._discovery_payload_cache[device_id] = payload_str
         self._discovery_cache.append(device_id)
+
 
     def __migrate_entity_discovery(self, device_id, knwon_registers: GroBroRegisters):
         old_entities = [
@@ -341,7 +339,7 @@ class Client:
             config = model.DeviceConfig(serial_number=device_id)
             config.to_file(config_path)
             self._config_cache[device_id] = config
-            LOG.info(f"saved minimal config for unknown device: {config}")
+            LOG.info(f"Saved minimal config for new device: {config}")
 
         device_info = {
             "identifiers": [device_id],
@@ -366,5 +364,4 @@ class Client:
         if config.mac_address:
             device_info["connections"] = [["mac", config.mac_address]]
 
-        return device_info
         return device_info

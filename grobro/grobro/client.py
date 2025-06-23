@@ -108,7 +108,7 @@ class Client:
         final_payload = append_crc(scrambled)
 
         topic = f"s/33/{cmd.device_id}"
-        LOG.debug("send command: %s: %s: %s", type(cmd).__name__, topic, cmd)
+        LOG.debug("Send command: %s: %s: %s", type(cmd).__name__, topic, cmd)
 
         result = self._client.publish(
             topic,
@@ -117,7 +117,7 @@ class Client:
         )
         status = result[0]
         if status != 0:
-            LOG.warning("sent failed: %s", result)
+            LOG.warning("Sending failed: %s", result)
 
     def __on_message(self, client, userdata, msg: MQTTMessage):
         # check for forwarded messages and ignore them
@@ -143,10 +143,10 @@ class Client:
                     )
 
             unscrambled = parser.unscramble(msg.payload)
-            LOG.debug(f"received: %s %s", msg.topic, unscrambled.hex(" "))
+            LOG.debug(f"Received: %s %s", msg.topic, unscrambled.hex(" "))
 
             modbus_message = GrowattModbusMessage.parse_grobro(unscrambled)
-            LOG.debug("received modbus message: %s", modbus_message)
+            LOG.debug("Received modbus message: %s", modbus_message)
             if modbus_message:
                 known_registers = None
                 if device_id.startswith("QMN"):
@@ -156,7 +156,7 @@ class Client:
                 elif device_id.startswith("0HVR"):
                     known_registers = KNOWN_NEXA_REGISTERS
                 if not known_registers:
-                    LOG.info("modbus message from unknown device type: %s", device_id)
+                    LOG.info("Modbus message from unknown device type: %s", device_id)
                     return
 
                 if (
@@ -191,7 +191,7 @@ class Client:
                         # They emmit state updates with incredible high wattage, which spoils HA statistics.
                         # Assuming no one runs a balkony plant with more than a million peak wattage, we drop such messages.
                         if name == "Ppv" and value > 1000000:
-                            LOG.debug("dropping bad payload: %s", device_id)
+                            LOG.debug("Dropping bad payload: %s", device_id)
                             return
                         state.payload[name] = value
                     self.on_input_register(state)
@@ -217,7 +217,7 @@ class Client:
                 LOG.info(f"Received config message for {device_id}")
                 return
 
-            LOG.debug("unknown msg_type %s: %s", msg_type, unscrambled.hex())
+            LOG.debug("Unknown msg_type %s: %s", msg_type, unscrambled.hex())
         except Exception as e:
             LOG.error(f"Processing message: {e}")
 

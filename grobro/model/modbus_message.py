@@ -157,7 +157,7 @@ class GrowattModbusMessage(BaseModel):
                 return None
             device_id = device_id_raw.decode("ascii", errors="ignore").strip("\x00")
             if function not in [e.value for e in GrowattModbusFunction]:
-                LOG.info("unknown modbus function for %s: %s", device_id, function)
+                LOG.info("Unknown modbus function for %s: %s", device_id, function)
                 return None
 
             register_blocks = []

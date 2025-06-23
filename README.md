@@ -3,7 +3,7 @@
 GroBro is a bridge service that decodes encrypted MQTT packets from Growatt NEO, NOAH and NEXA devices and republishes them in a format compatible with Home Assistant. 
 It supports auto-discovery via MQTT and allows full integration of Growatt data into your smart home.
 
-![GroBro Logos](https://raw.githubusercontent.com/robertzaage/GroBro/refs/heads/main/assets/grobro_logo.png)
+![GroBro Logo](https://raw.githubusercontent.com/robertzaage/GroBro/refs/heads/main/assets/grobro_logo.png)
 
 Join us at [#grobro:matrix.org](https://matrix.to/#/#grobro:matrix.org)
 
@@ -20,6 +20,10 @@ Join us at [#grobro:matrix.org](https://matrix.to/#/#grobro:matrix.org)
 - Containerized and configurable via environment variables
 
 ---
+
+Example of a Growatt NEO 800M-X sending its data to Home Assistant:
+ 
+![HA Screenshot](https://raw.githubusercontent.com/robertzaage/GroBro/refs/heads/main/assets/ha_device_screenshot.png)
 
 ## Setup Instructions
 

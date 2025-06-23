@@ -56,7 +56,7 @@ class DeviceConfig(BaseModel):
         try:
             with open(file_path, "r") as f:
                 data = json.load(f)
-                LOG.debug(f"loaded {data}")
+                LOG.debug(f"Loaded {data}")
                 return DeviceConfig(**data)
         except Exception as e:
             LOG.error(f"Failed to load config {file_path}: {e}")
