@@ -7,8 +7,6 @@ It supports auto-discovery via MQTT and allows full integration of Growatt data 
 
 Join us at [#grobro:matrix.org](https://matrix.to/#/#grobro:matrix.org)
 
-*Do you own a **NEXA 2000**  battery? Help us extend GroBro support to NEXA-series devices.*
-
 ---
 
 ## Features
