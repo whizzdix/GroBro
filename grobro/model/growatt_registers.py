@@ -11,6 +11,7 @@ class GrowattRegisterDataTypes(str, Enum):
     STRING = "STRING"
     FLOAT = "FLOAT"
     INT = "INT"
+    TIME_HHMM = "TIME_HHMM"
 
 
 class GrowattRegisterEnumTypes(str, Enum):
@@ -43,6 +44,11 @@ class GrowattRegisterDataType(BaseModel):
             value *= opts.multiplier
             value += opts.delta
             return round(value, 3)
+        elif self.data_type == GrowattRegisterDataTypes.TIME_HHMM:
+            value = struct.unpack(unpack_type, data_raw)[0]
+            h = value // 256
+            m = value % 256
+            return (h * 100) + m
         elif self.data_type == GrowattRegisterDataTypes.INT:
             value = struct.unpack(unpack_type, data_raw)[0]
             return value

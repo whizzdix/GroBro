@@ -166,6 +166,10 @@ class Client:
             
             if cmd_type == "switch":
                 parsed_value = 1 if msg.payload.decode().upper() == "ON" else 0
+            elif "_start_time" in cmd_name or "_end_time" in cmd_name:
+                hour = int(msg.payload.decode()) // 100
+                minute = int(msg.payload.decode()) % 100
+                parsed_value=(hour * 256) + minute
             else:
                 parsed_value=int(msg.payload.decode())
 
