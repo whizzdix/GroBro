@@ -142,6 +142,13 @@ class Client:
  
         if cmd_type == "button" and cmd_name == "read_all":
             for name, register in known_registers.holding_registers.items():
+                if cmd_name.startswith("slot"):
+                    try:
+                        slot_num = int(cmd_name[4])
+                        if slot_num > MAX_SLOTS:
+                            continue
+                    except ValueError:
+                        continue
                 pos = register.growatt.position
                 self.on_command(
                     GrowattModbusFunctionSingle(
