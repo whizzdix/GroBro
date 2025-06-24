@@ -281,13 +281,13 @@ class Client:
 
         payload_str = json.dumps(payload, sort_keys=True)
 
-        #if self._discovery_payload_cache.get(device_id) == payload_str:
-        #    LOG.debug("Discovery unchanged for %s, skipping", device_id)
-        #    self._discovery_cache.append(device_id)
-        #    return
+        if self._discovery_payload_cache.get(device_id) == payload_str:
+            LOG.debug("Discovery unchanged for %s, skipping", device_id)
+            self._discovery_cache.append(device_id)
+            return
 
         LOG.info("Publishing updated discovery for %s", device_id)
-       # self._client.publish(topic, "", retain=True)
+        self._client.publish(topic, "", retain=True)
         self._client.publish(topic, payload_str, retain=True)
         self._discovery_payload_cache[device_id] = payload_str
         self._discovery_cache.append(device_id)

@@ -76,9 +76,9 @@ class HomeAssistantHoldingRegister(BaseModel):
     name: str
     publish: bool
     type: str
-    min: Optional[float] = None
-    max: Optional[float] = None
-    step: Optional[float] = None
+    min: Optional[int] = None
+    max: Optional[int] = None
+    step: Optional[int] = None
     state_class: Optional[str] = None
     device_class: Optional[str] = None
     unit_of_measurement: Optional[str] = None
@@ -110,7 +110,7 @@ class HomeAssistantHoldingRegisterInput(BaseModel):
 
 class HomeAssistantInputRegister(BaseModel):
     device_id: str
-    payload: dict[str, Union[str, float]] = {}
+    payload: dict[str, Union[str, float, int]] = {}
 
 
 class GroBroInputRegister(BaseModel):

@@ -8,11 +8,7 @@
                 "size": 2
             },
             "data": {
-                "data_type": "FLOAT",
-                "float_options": {
-                    "delta": 0.0,
-                    "multiplier": 1.0
-                }
+                "data_type": "INT"
             }
         },
         "homeassistant": {
@@ -32,11 +28,7 @@
                 "size": 2
             },
             "data": {
-                "data_type": "FLOAT",
-                "float_options": {
-                    "delta": 0.0,
-                    "multiplier": 1.0
-                }
+                "data_type": "INT"
             }
         },
         "homeassistant": {
@@ -56,11 +48,7 @@
                 "size": 2
             },
             "data": {
-                "data_type": "FLOAT",
-                "float_options": {
-                    "delta": 0.0,
-                    "multiplier": 1.0
-                }
+                "data_type": "INT"
             }
         },
         "homeassistant": {
@@ -80,11 +68,7 @@
                 "size": 2
             },
             "data": {
-                "data_type": "FLOAT",
-                "float_options": {
-                    "delta": 0.0,
-                    "multiplier": 1.0
-                }
+                "data_type": "INT"
             }
         },
         "homeassistant": {
@@ -105,11 +89,7 @@
                 "size": 2
             },
             "data": {
-                "data_type": "FLOAT",
-                "float_options": {
-                    "delta": 0.0,
-                    "multiplier": 1.0
-                }
+                "data_type": "INT"
             }
         },
         "homeassistant": {
@@ -124,11 +104,7 @@
           "register_no": 252
         },
         "data": {
-          "data_type": "FLOAT",
-          "float_options": {
-            "delta": 0.0,
-            "multiplier": 1
-          }
+          "data_type": "INT"
         }
       },
       "homeassistant": {
@@ -147,11 +123,7 @@
           "register_no": 251
         },
         "data": {
-          "data_type": "FLOAT",
-          "float_options": {
-            "delta": 0.0,
-            "multiplier": 1
-          }
+          "data_type": "INT"
         }
       },
       "homeassistant": {
@@ -170,11 +142,7 @@
           "register_no": 250
         },
         "data": {
-          "data_type": "FLOAT",
-          "float_options": {
-            "delta": 0.0,
-            "multiplier": 1
-          }
+          "data_type": "INT"
         }
       },
       "homeassistant": {
