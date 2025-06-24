@@ -20,6 +20,7 @@ from grobro.model.modbus_function import GrowattModbusFunctionMultiple
 
 HA_BASE_TOPIC = os.getenv("HA_BASE_TOPIC", "homeassistant")
 DEVICE_TIMEOUT = int(os.getenv("DEVICE_TIMEOUT", 0))
+MAX_SLOTS = int(os.getenv("MAX_SLOTS", "1"))
 LOG = logging.getLogger(__name__)
 
 
@@ -245,10 +246,18 @@ class Client:
             },
             "cmps": {},
         }
-
+        
         for cmd_name, cmd in known_registers.holding_registers.items():
             if not cmd.homeassistant.publish:
                 continue
+            
+            if cmd_name.startswith("slot"):
+                try:
+                    slot_num = int(cmd_name[4])
+                    if slot_num > MAX_SLOTS:
+                        continue
+                except ValueError:
+                    continue
             unique_id = f"grobro_{device_id}_cmd_{cmd_name}"
             cmd_type = cmd.homeassistant.type
             payload["cmps"][unique_id] = {
