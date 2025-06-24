@@ -1,26 +1,121 @@
 {
   "holding_registers": {
-    "slot1_power": {
-      "growatt": {
-        "position": {
-          "register_no": 257 
+    "slot1_start_time": {
+        "growatt": {
+            "position": {
+                "register_no": 254,
+                "offset": 0,
+                "size": 2
+            },
+            "data": {
+                "data_type": "FLOAT",
+                "float_options": {
+                    "delta": 0.0,
+                    "multiplier": 1.0
+                }
+            }
         },
-        "data": {
-          "data_type": "FLOAT",
-          "float_options": {
-            "delta": 0.0,
-            "multiplier": 1
-          }
+        "homeassistant": {
+            "publish": true,
+            "name": "Slot 1 Start Time",
+            "type": "number",
+            "min": 0,
+            "max": 2358,
+            "step": 1
         }
-      },
-      "homeassistant": {
-        "publish": true,
-        "name": "Slot 1 Power",
-        "unit_of_measurement": "W",
-        "type": "number",
-        "min": 0,
-        "max": 800,
-        "step": 1
+    },
+    "slot1_end_time": {
+        "growatt": {
+            "position": {
+                "register_no": 255,
+                "offset": 0,
+                "size": 2
+            },
+            "data": {
+                "data_type": "FLOAT",
+                "float_options": {
+                    "delta": 0.0,
+                    "multiplier": 1.0
+                }
+            }
+        },
+        "homeassistant": {
+            "publish": true,
+            "name": "Slot 1 End Time",
+            "type": "number",
+            "min": 0,
+            "max": 2359,
+            "step": 1
+        }
+    },
+    "slot1_mode": {
+        "growatt": {
+            "position": {
+                "register_no": 256,
+                "offset": 0,
+                "size": 2
+            },
+            "data": {
+                "data_type": "FLOAT",
+                "float_options": {
+                    "delta": 0.0,
+                    "multiplier": 1.0
+                }
+            }
+        },
+        "homeassistant": {
+            "publish": true,
+            "name": "Slot 1 Mode",
+            "type": "number",
+            "min": 0,
+            "max": 1,
+            "step": 1
+        }
+    },
+    "slot1_power": {
+        "growatt": {
+            "position": {
+                "register_no": 257,
+                "offset": 0,
+                "size": 2
+            },
+            "data": {
+                "data_type": "FLOAT",
+                "float_options": {
+                    "delta": 0.0,
+                    "multiplier": 1.0
+                }
+            }
+        },
+        "homeassistant": {
+          "publish": true,
+          "name": "Slot 1 Power",
+          "unit_of_measurement": "W",
+          "type": "number",
+          "min": 0,
+          "max": 800,
+          "step": 1
+      }
+    },
+    "slot1_enabled": {
+        "growatt": {
+            "position": {
+                "register_no": 258,
+                "offset": 0,
+                "size": 2
+            },
+            "data": {
+                "data_type": "FLOAT",
+                "float_options": {
+                    "delta": 0.0,
+                    "multiplier": 1.0
+                }
+            }
+        },
+        "homeassistant": {
+          "publish": true,
+          "name": "Slot 1 Enabled",
+          "type": "switch"
       }
     },
     "default_power": {

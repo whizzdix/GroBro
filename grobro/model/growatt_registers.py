@@ -10,6 +10,7 @@ class GrowattRegisterDataTypes(str, Enum):
     ENUM = "ENUM"
     STRING = "STRING"
     FLOAT = "FLOAT"
+    INT = "INT"
 
 
 class GrowattRegisterEnumTypes(str, Enum):
@@ -42,6 +43,9 @@ class GrowattRegisterDataType(BaseModel):
             value *= opts.multiplier
             value += opts.delta
             return round(value, 3)
+        elif self.data_type == GrowattRegisterDataTypes.INT:
+            value = struct.unpack(unpack_type, data_raw)[0]
+            return value
         elif self.data_type == GrowattRegisterDataTypes.ENUM:
             opts = self.enum_options
             value = struct.unpack(unpack_type, data_raw)[0]
@@ -95,7 +99,7 @@ class HomeassistantInputRegister(BaseModel):
 
 class HomeAssistantHoldingRegisterValue(BaseModel):
     name: str
-    value: Union[str, float]
+    value: Union[str, float, int]
     register: HomeAssistantHoldingRegister
 
 
