@@ -170,7 +170,8 @@ class Client:
                         value = register.growatt.data.parse(data_raw)
                         if value is None:
                             continue
-
+                        if register.homeassistant.type=="switch":
+                            value = "ON" if value==1 else "OFF"
                         state.payload.append(
                             HomeAssistantHoldingRegisterValue(
                                 name=name,

@@ -20,6 +20,7 @@ from grobro.model.modbus_function import GrowattModbusFunctionMultiple
 
 HA_BASE_TOPIC = os.getenv("HA_BASE_TOPIC", "homeassistant")
 DEVICE_TIMEOUT = int(os.getenv("DEVICE_TIMEOUT", 0))
+MAX_SLOTS = int(os.getenv("MAX_SLOTS", "1"))
 LOG = logging.getLogger(__name__)
 
 
@@ -47,7 +48,7 @@ class Client:
             self._client.tls_insecure_set(True)
         self._client.connect(mqtt_config.host, mqtt_config.port, 60)
 
-        for cmd_type in ["number", "button"]:
+        for cmd_type in ["number", "button", "switch"]:
             for action in ["set", "read"]:
                 topic = f"{HA_BASE_TOPIC}/{cmd_type}/grobro/+/+/{action}"
                 self._client.subscribe(topic)
@@ -110,11 +111,12 @@ class Client:
 
     def __on_message(self, client, userdata, msg: mqtt.MQTTMessage):
         parts = msg.topic.removeprefix(f"{HA_BASE_TOPIC}/").split("/")
-
         cmd_type, device_id, cmd_name, action = None, None, None, None
         if len(parts) == 5 and parts[0] in ["number"]:
             cmd_type, _, device_id, cmd_name, action = parts
         if len(parts) == 5 and parts[0] in ["button"]:
+            cmd_type, _, device_id, cmd_name, action = parts
+        if len(parts) == 5 and parts[0] in ["switch"]:
             cmd_type, _, device_id, cmd_name, action = parts
 
         LOG.debug(
@@ -135,9 +137,16 @@ class Client:
         if not known_registers:
             LOG.info("Unknown device type: %s", device_id)
             return
-
+ 
         if cmd_type == "button" and cmd_name == "read_all":
             for name, register in known_registers.holding_registers.items():
+                if name.startswith("slot"):
+                    try:
+                        slot_num = int(name[4])
+                        if slot_num > MAX_SLOTS:
+                            continue
+                    except ValueError:
+                        continue
                 pos = register.growatt.position
                 self.on_command(
                     GrowattModbusFunctionSingle(
@@ -158,31 +167,29 @@ class Client:
                     value=pos.register_no,
                 )
             )
-        if cmd_type == "number" and action == "set":
-            # TODO: find a way to pack multi-register commands only by json declaration
-            if cmd_name == "slot1_power":
-                value = int(msg.payload.decode())
-                self.on_command(
-                    GrowattModbusFunctionMultiple(
-                        device_id=device_id,
-                        function=GrowattModbusFunction.PRESET_MULTIPLE_REGISTER,
-                        start=254,
-                        end=258,
-                        values=struct.pack(">BBBBHHH", 0, 0, 23, 59, 0, value, 1),
-                    )
-                )
-                return
-
+        
+        if (cmd_type == "number" or cmd_type == "switch" ) and action == "set":
+            
+            if cmd_type == "switch":
+                parsed_value = 1 if msg.payload.decode().upper() == "ON" else 0
+            elif "_start_time" in cmd_name or "_end_time" in cmd_name:
+                hour = int(msg.payload.decode()) // 100
+                minute = int(msg.payload.decode()) % 100
+                parsed_value=(hour * 256) + minute
+            else:
+                parsed_value=int(msg.payload.decode())
 
             pos = known_registers.holding_registers[cmd_name].growatt.position
+            LOG.debug("Setting %s register %s to value %s", cmd_name, pos.register_no, parsed_value)
             self.on_command(
                 GrowattModbusFunctionSingle(
                     device_id=device_id,
                     function=GrowattModbusFunction.PRESET_SINGLE_REGISTER,
                     register=pos.register_no,
-                    value=int(msg.payload.decode()),
+                    value=parsed_value,
                 )
             )
+            # Todo , if we can parse msg_type 37 , read is no longer needed 
             LOG.debug("Triggering read-after-write for Command %s register %s", cmd_name,pos.register_no)
             self.on_command(
                 GrowattModbusFunctionSingle(
@@ -244,10 +251,18 @@ class Client:
             },
             "cmps": {},
         }
-
+        
         for cmd_name, cmd in known_registers.holding_registers.items():
             if not cmd.homeassistant.publish:
                 continue
+            
+            if cmd_name.startswith("slot"):
+                try:
+                    slot_num = int(cmd_name[4])
+                    if slot_num > MAX_SLOTS:
+                        continue
+                except ValueError:
+                    continue
             unique_id = f"grobro_{device_id}_cmd_{cmd_name}"
             cmd_type = cmd.homeassistant.type
             payload["cmps"][unique_id] = {

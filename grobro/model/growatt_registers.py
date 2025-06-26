@@ -10,6 +10,8 @@ class GrowattRegisterDataTypes(str, Enum):
     ENUM = "ENUM"
     STRING = "STRING"
     FLOAT = "FLOAT"
+    INT = "INT"
+    TIME_HHMM = "TIME_HHMM"
 
 
 class GrowattRegisterEnumTypes(str, Enum):
@@ -42,6 +44,14 @@ class GrowattRegisterDataType(BaseModel):
             value *= opts.multiplier
             value += opts.delta
             return round(value, 3)
+        elif self.data_type == GrowattRegisterDataTypes.TIME_HHMM:
+            value = struct.unpack(unpack_type, data_raw)[0]
+            h = value // 256
+            m = value % 256
+            return (h * 100) + m
+        elif self.data_type == GrowattRegisterDataTypes.INT:
+            value = struct.unpack(unpack_type, data_raw)[0]
+            return value
         elif self.data_type == GrowattRegisterDataTypes.ENUM:
             opts = self.enum_options
             value = struct.unpack(unpack_type, data_raw)[0]
@@ -72,9 +82,9 @@ class HomeAssistantHoldingRegister(BaseModel):
     name: str
     publish: bool
     type: str
-    min: Optional[float] = None
-    max: Optional[float] = None
-    step: Optional[float] = None
+    min: Optional[int] = None
+    max: Optional[int] = None
+    step: Optional[int] = None
     state_class: Optional[str] = None
     device_class: Optional[str] = None
     unit_of_measurement: Optional[str] = None
@@ -95,7 +105,7 @@ class HomeassistantInputRegister(BaseModel):
 
 class HomeAssistantHoldingRegisterValue(BaseModel):
     name: str
-    value: Union[str, float]
+    value: Union[str, float, int]
     register: HomeAssistantHoldingRegister
 
 
@@ -106,7 +116,7 @@ class HomeAssistantHoldingRegisterInput(BaseModel):
 
 class HomeAssistantInputRegister(BaseModel):
     device_id: str
-    payload: dict[str, Union[str, float]] = {}
+    payload: dict[str, Union[str, float, int]] = {}
 
 
 class GroBroInputRegister(BaseModel):
