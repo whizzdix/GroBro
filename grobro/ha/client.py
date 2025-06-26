@@ -111,8 +111,6 @@ class Client:
 
     def __on_message(self, client, userdata, msg: mqtt.MQTTMessage):
         parts = msg.topic.removeprefix(f"{HA_BASE_TOPIC}/").split("/")
-        LOG.debug("joey Received MQTT message: %s", msg.topic)
-        LOG.debug("joey Received MQTT message: %s", parts)
         cmd_type, device_id, cmd_name, action = None, None, None, None
         if len(parts) == 5 and parts[0] in ["number"]:
             cmd_type, _, device_id, cmd_name, action = parts
