@@ -1,18 +1,16 @@
 # GroBro - Growatt MQTT Message Broker
 
-GroBro is a bridge service that decodes encrypted MQTT packets from Growatt NEO and NOAH devices and republishes them in a format compatible with Home Assistant. 
+GroBro is a bridge service that decodes encrypted MQTT packets from Growatt NEO, NOAH and NEXA devices and republishes them in a format compatible with Home Assistant. 
 It supports auto-discovery via MQTT and allows full integration of Growatt data into your smart home.
 
-![GroBro Logos](https://raw.githubusercontent.com/robertzaage/GroBro/refs/heads/main/assets/grobro_logo.png)
+![GroBro Logo](https://raw.githubusercontent.com/robertzaage/GroBro/refs/heads/main/assets/grobro_logo.png)
 
 Join us at [#grobro:matrix.org](https://matrix.to/#/#grobro:matrix.org)
-
-*Do you own a **NEXA 2000**  battery? Help us extend GroBro support to NEXA-series devices.*
 
 ---
 
 ## Features
-- Decodes and maps encrypted register payloads from Growatt NEO-series inverters and NOAH-series batteries
+- Decodes and maps encrypted register payloads from Growatt NEO-series inverters and NOAH/NEXA-series batteries
 - Bridges inverter data from a dedicated MQTT source
 - Proxies messages to the Growatt Cloud to keep the ShinePhone app functional (optional)
 - Enables a local-only setup - keeping your device off the cloud
@@ -21,9 +19,13 @@ Join us at [#grobro:matrix.org](https://matrix.to/#/#grobro:matrix.org)
 
 ---
 
+Example of a Growatt NEO 800M-X sending its data to Home Assistant:
+ 
+![HA Screenshot](https://raw.githubusercontent.com/robertzaage/GroBro/refs/heads/main/assets/ha_device_screenshot.png)
+
 ## Setup Instructions
 
-1. Configure your **Growatt NEO inverter** or **NOAH battery** to send data to a custom MQTT broker
+1. Configure your **Growatt NEO inverter** or **NOAH/NEXA battery** to send data to a custom MQTT broker
 2. Configure a Mosquitto instance **with TLS**
 3. Run **GroBro HA Bridge** Container
 
@@ -54,7 +56,7 @@ docker run --rm \
 6. Check the logs of the `GroBro` add-on to see it in action
 
 ## Hint
-Growatt NEO and NOAH devices rely on a TLS-enabled Mosquitto broker to send their packages. 
+Growatt NEO, NOAH and NEXA devices rely on a TLS-enabled Mosquitto broker to send their packages. 
 The full trust chain must be present, including the root certificate. [View the Certificates Guide](https://github.com/robertzaage/GroBro/blob/main/CERTIFICATES.md) for setup instructions.
 
 ## Contributions

@@ -31,10 +31,11 @@ options:
   TARGET_MQTT_USER: ""
   TARGET_MQTT_PASS: ""
   HA_BASE_TOPIC: "homeassistant"
-  ACTIVATE_COMMUNICATION_GROWATT_SERVER: false
+  GROWATT_CLOUD: false
   LOG_LEVEL: ERROR
   DUMP_MESSAGES: false
   DUMP_DIR: "/share/GroBro/dump"
+  MAX_SLOTS: 1
 
 schema:
   SOURCE_MQTT_HOST: str
@@ -49,8 +50,9 @@ schema:
   TARGET_MQTT_PASS: "str?"
   HA_BASE_TOPIC: "str?"
   REGISTER_FILTER: "str?"
-  ACTIVATE_COMMUNICATION_GROWATT_SERVER: bool
+  GROWATT_CLOUD: bool
   LOG_LEVEL: list(INFO|ERROR|DEBUG)?
   DUMP_MESSAGES: "bool"
   DUMP_DIR: "str?"
   DEVICE_TIMEOUT: "int?"
+  MAX_SLOTS: "int?"

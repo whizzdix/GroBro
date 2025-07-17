@@ -8,22 +8,6 @@ from enum import Enum
 
 LOG = logging.getLogger(__name__)
 
-class DeviceAlias(str, Enum):
-    NEO600 = "NEO600"
-    NEO800 = "NEO800"
-    NEO1000 = "NEO1000"
-    NOAH = "NOAH"
-    
-
-
-class DeviceState(BaseModel):
-    variable_name: str
-    name: Optional[str] = None
-    device_class: Optional[str] = None
-    state_class: Optional[str] = None
-    unit_of_measurement: Optional[str] = None
-    icon: Optional[str] = None
-
 
 class DeviceConfig(BaseModel):
     data_interval: Optional[str] = None
@@ -72,7 +56,7 @@ class DeviceConfig(BaseModel):
         try:
             with open(file_path, "r") as f:
                 data = json.load(f)
-                LOG.debug(f"loaded {data}")
+                LOG.debug(f"Loaded {data}")
                 return DeviceConfig(**data)
         except Exception as e:
             LOG.error(f"Failed to load config {file_path}: {e}")

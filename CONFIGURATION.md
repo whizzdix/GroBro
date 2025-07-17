@@ -115,6 +115,7 @@ docker run --detach \
 | `LOG_LEVEL`          | ❌ No    | Sets the logging level to either `ERROR`, `DEBUG`, or `INFO`. If not set `ERROR` is used. |
 | `DUMP_MESSAGES`      | ❌ No    | Dumps every received messages into `/dump` for later in-depth inspection. |
 | `DEVICE_TIMEOUT`     | ❌ No    | Set the timeout in seconds for the device communication. Default is 0 (disabled). Recommendation 300+ seconds. |
+| `MAX_SLOTS`     | ❌ No    | Set max available Slots for Battery configuration (Noah = max 9) |
 
 # Example Setup with DuckDNS and HA-MQTT
 
